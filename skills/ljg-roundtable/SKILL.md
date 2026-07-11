@@ -6,7 +6,7 @@ description: >-
   round after round of exchange, and closes each round with an ASCII
   structure diagram. The user controls the pace with commands
   (continue/stop/go deeper here/introduce new figure), and the full
-  transcript is saved to an org note when it wraps up. Use when user
+  transcript is saved as a Markdown note in the Obsidian vault when it wraps up. Use when user
   says "圆桌讨论" (roundtable discussion), "圆桌" (roundtable),
   "roundtable", "辩论" (debate), or wants to explore a topic through
   multi-perspective structured debate.
@@ -96,31 +96,35 @@ Once the user issues `Stop (止)`:
 
 ### 6. Archiving
 
-The full discussion transcript goes into an org file, word for word. Speeches, ASCII diagrams, summaries — all recorded verbatim, not summarized, not compressed, not rewritten.
+The full discussion transcript goes into a Markdown file, word for word. Speeches, ASCII diagrams, summaries — all recorded verbatim, not summarized, not compressed, not rewritten.
 
 1. Get a timestamp with `date +%Y%m%dT%H%M%S`
-2. Write to `~/Documents/notes/{timestamp}--roundtable-{topic keywords}__roundtable.org`
+2. Write to `"/Users/jjin/Documents/Obsidian Vault/Roundtable Notes/{timestamp}--roundtable-{topic keywords}__roundtable.md"` (quote the path — it has spaces; create the folder if it doesn't exist)
 3. File structure:
 
-   ```org
-   #+title: Roundtable: {topic}
-   #+date: [{date}]
-   #+filetags: :roundtable:
-   * Topic and participants
+   ```markdown
+   ---
+   title: "Roundtable: {topic}"
+   date: {date}
+   tags: [roundtable]
+   ---
+   # Topic and participants
    [Lineup: name, MBTI, stance, reason for inclusion]
-   * Opening: definition
+   # Opening: definition
    [Moderator's opening remarks + each person's opening definition]
-   * Round-by-round record
-   ** Round N: {guiding question}
-   *** Speech record
+   # Round-by-round record
+   ## Round N: {guiding question}
+   ### Speech record
    [All speeches from this round, verbatim, with action tags and In-short lines]
-   *** Moderator's summary
+   ### Moderator's summary
    [Point of contention + ASCII diagram + next-level question]
-   * Knowledge network (overall)
+   # Knowledge network (overall)
    [Overall summary + knowledge-network diagram]
-   * Open questions
+   # Open questions
    [Directions left unresolved]
    ```
+
+   ASCII diagrams must be wrapped in fenced code blocks so Obsidian renders them intact.
 
 4. Once done, report the file path to the user.
 
