@@ -251,6 +251,8 @@ Nine families of frames — this table is the master index from skeleton to draw
 
 Allowed character set: letters, digits, spaces, and `- = | + * / \ < > ^ v [ ] ( ) { } . , : ; _ #`.
 
+In the written note, wrap every ASCII diagram in a fenced code block so Obsidian renders it intact.
+
 Substitution table (left disallowed / right replacement):
 
 - `┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼` -> `+`
@@ -491,6 +493,6 @@ No rigid template is imposed. The bones must show — label the generators' name
 ## Output
 
 1. Get the timestamp: `date +%Y%m%dT%H%M%S` and `date "+%Y-%m-%d %a %H:%M"`
-2. Write to `~/Documents/notes/{timestamp}--{domain}-rank__rank.org`
+2. Write to `"/Users/jjin/Documents/Obsidian Vault/Brainstorm Notes/{timestamp}--{domain}-rank__rank.md"` (quote the path — it has spaces; create the folder if it doesn't exist)
 3. Report the file path to the user
 </content>

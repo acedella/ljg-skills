@@ -17,14 +17,14 @@ This isn't reading for you — it's walking into the text with you. Clearing the
 
 ## Format constraints
 
-### Org-mode syntax
+### Markdown syntax
 
-- Bold uses `*bold*` (single asterisk); `**bold**` is forbidden
-- Heading levels start from `*`, don't skip levels
+- Bold uses `**bold**`
+- Heading levels start from `#`, don't skip levels
 
 ### ASCII Art
 
-All diagrams use plain ASCII characters. Unicode drawing symbols are forbidden.
+All diagrams use plain ASCII characters. Unicode drawing symbols are forbidden. Diagrams must be wrapped in fenced code blocks so Obsidian renders them intact.
 
 ### Language
 
@@ -208,38 +208,40 @@ Generate one question from the deepest crack in the reader's understanding traje
 - *Glossary*: original term / translated term / meaning in this text / where it appears
 - *Next-step lead*: where has this question been carried further? Give a specific article or chapter, not a reading list.
 
-### 6. Writing the Org file
+### 6. Writing the Markdown file
 
 1. Run `date +%Y%m%dT%H%M%S` to get the timestamp
 2. Run `date "+%Y-%m-%d %a %H:%M"` to get the human-readable time
-3. Write to `~/Documents/notes/{timestamp}--reading-companion-{text keywords}__reading.org`
+3. Write to `"/Users/jjin/Documents/Obsidian Vault/Reading Notes/{timestamp}--reading-companion-{text keywords}__reading.md"` (quote the path — it has spaces; create the folder if it doesn't exist)
 
-Org file structure:
-```org
-#+title: Reading Companion: {text title}
-#+date: [{human-readable time}]
-#+filetags: :reading:
-#+identifier: {timestamp}
-#+source: {URL or source}
+Markdown file structure:
+```markdown
+---
+title: "Reading Companion: {text title}"
+date: {human-readable time}
+tags: [reading]
+identifier: {timestamp}
+source: {URL or source}
+---
 
-* Global Map
-** One-sentence summary
-** Structure map
-** Paragraph classification
+# Global Map
+## One-sentence summary
+## Structure map
+## Paragraph classification
 
-* Paragraph-by-Paragraph Reading Log
-** Paragraph N: {paragraph topic}
-*** Translation
-*** Structural annotation
-*** Gloss
-*** Discussion record
+# Paragraph-by-Paragraph Reading Log
+## Paragraph N: {paragraph topic}
+### Translation
+### Structural annotation
+### Gloss
+### Discussion record
 
-* Whole-Text Review
-** Understanding trajectory
-** One sentence after reading
-** Final question
-** Glossary
-** Next-step lead
+# Whole-Text Review
+## Understanding trajectory
+## One sentence after reading
+## Final question
+## Glossary
+## Next-step lead
 ```
 
 Report the path after writing the file.

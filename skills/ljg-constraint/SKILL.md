@@ -12,7 +12,7 @@ Input a domain, a profession, a role — find the handful of constraints that fr
 
 | Trigger | Workflow |
 |---|---|
-| Find the essential constraints of a domain, profession, role, or product | Run this document's procedure, write it as a prose analysis (respond in the same language as the user's input), save as an org file |
+| Find the essential constraints of a domain, profession, role, or product | Run this document's procedure, write it as a prose analysis (respond in the same language as the user's input), save as a Markdown file |
 | Analyze why a solution debate can't be settled | First find each side's default constraints, then explain whether they're actually the same problem |
 | Judge whether a given boundary is a true hard constraint or an old interpretation | Go through the three-tier hardness and authenticity assessment; don't rush to a breakthrough plan |
 
@@ -31,7 +31,7 @@ Input a domain, a profession, a role — find the handful of constraints that fr
 User: "What are the constraints on an investment manager?"
 -> Find constraints like fund duration, LP trust, information asymmetry, upside/downside allocation
 -> Explain how these constraints force behaviors like chasing hype, favoring consensus, fearing missing out
--> Write to an org file in notes
+-> Write to a Markdown file in notes
 ```
 
 **Example 2: Analyzing a debate**
@@ -181,7 +181,7 @@ Structure follows the spine: first complete the problem statement (goal plus con
 
 Just saying "these few constraints" isn't enough — draw out their relationship to behavior. Before drawing, ask: what shape is this constraint set and the behavior it forces out? Answer that, then pick the drawing style.
 
-**Hard constraint: pure ASCII characters only.** No Unicode symbols allowed (arrows → ← ↑ ↓, boxes ┌─┐└┘│, dots • ● etc.). Allowed: letters, numbers, spaces, and `- = | + * / \ < > ^ v [ ] ( ) { } . , : ; _ #`. Use `->` `<-` `^` `v` for arrows, `+ - |` for borders.
+**Hard constraint: pure ASCII characters only.** No Unicode symbols allowed (arrows → ← ↑ ↓, boxes ┌─┐└┘│, dots • ● etc.). Allowed: letters, numbers, spaces, and `- = | + * / \ < > ^ v [ ] ( ) { } . , : ; _ #`. Use `->` `<-` `^` `v` for arrows, `+ - |` for borders. In the written note, wrap the diagram in a fenced code block so Obsidian renders it intact.
 
 Three common forms — pick whichever fits the relationship found during the procedure. The point of the diagram is explanatory power — let the reader see at a glance how behavior gets squeezed out by constraints.
 
@@ -240,6 +240,6 @@ No rigid template. What needs to show is the skeleton — name the constraints, 
 ## Output
 
 1. Get the timestamp: `date +%Y%m%dT%H%M%S` and `date "+%Y-%m-%d %a %H:%M"`
-2. Write to `~/Documents/notes/{timestamp}--constraints-of-{domain}__constraint.org`, frontmatter per `references/template.org`
+2. Write to `"/Users/jjin/Documents/Obsidian Vault/Brainstorm Notes/{timestamp}--constraints-of-{domain}__constraint.md"` (quote the path — it has spaces; create the folder if it doesn't exist), frontmatter per `references/template.md`
 3. Report the file path to the user
 </content>

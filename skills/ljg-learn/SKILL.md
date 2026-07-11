@@ -1,13 +1,13 @@
 ---
 name: ljg-learn
-description: Deep concept anatomist that deconstructs any concept through 8 exploration dimensions (history, dialectics, phenomenology, linguistics, formalization, existentialism, aesthetics, meta-philosophy) and compresses insights into an epiphany. Use when user asks to explain, dissect, or deeply understand a concept, term, or idea. Triggers on '解剖概念', '概念解剖', 'explain concept', 'learn concept', '/ljg-learn'. Produces org-mode output.
+description: Deep concept anatomist that deconstructs any concept through 8 exploration dimensions (history, dialectics, phenomenology, linguistics, formalization, existentialism, aesthetics, meta-philosophy) and compresses insights into an epiphany. Use when user asks to explain, dissect, or deeply understand a concept, term, or idea. Triggers on '解剖概念', '概念解剖', 'explain concept', 'learn concept', '/ljg-learn'. Produces Markdown output.
 ---
 
 ## Usage
 
 <example>
 User: /ljg-learn 熵 (entropy)
-Assistant: [Performs an eight-dimension anatomy of "entropy" (熵), generating an org-mode report]
+Assistant: [Performs an eight-dimension anatomy of "entropy" (熵), generating a Markdown report]
 </example>
 
 ## Instructions
@@ -41,39 +41,41 @@ Make one cut in each of eight directions. Each cut should be 2-3 sentences, keep
 
 1. **Formula**: `Concept = ...`
 2. **One sentence**: State the deepest understanding in the simplest words
-3. **Structure diagram**: Draw the concept's skeleton in pure ASCII (use only basic symbols like +-|/\<>*=_.,:;!'" — no Unicode drawing characters)
+3. **Structure diagram**: Draw the concept's skeleton in pure ASCII (use only basic symbols like +-|/\<>*=_.,:;!'" — no Unicode drawing characters), wrapped in a fenced code block so Obsidian renders it intact
 
 ### 5. Write to File (写入)
 
 **Formatting rules (zero exceptions):**
-- Output must be pure org-mode syntax; any markdown syntax is forbidden
-- Use `*bold*` (org-mode) for bold, not `**bold**` (markdown)
-- Use blank lines or org heading levels for separation, not `---` (markdown separator)
-- Use `- item` or `1. item` for lists, not markdown's `* item` (because `*` is a heading marker in org)
-- Use `~code~` or `=code=` for code, not backticks
+- Output must be pure Markdown syntax
+- Use `**bold**` for bold
+- Use blank lines or Markdown heading levels for separation, not `---` (unless as a YAML frontmatter fence)
+- Use `- item` or `1. item` for lists
+- Use `` `code` `` for code, not `~code~` or `=code=`
 
-Assemble into org-mode with the following structure:
+Assemble into Markdown with the following structure:
 
-```org
-#+title: Concept Anatomy: {concept name}
-#+filetags: :concept:
-#+date: [YYYY-MM-DD]
+```markdown
+---
+title: "Concept Anatomy: {concept name}"
+tags: [concept]
+date: [YYYY-MM-DD]
+---
 
-* Anchor
-* Eight Cuts
-** History
-** Dialectics
-** Phenomenology
-** Linguistics
-** Formalization
-** Existentialism
-** Aesthetics
-** Meta-reflection
-* Introspection
-* Compression
+# Anchor
+# Eight Cuts
+## History
+## Dialectics
+## Phenomenology
+## Linguistics
+## Formalization
+## Existentialism
+## Aesthetics
+## Meta-reflection
+# Introspection
+# Compression
 ```
 
 Write to file:
 1. Run `date +%Y%m%dT%H%M%S` to get the timestamp.
-2. Write to `~/Documents/notes/{timestamp}--概念解剖-{概念名}__concept.org`.
+2. Write to `"/Users/jjin/Documents/Obsidian Vault/Brainstorm Notes/{timestamp}--概念解剖-{概念名}__concept.md"` (quote the path — it has spaces; create the folder if it doesn't exist).
 3. Report the path, done.

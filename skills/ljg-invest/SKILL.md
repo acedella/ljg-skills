@@ -99,9 +99,9 @@ Answer in one sentence: what is the essence of this project — is it creating n
 
 ## Output
 
-- Format: org-mode
-- Directory: `~/Documents/notes/`
-- Naming per denote: `YYYYMMDDTHHMMSS==z--investment-analysis-PROJECT_NAME.org`, e.g. `20260326153000==z--investment-analysis-example-ai.org`
+- Format: Markdown
+- Directory: `"/Users/jjin/Documents/Obsidian Vault/Investment Notes/"` (quote the path — it has spaces; create the folder if it doesn't exist)
+- Naming per denote: `YYYYMMDDTHHMMSS==z--investment-analysis-PROJECT_NAME.md`, e.g. `20260326153000==z--investment-analysis-example-ai.md`
 - Write using the Write tool, and report the full path back to the user when done
 
 ## Generation rules

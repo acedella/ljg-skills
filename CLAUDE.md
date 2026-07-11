@@ -173,11 +173,12 @@ Several visual skills (`ljg-library`, `ljg-map`) share a consistent art identity
 
 **Language**: Skill instructions are written in English; Chinese trigger phrases are retained in descriptions. Skills produce output in the same language as the user's input/request.
 
-**Org-mode output** (ljg-paper, ljg-plain, ljg-writes, and other note-producing skills):
-- Bold: `*text*` (single asterisk, not `**`)
-- Filenames: `{timestamp}--{title}__{type}.org`
-- Output directory: `~/Documents/notes/`
+**Markdown note output** (ljg-paper, ljg-plain, ljg-writes, and other note-producing skills):
+- Format: Markdown with YAML frontmatter (`title`, `date`, `tags`); ASCII diagrams wrapped in fenced code blocks
+- Filenames: `{timestamp}--{title}__{type}.md`
+- Output directory: `"/Users/jjin/Documents/Obsidian Vault/<per-skill folder>/"` (path has spaces — quote it), e.g. Book Notes, ResearchPaper Notes, Brainstorm Notes, Roundtable Notes
 - Timestamps: `date +%Y%m%dT%H%M%S`
+- (Upstream lijigang/ljg-skills uses org-mode output to `~/Documents/notes/`; this fork's `english` branch diverges here intentionally)
 
 **ASCII Art**:
 - Allowed: `+ - | / \ > < v ^ * = ~ . : # [ ] ( ) _ , ; ! ' "`

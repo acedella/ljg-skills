@@ -59,16 +59,16 @@ For the four Q types (action / contrast / causation / boundary) and their patter
 Every A is strictly four parts, none skippable, none reordered:
 
 ```
-*Conclusion*: (one sentence — quotable out of context)
+**Conclusion**: (one sentence — quotable out of context)
 
-*Formalization*: (compress the idea into one visualizable line using words + simple symbols — see "How to Write a Formalization" below)
+**Formalization**: (compress the idea into one visualizable line using words + simple symbols — see "How to Write a Formalization" below)
 
-*How you got there*:
+**How you got there**:
 - Step 1 (short sentence, exactly one reasoning step)
 - Step 2
 - Step 3
 
-*Boundary*: (under what conditions this conclusion doesn't hold / what the argument hasn't covered)
+**Boundary**: (under what conditions this conclusion doesn't hold / what the argument hasn't covered)
 ```
 
 Hard requirements:
@@ -98,7 +98,7 @@ Read through the Q order:
 
 If the Q's are parallel (deleting one doesn't affect the others), reorder or merge them. The Q chain is a path, not a checklist.
 
-You can sketch it out (not to go in the org file, just your own scaffolding):
+You can sketch it out (not to go in the Markdown file, just your own scaffolding):
 
 ```
 Q1 ─┬─→ Q2
@@ -132,58 +132,60 @@ date +%Y%m%dT%H%M%S         # → identifier
 date "+%Y-%m-%d %a %H:%M"   # → date field
 ```
 
-denote schema filename: `{YYYYMMDDTHHMMSS}--qa-{topic}__qa.org`
+filename: `{YYYYMMDDTHHMMSS}--qa-{topic}__qa.md`
 
 - `qa-` prefix: marks the Q-A type (parallel structure to ljg-paper's `paper-` prefix)
 - topic: a 5-10 word distillation of the core thesis, punctuation stripped. Prefer the method name / concept name / a key phrase from the source
-- `__qa` suffix: keyword tag, for denote search
+- `__qa` suffix: keyword tag, for search
 
-Output path: `~/Documents/notes/`
+Output path: `"/Users/jjin/Documents/Obsidian Vault/QA Notes/"` (quote the path — it has spaces; create the folder if it doesn't exist)
 
 After writing, report the path to the user.
 
 ## File Structure
 
-```org
-#+title:      {one refined sentence of the core idea — 10-25 words}
-#+subtitle:   {original title}
-#+date:       [{YYYY-MM-DD Day HH:MM}]
-#+filetags:   :qa:
-#+identifier: {YYYYMMDDTHHMMSS}
-#+source:     {URL or source}
+```markdown
+---
+title:      "{one refined sentence of the core idea — 10-25 words}"
+subtitle:   "{original title}"
+date:       {YYYY-MM-DD Day HH:MM}
+tags:       [qa]
+identifier: {YYYYMMDDTHHMMSS}
+source:     {URL or source}
+---
 
-* Lead-in
+# Lead-in
 
 (One paragraph, 3-5 sentences: what this piece is about, why it's worth pulling apart. Ground the reader, don't summarize.)
 
-* Q1: {one sharp question, ≤ 20 words}
+# Q1: {one sharp question, ≤ 20 words}
 
-  *Conclusion*: ...
+  **Conclusion**: ...
 
-  *Formalization*: ... (e.g. `A = B + C` / `old: X → new: Y`)
+  **Formalization**: ... (e.g. `A = B + C` / `old: X → new: Y`)
 
-  *How you got there*:
+  **How you got there**:
   - ...
   - ...
   - ...
 
-  *Boundary*: ...
+  **Boundary**: ...
 
-* Q2: ...
+# Q2: ...
 
   ...
 
-* Closing
+# Closing
 
 (One sentence that pins down the whole Q-A chain: what is the thing the author actually contributed. Not a summary — a naming.)
 ```
 
 Note:
 
-- Bold uses `*bold*` (org-mode), not `**bold**` (markdown)
-- Lists use `- item`, not `* item` (`*` is a heading in org)
+- Bold uses `**bold**` (Markdown)
+- Lists use `- item`
 - Separate with blank lines or heading levels, not `---`
-- Code uses `~code~` or `=code=`, not backticks
+- Code uses backticks
 
 ## Acceptance Criteria
 

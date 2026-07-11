@@ -1,13 +1,13 @@
 ---
 name: ljg-travel
-description: "Deep travel research workflow for museums and ancient architecture. Input a city name, auto-generates structured knowledge document (org-mode) + portable reference cards (PNG). Covers historical background, museum highlights, archaeological significance, and architectural heritage. Use when user says '旅行研究' (travel research), '博物馆功课' (museum homework/prep), '古建功课' (ancient-architecture homework/prep), 'travel research', '出发前功课' (pre-departure homework/prep), or provides a city name with intent to do deep cultural travel preparation."
+description: "Deep travel research workflow for museums and ancient architecture. Input a city name, auto-generates structured knowledge document (Markdown) + portable reference cards (PNG). Covers historical background, museum highlights, archaeological significance, and architectural heritage. Use when user says '旅行研究' (travel research), '博物馆功课' (museum homework/prep), '古建功课' (ancient-architecture homework/prep), 'travel research', '出发前功课' (pre-departure homework/prep), or provides a city name with intent to do deep cultural travel preparation."
 user_invocable: true
 version: "1.0.0"
 ---
 
 # ljg-travel-flow: Travel Research (旅行研究)
 
-One command completes: full-dimension cultural research -> content distillation -> org document + portable cards.
+One command completes: full-dimension cultural research -> content distillation -> Markdown document + portable cards.
 
 Methodology borrowed from archaeology's Desk-Based Assessment (DBA): exhaust all documentary evidence before arriving.
 
@@ -88,71 +88,73 @@ Each subagent calls the Skill tool to run `ContentAnalysis`, passing in the URL,
 
 Collect all successfully distilled content summaries.
 
-### 4. Synthesize the org-mode document
+### 4. Synthesize the Markdown document
 
-Synthesize the results of step 2 (research results) and step 3 (content distillation, if any) into one structured org-mode document.
+Synthesize the results of step 2 (research results) and step 3 (content distillation, if any) into one structured Markdown document.
 
 **Document structure:**
 
-```org
-#+title: {City} Travel Research
-#+date: {current date}
-#+filetags: :travel:museum:architecture:
+```markdown
+---
+title: "{City} Travel Research"
+date: {current date}
+tags: [travel, museum, architecture]
+---
 
-* City overview
+# City overview
   {City}'s civilizational coordinates — why it's worth visiting, what to see when you go. One paragraph outlining this city's place in the history of civilization.
 
-* Historical stratigraphy
-** {Period 1} ({era range})
+# Historical stratigraphy
+## {Period 1} ({era range})
    Core events, remaining traces, corresponding physical items you can see.
-** {Period 2}
+## {Period 2}
    ...
 
-* Museum guide
-** {Museum 1 name}
+# Museum guide
+## {Museum 1 name}
    Address, opening hours, reservation method (if needed).
-*** Signature treasures
+### Signature treasures
     - {artifact name}: {why it matters} | what detail to look at: {specific observation point}
-*** Key galleries
+### Key galleries
     - {gallery name}: {core highlight}
-*** Easy to miss
+### Easy to miss
     - {overlooked but worthwhile content}
-** {Museum 2 name}
+## {Museum 2 name}
    ...
 
-* Ancient architectural remains
-** {Ancient building 1 name} ({dynasty}, {protection level})
+# Ancient architectural remains
+## {Ancient building 1 name} ({dynasty}, {protection level})
    Overview of its form.
-*** What to look at
+### What to look at
     - {specific observation point 1}: {why it's worth noting}
     - {specific observation point 2}
-** {Ancient building 2 name}
+## {Ancient building 2 name}
    ...
 
-* Archaeological discoveries
-** {Site/discovery 1}
+# Archaeological discoveries
+## {Site/discovery 1}
    How it was discovered, its significance, where the unearthed artifacts are now held. If there's an interesting excavation story, tell it.
 
-* Visiting routes
-** Route 1: {theme name} ({estimated time})
+# Visiting routes
+## Route 1: {theme name} ({estimated time})
    Who it's for: {description}
    1. {location} -> focus on {what} ({suggested dwell time})
    2. ...
-** Route 2: {theme name}
+## Route 2: {theme name}
    ...
 
-* Recommended deep content
+# Recommended deep content
   Content worth watching before departure, found across various platforms.
-** Videos
-   - [[{URL}][{title}]] — {one-sentence summary}
-** Articles
-   - [[{URL}][{title}]] — {one-sentence summary}
-** Books (if recommended)
+## Videos
+   - [{title}]({URL}) — {one-sentence summary}
+## Articles
+   - [{title}]({URL}) — {one-sentence summary}
+## Books (if recommended)
    - {book title} — {why it's worth reading}
 ```
 
-**File naming**: use the denote naming schema, save to the `~/Documents/notes/` directory:
-`{YYYYMMDDTHHMMSS}==z--{city} Travel Research.org`
+**File naming**: use the denote naming schema, save to `"/Users/jjin/Documents/Obsidian Vault/Travel Notes/"` (quote the path — it has spaces; create the folder if it doesn't exist):
+`{YYYYMMDDTHHMMSS}==z--{city} Travel Research.md`
 
 **Writing requirements**:
 - Every recommendation must have "why look at this" and "what detail to look at" — nothing vague allowed
@@ -161,7 +163,7 @@ Synthesize the results of step 2 (research results) and step 3 (content distilla
 
 ### 5. Forge portable cards (ljg-card)
 
-Extract the core content from step 4's org document and forge two cards, **run in parallel**:
+Extract the core content from step 4's Markdown document and forge two cards, **run in parallel**:
 
 **Card A — City civilization overview (infographic):**
 
@@ -176,7 +178,7 @@ Call the Skill tool to run `ljg-card -l`, with input content: visiting route rec
 ```
 ════ Travel Research Complete ═══════════════════════
 🏛️ City: {city name}
-📝 Knowledge document: {org file path}
+📝 Knowledge document: {Markdown file path}
 🖼️ Civilization overview card: {PNG file path}
 🖼️ Route quick-reference card: {PNG file path}
 📊 Research coverage: {N} museums | {M} ancient buildings | {K} archaeological sites
@@ -188,7 +190,7 @@ Call the Skill tool to run `ljg-card -l`, with input content: visiting route rec
 - Step 2 is the core — 12 agents in parallel cover academic research and platform content in one pass
 - Step 3 (content distillation) is an enhancement layer; failure doesn't block the process
 - The two cards in step 5 run in parallel
-- The org document is the primary output, the cards are derivative outputs — document quality comes first
+- The Markdown document is the primary output, the cards are derivative outputs — document quality comes first
 - Don't produce a generic travel guide; every recommendation must have "why look at this" and "what detail to look at"
 - Research searches use bilingual (native-language + English) keywords to widen coverage
 - When there's no concrete information, leave it blank rather than making it up

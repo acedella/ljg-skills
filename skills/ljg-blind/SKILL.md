@@ -112,26 +112,28 @@ Note the chapterUid, chapter title, and wordCount.
 
 Get timestamps: `date +%Y%m%dT%H%M%S` and `date "+%Y-%m-%d %a %H:%M"` (use the current time, not the target date).
 
-Write to `~/Documents/notes/{timestamp}--blind-{topic}__blind.org`. Org-mode format, no markdown syntax allowed.
+Write to `"/Users/jjin/Documents/Obsidian Vault/Brainstorm Notes/{timestamp}--blind-{topic}__blind.md"` (quote the path — it has spaces; create the folder if it doesn't exist). Markdown format.
 
 Body template:
 
-```org
-#+title: Blind Spot Scan · {one sentence naming this blind spot}
-#+date: [YYYY-MM-DD Weekday HH:MM]
-#+filetags: :blind:weread:topology:
+```markdown
+---
+title: "Blind Spot Scan · {one sentence naming this blind spot}"
+date: [YYYY-MM-DD Weekday HH:MM]
+tags: [blind, weread, topology]
+---
 
-* What you were thinking about yesterday
+# What you were thinking about yesterday
 <1-2 paragraphs. The terrain of yesterday's conversation — which few things, circling which core. Give evidence: which specific lines show this. Not a play-by-play — grab the main thread.>
 
-* The blind spot revealed
+# The blind spot revealed
 <The 1 blind spot picked out. First, one sentence naming which type it is (avoidance point / idling framework / single viewfinder / unchecked premise / adjacent gap). Then 2-3 paragraphs spelling out: what it specifically looks like, which moments yesterday exposed it, why he can't see it himself. Must name the leverage — what opens up once it's filled.>
 
-* This chapter is for you
+# This chapter is for you
 - Book: "Title" — Author
 - Chapter: <chapter title>
 - Time: about N minutes
-- Link: [[weread://reading?bId=XXX&chapterUid=YYY][Open in WeRead]]
+- Link: [Open in WeRead](weread://reading?bId=XXX&chapterUid=YYY)
 - Why this one: <3-4 sentences. Match the blind spot to this chapter — what this chapter specifically covers, how it fills this blind spot. Don't say vague things like "broadens perspective" — spell out exactly which part of this chapter addresses exactly which gap in the blind spot.>
 ```
 
@@ -147,13 +149,13 @@ This note is written for someone who has been thinking alongside you for a long 
 - **No "sharpened blade" metal metaphors.** Don't write things like "this cut," "one level fiercer," "sharp words," "nail it down," "lock it in" — this whole self-congratulatory rhetorical toolkit. Whether a blind spot is named accurately shows in the reading; it doesn't need the author shouting about how hard he swung.
 - **Have warmth, have rough edges, have judgment.** It's fine to take a stance — don't fake neutrality to the point of dishonesty; but label clearly when something is judgment, not objective fact.
 
-## Strict org syntax (don't mix in markdown)
+## Strict Markdown syntax
 
-- Headings use `*` / `**` / `***`, not `#`
-- Bold `*text*`, italic `/text/`, monospace `~code~`
-- Lists use `-`, not `*` (`*` is a heading in org)
-- Links `[[url][text]]`, not `[text](url)`
-- Dividers `-----`, not `---`; no markdown `>` blockquotes
+- Headings use `#` / `##` / `###`
+- Bold `**text**`, italic `*text*`, monospace `` `code` ``
+- Lists use `-`
+- Links `[text](url)`
+- Dividers `---`
 
 ## Self-check (run through before finishing)
 

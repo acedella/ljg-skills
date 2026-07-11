@@ -15,7 +15,7 @@ The reader doesn't need to know the full experiments, data details, formula deri
 |------|------|
 | arxiv / PDF / paper URL / local paper | Read the paper, extracting only the information needed to answer the six questions |
 | Only a paper title | Find the paper first, then read it using the same framework |
-| User says "explain this paper," "read this paper," "paper," "analyze this one" | By default, generate an org note and save it |
+| User says "explain this paper," "read this paper," "paper," "analyze this one" | By default, generate a Markdown note and save it |
 | User just wants a verbal explanation | Don't write a file, explain verbally using the same six sections |
 
 ## Gotchas
@@ -179,46 +179,48 @@ The clearer the boundaries are written, the more the reader truly owns the idea.
 
 ## Output format
 
-When generating an org-mode note, the section names are fixed:
+When generating a Markdown note, the section names are fixed:
 
-1. `* Quick take`
-2. `* What it's arguing against`
-3. `* Its new idea`
-4. `* Why it's somewhat credible`
-5. `* How I should update my world model`
-6. `* Boundaries`
+1. `# Quick take`
+2. `# What it's arguing against`
+3. `# Its new idea`
+4. `# Why it's somewhat credible`
+5. `# How I should update my world model`
+6. `# Boundaries`
 
-Org syntax:
+Markdown syntax:
 
-- Bold uses `*bold*` single asterisk; `**bold**` is forbidden.
-- Heading levels start from `*`, don't skip levels.
-- Diagrams can use plain ASCII; don't draw complex diagrams just to look nice.
+- Bold uses `**bold**` (double asterisk).
+- Heading levels start from `#`, don't skip levels.
+- Diagrams can use plain ASCII; don't draw complex diagrams just to look nice. Wrap diagrams in fenced code blocks so Obsidian renders them intact.
 - No LaTeX formulas in the main text. Translate into natural language when necessary.
 
-Structure follows `references/template.org`. Don't reference old paper notes in `~/Documents/notes/` for structure — old files may come from an outdated template.
+Structure follows `references/template.md`. Don't reference old paper notes in `"/Users/jjin/Documents/Obsidian Vault/ResearchPaper Notes/"` for structure — old files may come from an outdated template.
 
 ## File conventions
 
-Write to `~/Documents/notes/`.
+Write to `"/Users/jjin/Documents/Obsidian Vault/ResearchPaper Notes/"` (quote the path — it has spaces; create the folder if it doesn't exist).
 
 Filename:
 
 - Timestamp: `date +%Y%m%dT%H%M%S`
 - Human-readable time: `date "+%Y-%m-%d %a %H:%M"`
-- Format: `{timestamp}--paper-{short title}__paper.org`
+- Format: `{timestamp}--paper-{short title}__paper.md`
 - The short title uses the method name, core concept, or paper keywords, for easy searching.
 
 File header:
 
-```org
-#+title:      {One sentence stating the judgment update this paper brings, in the same language as the input}
-#+subtitle:   {The paper's original title; if needed, add a sentence of explanation first, then the original title}
-#+date:       [{YYYY-MM-DD Day HH:MM}]
-#+filetags:   :paper:
-#+identifier: {YYYYMMDDTHHMMSS}
-#+source:     {URL or source description}
-#+authors:    {author list}
-#+venue:      {venue/year}
+```markdown
+---
+title:      "{One sentence stating the judgment update this paper brings, in the same language as the input}"
+subtitle:   "{The paper's original title; if needed, add a sentence of explanation first, then the original title}"
+date:       [{YYYY-MM-DD Day HH:MM}]
+tags:       [paper]
+identifier: {YYYYMMDDTHHMMSS}
+source:     {URL or source description}
+authors:    {author list}
+venue:      {venue/year}
+---
 ```
 
 ### title
@@ -269,7 +271,7 @@ After writing, check item by item:
 
 ## Completion
 
-Read `references/template.org`, write into `~/Documents/notes/` following the template, then read the file back to confirm:
+Read `references/template.md`, write into `"/Users/jjin/Documents/Obsidian Vault/ResearchPaper Notes/"` following the template, then read the file back to confirm:
 
 - Frontmatter is complete.
 - The six section names are correct.

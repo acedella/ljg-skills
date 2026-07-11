@@ -13,30 +13,32 @@ Doesn't prescribe how to write. Prescribes how not to write. The floor is locked
 
 ## Format constraints
 
-### Org-mode syntax
+### Markdown syntax
 
-- Bold uses `*bold*` (single asterisk), `**bold**` is forbidden
-- Heading levels start at `*`, don't skip levels
+- Bold uses `**bold**`
+- Heading levels start at `#`, don't skip levels
 
 ### ASCII Art
 
-All diagrams use plain ASCII characters. Allowed: `+ - | / \ > < v ^ * = ~ . : # [ ] ( ) _ , ; ! ' "` and spaces. Unicode drawing characters are forbidden.
+All diagrams use plain ASCII characters. Allowed: `+ - | / \ > < v ^ * = ~ . : # [ ] ( ) _ , ; ! ' "` and spaces. Unicode drawing characters are forbidden. Diagrams must be wrapped in fenced code blocks so Obsidian renders them intact.
 
-### Denote file conventions
+### File conventions
 
 - Timestamp: `date +%Y%m%dT%H%M%S`
 - Readable time: `date "+%Y-%m-%d %a %H:%M"`
-- Filename: `{timestamp}--plain-{short title}__plain.org`
-- Output directory: `~/Documents/notes/`
+- Filename: `{timestamp}--plain-{short title}__plain.md`
+- Output directory: `"/Users/jjin/Documents/Obsidian Vault/Writing Notes/"` (quote the path — it has spaces; create the folder if it doesn't exist)
 
-### Org file header
+### File header
 
 ```
-#+title:      plain-{short title}
-#+date:       [{YYYY-MM-DD Day HH:MM}]
-#+filetags:   :plain:atom:
-#+identifier: {YYYYMMDDTHHMMSS}
-#+source:     {URL or source description}
+---
+title:      "plain-{short title}"
+date:       {YYYY-MM-DD Day HH:MM}
+tags:       [plain, atom]
+identifier: {YYYYMMDDTHHMMSS}
+source:     {URL or source description}
+---
 ```
 
 Report the path after the file is written.
@@ -63,7 +65,7 @@ Tools you can reach for while writing — none of them mandatory:
 - *Image* — a scene you can see with your eyes closed. A forced image is worse than no image
 - *Story* — one specific person hits one specific problem. The reader follows along
 - *Question chain* — when you hit an implicit premise, open it with a question, then answer it
-- *Skeleton diagram* — when a concept involves spatial relationships, embed an ASCII diagram (`#+begin_example` block)
+- *Skeleton diagram* — when a concept involves spatial relationships, embed an ASCII diagram (fenced code block)
 
 ## Execution
 
@@ -93,9 +95,9 @@ Go through the red-line checklist item by item. Additionally check:
 
 Once done, list the changes made (which sentence triggered what, before → after). This list doesn't go into the file.
 
-### 4. Generate the org file
+### 4. Generate the Markdown file
 
-Get the timestamp per the Denote convention, write the file header + body, save to `~/Documents/notes/`.
+Get the timestamp per the file convention, write the file header + body, save to `"/Users/jjin/Documents/Obsidian Vault/Writing Notes/"` (quote the path — it has spaces; create the folder if it doesn't exist).
 
 ## Acceptance criteria
 

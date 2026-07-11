@@ -56,9 +56,9 @@ Running **Extract** in **ljg-qa**...
 
 ## Output
 
-- Format: org-mode (`*bold*`, no markdown syntax)
-- Path: `~/Documents/notes/`
-- denote filename: `{YYYYMMDDTHHMMSS}--qa-{core topic, 5-10 words}__qa.org`
+- Format: Markdown (`**bold**`)
+- Path: `"/Users/jjin/Documents/Obsidian Vault/QA Notes/"` (quote the path — it has spaces; create the folder if it doesn't exist)
+- filename: `{YYYYMMDDTHHMMSS}--qa-{core topic, 5-10 words}__qa.md`
 - Language: write the output in the same language as the user's input/request
 
 ## Examples
@@ -69,7 +69,7 @@ Running **Extract** in **ljg-qa**...
 User: /ljg-qa https://example.com/article
 → WebFetch to retrieve
 → find the idea skeleton → design the Q chain → write A in three parts
-→ output org-mode to ~/Downloads/
+→ output Markdown to ~/Downloads/
 ```
 
 *Example 2: paper PDF*
@@ -78,7 +78,7 @@ User: /ljg-qa https://example.com/article
 User: /ljg-qa ~/Downloads/paper.pdf
 → Read the PDF (mind the pages parameter)
 → extract Q's on the method's "why," "cost," "boundary"
-→ output org-mode
+→ output Markdown
 ```
 
 *Example 3: raw text*

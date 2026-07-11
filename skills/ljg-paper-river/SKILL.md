@@ -17,36 +17,38 @@ Read this way, what you come away with isn't the knowledge of one paper — it's
 
 ## Format constraints
 
-### Org-mode syntax
+### Markdown syntax
 
-- Bold uses `*bold*` (single asterisk), `**bold**` is forbidden
-- Heading levels start at `*`, don't skip levels
+- Bold uses `**bold**` (double asterisk)
+- Heading levels start at `#`, don't skip levels
 
 ### ASCII Art
 
-All diagrams use plain ASCII characters. Allowed: `+ - | / \ > < v ^ * = ~ . : # [ ] ( ) _ , ; ! ' "` and spaces. Unicode drawing characters are forbidden.
+All diagrams use plain ASCII characters. Allowed: `+ - | / \ > < v ^ * = ~ . : # [ ] ( ) _ , ; ! ' "` and spaces. Unicode drawing characters are forbidden. Diagrams must be wrapped in fenced code blocks so Obsidian renders them intact.
 
 ### Template authority
 
-The output structure follows `references/template.org`.
+The output structure follows `references/template.md`.
 
 ### Denote file conventions
 
 - Timestamp: `date +%Y%m%dT%H%M%S`
 - Readable time: `date "+%Y-%m-%d %a %H:%M"`
-- Filename: `{timestamp}--paper-river-{short title}__paper_river.org`
-- Output directory: `~/Documents/notes/`
+- Filename: `{timestamp}--paper-river-{short title}__paper_river.md`
+- Output directory: `"/Users/jjin/Documents/Obsidian Vault/ResearchPaper Notes/"` (quote the path — it has spaces; create the folder if it doesn't exist)
 
-### Org file header
+### Markdown file header
 
 ```
-#+title:      paper-river-{short title}
-#+date:       [{YYYY-MM-DD Day HH:MM}]
-#+filetags:   :paper:river:
-#+identifier: {YYYYMMDDTHHMMSS}
-#+source:     {URL or source description}
-#+authors:    {target paper's authors}
-#+venue:      {venue/year published}
+---
+title:      paper-river-{short title}
+date:       [{YYYY-MM-DD Day HH:MM}]
+tags:       [paper, river]
+identifier: {YYYYMMDDTHHMMSS}
+source:     {URL or source description}
+authors:    {target paper's authors}
+venue:      {venue/year published}
+---
 ```
 
 ## Red lines
@@ -143,7 +145,7 @@ Go through the red-line checklist item by item. Additionally check:
 - Is the causal chain coherent — read all the "what problem it saw" statements strung together, does the logic hold up
 - Is the difference highlighted — is each paper's focus really on "what's different from before"
 
-Read `references/template.org`, and write to `~/Documents/notes/` following the Denote convention.
+Read `references/template.md`, and write to `"/Users/jjin/Documents/Obsidian Vault/ResearchPaper Notes/"` following the Denote convention.
 
 ## Acceptance criteria
 

@@ -191,40 +191,44 @@ Do three things:
 2. **Leave a question**: don't give an answer — give the user a question they can carry with them and turn over repeatedly for the next week.
 3. **Mark the boundary**: if signals emerge during the analysis suggesting a need for professional psychological help (trauma responses, prolonged depression, self-harm tendencies), clearly recommend seeking professional help. Don't overstep.
 
-### Step 6: Write to an org file
+### Step 6: Write to a Markdown file
 
-Integrate the analysis into org-mode format and write it to a file:
+Integrate the analysis into Markdown format and write it to a file:
 1. Run `date +%Y%m%dT%H%M%S` to get the timestamp
-2. Write to `~/Documents/notes/{timestamp}--relationship-analysis-{keyword}__relationship.org`
+2. Write to `"/Users/jjin/Documents/Obsidian Vault/Relationship Notes/{timestamp}--relationship-analysis-{keyword}__relationship.md"` (quote the path — it has spaces; create the folder if it doesn't exist)
 
-Org file structure:
-```org
-#+title: Relationship analysis: {relationship description}
-#+date: [{date}]
-#+filetags: :relationship:
-#+identifier: {timestamp}
+Markdown file structure:
+```markdown
+---
+title: "Relationship analysis: {relationship description}"
+date: {date}
+tags: [relationship]
+identifier: {timestamp}
+---
 
-* Background
+# Background
 {basic relationship information}
 
-* Five-layer structural diagnosis
-** Exchange structure
-** Power structure
-** Boundary structure
-** Stage structure
-** Narrative structure
+# Five-layer structural diagnosis
+## Exchange structure
+## Power structure
+## Boundary structure
+## Stage structure
+## Narrative structure
 
-* Pattern-layer findings
-** Recurring pattern
-** Transference clues
-** Resistance markers
+# Pattern-layer findings
+## Recurring pattern
+## Transference clues
+## Resistance markers
 
-* Relationship structure diagram
+# Relationship structure diagram
 
-* Core insight
+# Core insight
 
-* Question to carry with you
+# Question to carry with you
 ```
+
+ASCII diagrams must be wrapped in fenced code blocks so Obsidian renders them intact.
 
 3. Report the file path to the user
 

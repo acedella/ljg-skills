@@ -13,30 +13,32 @@ A critical essay isn't a bullet-point list — it advances layer by layer, think
 
 ## Constraints
 
-### Org-mode syntax
+### Markdown syntax
 
-- Bold uses `*bold*` (single asterisk), `**bold**` is forbidden
-- Heading levels start at `*`, don't skip levels
+- Bold uses `**bold**`
+- Heading levels start at `#`, don't skip levels
 
 ### ASCII Art
 
-All diagrams use plain ASCII characters. Allowed: `+ - | / \ > < v ^ * = ~ . : # [ ] ( ) _ , ; ! ' "` and spaces. Unicode drawing characters are forbidden.
+All diagrams use plain ASCII characters. Allowed: `+ - | / \ > < v ^ * = ~ . : # [ ] ( ) _ , ; ! ' "` and spaces. Unicode drawing characters are forbidden. Diagrams must be wrapped in fenced code blocks so Obsidian renders them intact.
 
-### Denote file conventions
+### File conventions
 
 - Timestamp: `date +%Y%m%dT%H%M%S`
 - Readable time: `date "+%Y-%m-%d %a %H:%M"`
-- Filename: `{timestamp}==z--{title keywords}__write.org`
-- Output directory: `~/Documents/notes/`
+- Filename: `{timestamp}==z--{title keywords}__write.md`
+- Output directory: `"/Users/jjin/Documents/Obsidian Vault/Writing Notes/"` (quote the path — it has spaces; create the folder if it doesn't exist)
 
-### Org file header
+### File header
 
 ```
-#+title:      {title}
-#+date:       [{YYYY-MM-DD Day HH:MM}]
-#+filetags:   :write:
-#+identifier: {YYYYMMDDTHHMMSS}
-#+author:     Li Jigang
+---
+title:      "{title}"
+date:       {YYYY-MM-DD Day HH:MM}
+tags:       [write]
+identifier: {YYYYMMDDTHHMMSS}
+author:     Li Jigang
+---
 ```
 
 ## Stance
@@ -163,6 +165,6 @@ Look at both drafts side by side, keep whichever sentence is better.
 1. Draft + native-language rewrite, keep the better of the two
 2. Get timestamps with `date +%Y%m%dT%H%M%S` and `date "+%Y-%m-%d %a %H:%M"`
 3. Extract keywords from the viewpoint for the title
-4. Write to `~/Documents/notes/{timestamp}==z--{title keywords}__write.org`
+4. Write to `"/Users/jjin/Documents/Obsidian Vault/Writing Notes/{timestamp}==z--{title keywords}__write.md"` (quote the path — it has spaces; create the folder if it doesn't exist)
 5. Report the path
 </content>

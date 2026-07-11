@@ -62,6 +62,6 @@ Requirements:
 ## Output
 
 1. Get timestamps: `date +%Y%m%dT%H%M%S` and `date "+%Y-%m-%d %a %H:%M"`
-2. Write to `~/Documents/notes/{时间戳}--追本-{主题}__think.org`
-3. org-mode format, markdown syntax forbidden
+2. Write to `"/Users/jjin/Documents/Obsidian Vault/Brainstorm Notes/{时间戳}--追本-{主题}__think.md"` (quote the path — it has spaces; create the folder if it doesn't exist)
+3. Markdown format
 4. Report the file path to the user

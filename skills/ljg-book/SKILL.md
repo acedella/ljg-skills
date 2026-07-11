@@ -51,10 +51,10 @@ Don't put the material tier up front to steal the show. Put it at the end, in "M
 
 After the file header and before the first heading, put three lines:
 
-```org
-- *Problem*: what problem the author is answering
-- *New insight*: concept / method / framework / one sentence — pick one
-- *Usage*: how I should use it next time I encounter this problem
+```markdown
+- **Problem**: what problem the author is answering
+- **New insight**: concept / method / framework / one sentence — pick one
+- **Usage**: how I should use it next time I encounter this problem
 ```
 
 The body has 3 to 5 sections. Headings should grow out of the book itself — don't force a fixed template. Recommended order:
@@ -154,7 +154,7 @@ Material calibration serves the main thread — don't let it overshadow the body
 
 Write to:
 
-`~/Documents/notes/{timestamp}--book-breakdown-{book title}__book.org`
+`"/Users/jjin/Documents/Obsidian Vault/Book Notes/{timestamp}--book-breakdown-{book title}__book.md"` (quote the path — it has spaces; create the folder if it doesn't exist)
 
 Timestamp:
 
@@ -163,12 +163,14 @@ Timestamp:
 
 File header:
 
-```org
-#+TITLE: Book Breakdown: 《{book title}》
-#+SUBTITLE: {author} | {one-sentence core view}
-#+DATE: [{YYYY-MM-DD Day HH:MM}]
-#+FILETAGS: :book:{field}:
-#+IDENTIFIER: {YYYYMMDDTHHMMSS}
+```markdown
+---
+title: "Book Breakdown: 《{book title}》"
+subtitle: "{author} | {one-sentence core view}"
+date: [{YYYY-MM-DD Day HH:MM}]
+tags: [book, {field}]
+identifier: {YYYYMMDDTHHMMSS}
+---
 ```
 
 Keep the body at a length that's readable and takeable-away — 3 to 5 sections by default. When the user hasn't asked for a deep breakdown, don't write an encyclopedia.
