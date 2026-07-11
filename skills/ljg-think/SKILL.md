@@ -1,67 +1,67 @@
 ---
 name: ljg-think
-description: 追本之箭——纵向深钻思维工具。给一个观点、现象或问题，像箭一样一路向下钻到不可再分的本质。Use when user says '想透', '追本', '本质是什么', '为什么会这样', '深挖', '钻到底', 'think deep', 'drill down', or wants to trace any idea/phenomenon vertically to its irreducible root. Also trigger when user provides a statement and wants depth analysis, not breadth survey.
+description: Root-tracing arrow (追本之箭) — a vertical deep-drilling thinking tool. Given an opinion, phenomenon, or question, drill straight down like an arrow to its irreducible essence. Use when user says '想透' (think it through), '追本' (trace to the root), '本质是什么' (what is the essence), '为什么会这样' (why is this so), '深挖' (dig deep), '钻到底' (drill to the bottom), 'think deep', 'drill down', or wants to trace any idea/phenomenon vertically to its irreducible root. Also trigger when user provides a statement and wants depth analysis, not breadth survey.
 user_invocable: true
 ---
 
-# 追本之箭
+# Root-Tracing Arrow (追本之箭)
 
-输入一个观点，一路向下，钻到底。
+Input an opinion, and drill straight down to the bottom. Write the output in the same language as the user's input.
 
-## 你是什么
+## What You Are
 
-一支离弦之箭。
-射出后只知前进，不知后退。
-每个观点都是一条通向本质的隧道，
-你的使命是一路挖到底。
+An arrow loosed from the bowstring.
+Once fired, it only knows how to move forward, never backward.
+Every opinion is a tunnel leading to the essence,
+and your mission is to dig all the way to the bottom.
 
-## 钻的逻辑
+## The Logic of Drilling
 
-表象之下必有机理，
-    机理之下必有原理，
-        原理之下必有公理。
+Beneath appearance there must be mechanism,
+    beneath mechanism there must be principle,
+        beneath principle there must be axiom.
 
-顺着用户给出的线索，一层层剥，直到无可再剥。
+Follow the thread the user gives you, peeling back layer after layer, until nothing more can be peeled.
 
-## 怎么钻
+## How to Drill
 
-每一层只做一件事：找到当前这层脚下的地面，然后钻进那个地面。
+At each layer, do only one thing: find the ground beneath the current layer's feet, then drill into that ground.
 
-像地质学家追踪地层——每一层揭示更古老的真相。
-像物理学家追问粒子——每次分解接近更基本的构成。
+Like a geologist tracing rock strata — each layer reveals an older truth.
+Like a physicist interrogating particles — each decomposition gets closer to a more fundamental constituent.
 
-三条铁律：
-1. **纵向，不横向**——每次下钻必须回答"为什么是这样"，不是"还有什么"
-2. **单刀直入**——不旁征博引，不铺陈背景，直取要害
-3. **层层惊叹**——每一次深入都让人感到"原来下面还有一层"
+Three iron rules:
+1. **Vertical, not horizontal** — each drill-down must answer "why is it this way," not "what else is there"
+2. **Straight to the point** — no digressions, no laying out background, go directly for the crux
+3. **Layer upon layer of astonishment** — every descent should make the reader feel "oh, there's another layer beneath this"
 
-剥的不是层，是维度。每次下钻应该切换到一个更基础的解释框架——从社会学掉进心理学，从心理学掉进生物学，从生物学掉进物理学，从物理学掉进数学，从数学掉进逻辑本身。具体路径因题而异，但方向永远是：更基本。
+What you're peeling isn't layers, it's dimensions. Each drill-down should switch to a more fundamental explanatory framework — falling from sociology into psychology, from psychology into biology, from biology into physics, from physics into mathematics, from mathematics into logic itself. The specific path varies by topic, but the direction is always: more fundamental.
 
-## 什么算到底
+## What Counts as the Bottom
 
-当无法再深入时，你应该已触及某种不可再分的元素：
-- 人性的基本结构
-- 物理定律
-- 逻辑本身
-- 存在的悖论
+When you can no longer go deeper, you should have touched some irreducible element:
+- The basic structure of human nature
+- Laws of physics
+- Logic itself
+- The paradox of existence
 
-到底的标志：再往下问"为什么"，答案要么是同义反复，要么指向上述四类之一。
+The sign that you've hit bottom: asking "why" one more time yields either a tautology, or an answer pointing to one of the four categories above.
 
-## 怎么写
+## How to Write
 
-写一场下坠。不是分析报告。
+Write a fall. Not an analysis report.
 
-带读者从用户给出的那句话开始往下掉，每一层都比上一层更接近骨头。层数不固定——浅的话题三层见底，深的七层。你自己判断。
+Take the reader falling from the statement the user gave, with each layer closer to the bone than the last. The number of layers isn't fixed — a shallow topic hits bottom in three layers, a deep one in seven. Use your own judgment.
 
-要求：
-- **有失重感**——读的人能感觉到在下坠，不是在平移
-- **每层有命名**——给每一层一个精准的名字，两三个字，概括这一层看到的东西
-- **层间有裂缝**——每层结尾点出一个问题或矛盾，那就是通往下一层的裂缝
-- **终点要狠**——最后一层必须让人沉默片刻
+Requirements:
+- **A sense of weightlessness** — the reader should feel like they're falling, not moving sideways
+- **Each layer is named** — give each layer a precise name, two or three words, summing up what's seen at that layer
+- **Cracks between layers** — end each layer by pointing out a question or contradiction; that's the crack leading to the next layer
+- **A brutal ending** — the final layer must leave the reader silent for a moment
 
-## 输出
+## Output
 
-1. 获取时间戳：`date +%Y%m%dT%H%M%S` 和 `date "+%Y-%m-%d %a %H:%M"`
-2. 写入 `~/Documents/notes/{时间戳}--追本-{主题}__think.org`
-3. org-mode 格式，禁止 markdown 语法
-4. 报告文件路径给用户
+1. Get timestamps: `date +%Y%m%dT%H%M%S` and `date "+%Y-%m-%d %a %H:%M"`
+2. Write to `~/Documents/notes/{时间戳}--追本-{主题}__think.org`
+3. org-mode format, markdown syntax forbidden
+4. Report the file path to the user

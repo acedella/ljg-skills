@@ -1,111 +1,111 @@
-# 设计品味准则（全模具通用）
+# Design Taste Guidelines (shared across all molds)
 
-所有模具生成 HTML 前，先过一遍这份准则。这是视觉质量的底线。
+Before any mold generates HTML, run through this checklist. This is the baseline for visual quality.
 
-## 1. 基线参数
+## 1. Baseline parameters
 
-| 维度 | 默认值 | 含义 |
+| Dimension | Default | Meaning |
 |------|--------|------|
-| DESIGN_VARIANCE | 8 | 1=完美对称，10=艺术混沌 |
-| VISUAL_DENSITY | 4 | 1=画廊留白，10=驾驶舱信息密度 |
+| DESIGN_VARIANCE | 8 | 1 = perfect symmetry, 10 = artistic chaos |
+| VISUAL_DENSITY | 4 | 1 = gallery whitespace, 10 = cockpit-level information density |
 
-这两个刻度盘管着三个模具：
+These two dials govern three molds:
 
-- `-l` 长图：DESIGN_VARIANCE=5, VISUAL_DENSITY=3，阅读舒适优先。变化落在色调上：不同内容气质配不同底色和强调色（见 mode-long.md 步骤 2.5）
-- `-i` 信息图：DESIGN_VARIANCE=7, VISUAL_DENSITY=8，数据密度优先。变化靠动态 REF 编码和内容驱动的自定义布局
-- `-m` 多卡：DESIGN_VARIANCE=9, VISUAL_DENSITY=2，视觉冲击优先。与长图共享色调系统，∎ 结尾标记只在末页出现
+- `-l` long card: DESIGN_VARIANCE=5, VISUAL_DENSITY=3, reading comfort first. Variation lands on tone: different content moods get different background and accent colors (see mode-long.md step 2.5)
+- `-i` infograph: DESIGN_VARIANCE=7, VISUAL_DENSITY=8, data density first. Variation comes from dynamic REF coding and content-driven custom layouts
+- `-m` multi-card: DESIGN_VARIANCE=9, VISUAL_DENSITY=2, visual impact first. Shares the tone system with the long card; the ∎ closing mark only appears on the final page
 
-其余四个模具（`-v` 视觉笔记、`-c` 漫画、`-w` 白板、`-b` 大字）各有自己的美学系统，写在各自 mode 文件里，这两个刻度盘不套用。本文其余各节是七个模具的共同底线；mode 文件里明写的自有规矩（如 `-v` 的四主色系统、`-b` 的居中碑刻）以 mode 文件为准。
+The other four molds (`-v` sketchnote, `-c` comic, `-w` whiteboard, `-b` big fonts) each have their own aesthetic system, written up in their own mode files — these two dials don't apply to them. The rest of this document is the shared baseline across all seven molds; where a mode file explicitly states its own rule (e.g. `-v`'s four-main-color system, `-b`'s centered stone-inscription layout), the mode file takes precedence.
 
-## 2. 排版工程
+## 2. Typography engineering
 
-### 标题
-- 大标题：`tracking-tighter`（字间距紧凑），`leading-none`（行高极小）
-- 禁用 Inter 字体。长图/多卡用衬线体（Noto Serif SC），信息图用等宽+无衬线混排
-- 仪表盘/技术类场景严禁衬线体——只用高端无衬线（Geist、Satoshi、Cabinet Grotesk）
+### Headings
+- Large headings: `tracking-tighter` (tight letter spacing), `leading-none` (minimal line height)
+- No Inter font. Long card/multi-card use a serif (Noto Serif SC); infograph mixes monospace + sans-serif
+- Dashboard/technical scenes must never use serif — only premium sans-serif (Geist, Satoshi, Cabinet Grotesk)
 
-### 正文
-- 默认：`text-base`、`leading-relaxed`、最大行宽 `65ch`
-- `-i` 信息图：正文 ≥36px、行高 ≥1.6、标注 ≥24px（1080px 画布到手机 390px 要缩 2.8 倍，缩完还得能读）
-- 段落文本避免纯黑，用 `#333` 或 `#4a4a4a` 这类深灰
+### Body text
+- Default: `text-base`, `leading-relaxed`, max line width `65ch`
+- `-i` infograph: body ≥36px, line height ≥1.6, annotations ≥24px (a 1080px canvas shrinks ~2.8x to a 390px phone screen, and must still be readable after shrinking)
+- Avoid pure black for paragraph text; use a deep gray like `#333` or `#4a4a4a`
 
-### 数字
-- VISUAL_DENSITY > 7（信息图）时，所有数字用等宽字体（`font-family: monospace`）
+### Numbers
+- When VISUAL_DENSITY > 7 (infograph), render all numbers in a monospace font (`font-family: monospace`)
 
-## 3. 色彩校准
+## 3. Color calibration
 
-### 硬性规则
-- 最多 1 个强调色，饱和度 < 80%
-- 禁止「AI 紫蓝」：紫色按钮光晕、霓虹渐变一律不要
-- 同一张图内冷暖调统一，不在暖灰和冷灰之间摇摆
-- 禁止纯黑 `#000000`：用 Off-Black（`#1a1a1a`）、Zinc-950 或炭灰
+### Hard rules
+- At most 1 accent color, saturation < 80%
+- No "AI purple-blue": no purple button glow, no neon gradients, ever
+- Keep warm/cool tone consistent within a single image; don't waver between warm gray and cool gray
+- No pure black `#000000`: use Off-Black (`#1a1a1a`), Zinc-950, or charcoal gray
 
-### 渐变约束
-- 大标题不用渐变填充文字
-- 背景渐变只做微妙过渡，不搞色彩跳跃
+### Gradient constraints
+- Don't fill large headline text with a gradient
+- Background gradients should only be subtle transitions, never abrupt color jumps
 
-## 4. 布局多样化
+## 4. Layout diversity
 
-### DESIGN_VARIANCE > 4 时
-- 禁止居中 Hero：标题别默认居中。用左对齐、分屏、非对称留白
-- 禁止「三等分卡片」：3 列等宽并排是 AI 生成的头号标志。用 2 列锯齿、非对称网格、或横向滚动
+### When DESIGN_VARIANCE > 4
+- No centered hero: don't default headlines to center. Use left alignment, split screens, asymmetric whitespace
+- No "three equal-width cards": three equal columns side by side is the #1 tell of AI-generated design. Use a 2-column staggered layout, an asymmetric grid, or horizontal scroll instead
 
-### DESIGN_VARIANCE ≥ 8 时
-- 用 CSS Grid 分数单位（`grid-template-columns: 2fr 1fr 1fr`）
-- 允许大面积留白（`padding-left: 20vw` 级别的空间感）
-- 允许 Masonry 式错落布局
+### When DESIGN_VARIANCE ≥ 8
+- Use CSS Grid fractional units (`grid-template-columns: 2fr 1fr 1fr`)
+- Large areas of whitespace are allowed (a sense of space at the level of `padding-left: 20vw`)
+- Masonry-style staggered layouts are allowed
 
-### 卡片与容器
-- 真需要分出上下层级（elevation）时才用卡片
-- 数据指标之间用 `border-top`、`divide-y` 或纯留白分组，别一个个装进方盒子
-- 阴影必须染色（跟背景色调一致），不要灰色默认阴影
+### Cards and containers
+- Only use a card when you genuinely need to separate an elevation layer
+- Group data metrics with `border-top`, `divide-y`, or plain whitespace — don't box each one up individually
+- Shadows must be tinted (matching the background tone), not the default gray shadow
 
-## 5. AI 生成禁忌清单
+## 5. AI-generation checklist of things to avoid
 
-生成任何视觉内容前，逐项排查：
+Before generating any visual content, go through this item by item:
 
-### 视觉 & CSS
-- 禁止外发光：不要 `box-shadow` 默认光晕。用内边框或染色阴影
-- 禁止过饱和强调色：强调色要和中性色融在一起
-- 禁止自定义鼠标指针（静态图不涉及，生成 HTML 时也别加）
+### Visual & CSS
+- No outer glow: don't use a default `box-shadow` glow. Use an inner border or a tinted shadow instead
+- No over-saturated accent colors: the accent color should blend with the neutrals
+- No custom cursor (not relevant for a static image, but also don't add it when generating HTML)
 
-### 排版
-- 禁止 Inter 字体：用 Geist、Outfit、Cabinet Grotesk 或 Satoshi
-- 禁止标题只靠字号砸大：立层级用字重和颜色
+### Typography
+- No Inter font: use Geist, Outfit, Cabinet Grotesk, or Satoshi
+- Don't build hierarchy with font size alone: use weight and color too
 
-### 内容 & 数据
-- 禁止通用人名：John Doe、Sarah Chan、Jack Su 不许出现。名字要编得像随手从通讯录里抄的
-- 禁止假数据：不要 `99.99%`、`50%`、`1234567`。数据要像随手抄来的（`47.2%`、`+1 (312) 847-1928`）
-- 禁止创业烂名：Acme、Nexus、SmartFlow 不许。起个有品味的牌子名
-- 禁止 AI 文案腔：「赋能」「无缝」「释放」「下一代」不许。用具体动词
-- 禁止 Unsplash 链接：要占位图就用 `https://picsum.photos/seed/{随机字符串}/800/600` 或 SVG
+### Content & data
+- No generic placeholder names: John Doe, Sarah Chan, Jack Su are not allowed. Names should read like they were pulled at random from an address book
+- No fake data: avoid `99.99%`, `50%`, `1234567`. Data should look like it was copied off a real record (`47.2%`, `+1 (312) 847-1928`)
+- No cheesy startup names: Acme, Nexus, SmartFlow are not allowed. Come up with a name with some taste
+- No AI-copywriting tone: "empower," "seamless," "unlock," "next-generation" are not allowed. Use concrete verbs
+- No Unsplash links: for placeholder images use `https://picsum.photos/seed/{random-string}/800/600` or an SVG
 
-### 间距 & 对齐
-- padding、margin 按网格算准，别留半上不下的空隙
-- 相邻元素严格对齐，视觉线条贯通
+### Spacing & alignment
+- Calculate padding and margin to a grid; don't leave half-finished gaps
+- Adjacent elements must align strictly, with visual lines running through cleanly
 
-## 6. 材质与表面
+## 6. Materials and surfaces
 
-### 玻璃态（Glassmorphism）
-毛玻璃不能只靠 `backdrop-blur`，要叠：
-- 1px 内边框：`border: 1px solid rgba(255,255,255,0.1)`
-- 微妙内阴影：`box-shadow: inset 0 1px 0 rgba(255,255,255,0.1)`
-这样边缘才像真玻璃那样折光。
+### Glassmorphism
+Frosted glass can't rely on `backdrop-blur` alone — layer it with:
+- A 1px inner border: `border: 1px solid rgba(255,255,255,0.1)`
+- A subtle inner shadow: `box-shadow: inset 0 1px 0 rgba(255,255,255,0.1)`
+Only then do the edges refract light like real glass.
 
-### 圆角
-- 主容器用大圆角（`border-radius: 2.5rem`）
-- 扩散阴影（极淡、大范围）：`box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05)`
+### Corner radius
+- Use large rounded corners on the main container (`border-radius: 2.5rem`)
+- Diffuse shadow (very faint, wide-spread): `box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05)`
 
-## 7. 出厂自检
+## 7. Final self-check
 
-生成 HTML 后、截图前，逐项确认：
+After generating the HTML and before taking the screenshot, confirm each item:
 
-- [ ] 避开了居中 Hero（DESIGN_VARIANCE > 4 时）？
-- [ ] 避开了三等分等宽卡片？
-- [ ] 标题用了非 Inter 字体？
-- [ ] 颜色冷暖调统一，无纯黑？
-- [ ] 强调色 ≤ 1 个且饱和度 < 80%？
-- [ ] 数据有真实感（不是 99.99% 式假数据）？
-- [ ] 文案里没有 AI 腔（赋能/无缝/释放）？
-- [ ] 间距算准了，没有半上不下的空隙？
-- [ ] 阴影染了色（不是灰色默认）？
+- [ ] Avoided a centered hero (when DESIGN_VARIANCE > 4)?
+- [ ] Avoided three equal-width columns?
+- [ ] Headings use a non-Inter font?
+- [ ] Warm/cool tone is consistent, no pure black?
+- [ ] Accent color ≤ 1, saturation < 80%?
+- [ ] Data feels real (not fake like 99.99%)?
+- [ ] No AI tone in the copy (empower/seamless/unlock)?
+- [ ] Spacing is calculated precisely, no half-finished gaps?
+- [ ] Shadows are tinted (not default gray)?

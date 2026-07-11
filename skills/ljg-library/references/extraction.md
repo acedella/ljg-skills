@@ -1,65 +1,65 @@
-# 意向画面：怎么提炼，怎么画
+# Mental image: how to distill it, how to paint it
 
-这份文件管两件事：从书里提炼出那幅意向画面（第一部分），把它写成 frame 生成插画（第二部分）。
+This file handles two things: distilling the mental image from the book (part one), and writing it into a frame to generate the illustration (part two).
 
-先说清楚要提炼的东西。取景框 = 角度 + 问题 + 画面：作者站在某个位置看某个问题，看到了一幅别人没看到的画面。这幅意向画面是整张卡的中心——文字讲它，图画它，两者是同一幅画面的两次呈现。读者半年后记住的就是它。
+First, let's be clear about what's being distilled. Viewfinder (取景框) = angle + question + picture: the author stands at a certain position, looks at a certain question, and sees a picture that others hadn't seen. This mental image is the center of the whole card — the text explains it, the illustration paints it; both are two renderings of the same picture. It's what the reader remembers six months later.
 
-把画面讲清楚比讲短重要。不设字数上限，画面具体、讲解通俗准确就够了。
+Explaining the picture clearly matters more than explaining it briefly. There's no word-count ceiling — as long as the picture is concrete and the explanation is accessible and accurate, that's enough.
 
-## 一、提炼（六步）
+## Part 1: Distillation (six steps)
 
-1. **对象**：这本书在看什么问题？
-2. **角度**：作者站在哪个位置、用什么视角看它？取景框的「取」就发生在这一步。
-3. **旧画面**：在这本书之前，常人和各流派从惯常角度看到的是哪幅画面？
-4. **意向画面**：换到作者的角度，看到了哪幅新画面？要具体、画得出来、一句话说得清。它和旧画面的落差就是这本书的全部价值。检验它是画面还是命题：能不能当一幅画描述出来——有可见的物、可见的动作、可见的对比？讲不出画面，说明还停在抽象命题，回第 2 步重新找角度。
-5. **费曼讲解**：把这幅画面讲给一个聪明的外行听。
-   - 讲解必须走 `feynman-eli5` skill 生成，不手写——这是继刚定的规矩。喂给它：意向画面、旧画面、机制（为什么从这个角度会看到这幅画面）；要回来的是通俗、准确、带具体类比、零黑话的解释。
-   - `{{FRAME}}` = 一句话说清这幅画面对世界观的改动，句式「原来不是 X，其实是 Y」，带动作动词。不写名词定义，不写「本书讲了什么」。关键词用 `<span class="hl">` 染卡身强调色。
-   - `{{EXP}}` = feynman-eli5 的产物：这是幅什么画面、为什么从这个角度会看到它、它改了你怎么看什么。关键词同样染色。
-6. **校验**，三道：
-   - 删掉书名作者，`{{FRAME}}` + `{{EXP}}` 能不能独立站住，成为一种看世界的方式？只是摘要就重炼。
-   - 过翻译腔五连问（主语、动词、介词、定语、朗读卡），读起来得是中国人说的话。
-   - 文字讲的画面和图里画的画面，是不是同一幅？不是就对齐了再交付。
+1. **Subject**: what question is this book looking at?
+2. **Angle**: from what position, with what perspective, does the author look at it? The "framing" (取景) of the viewfinder happens at this step.
+3. **Old picture**: before this book, what picture did ordinary people and various schools of thought see from the usual angle?
+4. **New picture**: switching to the author's angle, what new picture do you see? It needs to be concrete, paintable, expressible in one sentence. The gap between it and the old picture is this book's entire value. Test whether it's a picture or a proposition: can it be described as a painting — with visible objects, visible actions, visible contrast? If you can't describe a picture, it's still stuck at an abstract proposition — go back to step 2 and find a different angle.
+5. **Feynman explanation**:
+   - The explanation must be generated via the `feynman-eli5` skill, not hand-written — this is Jigang's (继刚) fixed rule. Feed it: the new picture, the old picture, the mechanism (why looking from this angle reveals this picture); what should come back is an accessible, accurate explanation with a concrete analogy, free of jargon.
+   - `{{FRAME}}` = one sentence stating how this picture changes one's worldview, in the pattern "it's not X, it's actually Y," with an action verb. Don't write a noun definition, don't write "what this book is about." Color keywords with `<span class="hl">`.
+   - `{{EXP}}` = the feynman-eli5 output: what picture this is, why looking from this angle reveals it, and how it changes what you see. Color keywords the same way.
+6. **Verification**, three checks:
+   - Remove the book title and author — can `{{FRAME}}` + `{{EXP}}` stand alone as a way of seeing the world? If it's just a summary, redistill it.
+   - Run it through the five-question translationese check (subject, verb, preposition, modifier, read-aloud test) — it should read like natural language.
+   - Do the picture the text describes and the picture the image depicts match? If not, align them before delivering.
 
-最终的检验：脑子凉下来之后瞥一眼卡，那幅画面回不回得来。
+The ultimate test: after your mind has cooled down, does glancing at the card bring the picture back?
 
-### 示例 A ·《非对称风险》遍历性
+### Example A · *Antifragile*/*Skin in the Game*-style ergodicity
 
-- 对象：一个期望值为正的赌局，该不该参与？
-- 角度：不站在「一群人各玩一次的平均」上看，站到「你一个人玩很久」那条时间线上看。
-- 旧画面：一百个平行的你摊平，期望为正就该上。
-- 意向画面：两条命运线分叉——人群在高处的平路上匀速前行（+5%），「你」独自沿一条时间线走向一道吸收壁（破产、死亡，进去出不来），正期望也通向归零。
-- `{{FRAME}}`：`一个赌局好不好，不看「很多人各玩一次」的平均，要看「你一个人<span class="hl">玩很久</span>」的命运。`
-- `{{EXP}}`（feynman-eli5 产物）：`经典决策论用<span class="hl">集合平均</span>判断——一百个平行的你摊平，期望为正就该上。可你不活在平行宇宙的平均里，只走<span class="hl">一条时间线</span>；路上但凡有一道<span class="hl">吸收壁</span>（破产、死亡、崩塌，进去就出不来），正期望也会把你稳稳推向归零。所以真正决定命运的是时间平均，不是集合平均。`
-- 校验：删书名独立站住；朗读过关；图文同一幅画面。
-- 图解 frame：继刚独自走暖光木栈道，尽头是吞噬一切的漩涡，远处人群在安全平路（完整命令见 example.md）。
+- Subject: a gamble with positive expected value — should you take it?
+- Angle: instead of standing on "the average of a group each playing once," stand on the timeline of "you playing for a very long time."
+- Old picture: a hundred parallel versions of you spread out flat; if expectation is positive, you should take the bet.
+- New picture: two fates diverge — the crowd advances at a steady pace on flat high ground (+5%), while "you" walk alone along a single timeline toward an absorbing wall (bankruptcy, death — go in and you can't get out), where even a positive expectation leads to ruin.
+- `{{FRAME}}`: `Whether a gamble is worth taking isn't judged by the average of "many people each playing once" — it's judged by the fate of "you alone <span class="hl">playing for a very long time</span>."`
+- `{{EXP}}` (feynman-eli5 output): `Classical decision theory judges by <span class="hl">ensemble average</span> — spread a hundred parallel versions of you out flat, and if expectation is positive, you should take it. But you don't live in the average of parallel universes — you walk only <span class="hl">one timeline</span>; and if there's an <span class="hl">absorbing wall</span> along the way (bankruptcy, death, collapse — go in and you can't climb out), a positive expectation will still steadily push you toward ruin. So what really determines your fate is the time average, not the ensemble average.`
+- Verification: stands alone without the title; reads naturally aloud; text and image depict the same picture.
+- Illustration frame: Jigang walking alone along a warm-lit wooden boardwalk toward a whirlpool that swallows everything at the end, with a crowd on a safe flat path in the distance (full command in example.md).
 
-### 示例 B ·《自私的基因》
+### Example B · *The Selfish Gene*
 
-- 对象：生命为什么长成现在这样？演化里谁是主角？
-- 角度：不站在个体或物种的位置，蹲到基因的位置往上看。
-- 旧画面：人是主角，基因是传宗接代的工具。
-- 意向画面：反过来——一段基因坐在驾驶座上，身体是它造出来、用完即弃的一辆车；一代代车生灭报废，同一段基因穿过它们一路向前。
-- `{{FRAME}}`：`原来不是<span class="hl">你</span>在用基因传宗接代，是<span class="hl">基因</span>在用你这具身体，把它自己复制下去。`
-- `{{EXP}}`（feynman-eli5 产物）：`把基因想成一段「照着造身体」的说明书。哪段说明书造出的身体更能活、更能再印一份，哪段就留下来。于是身体不是目的，是说明书印自己的<span class="hl">手段</span>；你这一辈子，本质是一段古老说明书搭起来的一辆<span class="hl">临时车</span>，载着它再跑一程——到站换车，说明书继续往前。`
-- 图解 frame：继刚仍在画里，但坐在乘客位——驾驶座上是一段拟人化的 DNA 在握方向盘，路边一串报废的旧车。继刚在画里的角色，是意向画面分配给「你」的那个位置，未必是英雄——这幅画的反差正靠「他被开着」才成立。
+- Subject: why has life turned out the way it has? Who is the protagonist in evolution?
+- Angle: instead of standing at the position of the individual or the species, crouch down at the position of the gene and look up.
+- Old picture: humans are the protagonist, genes are a tool for passing on the lineage.
+- New picture: reversed — a stretch of gene sits in the driver's seat, and the body is a car it built and discards once used; generation after generation of cars are born and scrapped, while the same gene passes through them, moving forward.
+- `{{FRAME}}`: `It's not <span class="hl">you</span> using genes to pass on your lineage — it's the <span class="hl">gene</span> using this body of yours to replicate itself.`
+- `{{EXP}}` (feynman-eli5 output): `Think of a gene as a set of instructions for "how to build a body." Whichever set of instructions builds a body that survives better and prints another copy better, that set of instructions is the one that gets passed on. So the body isn't the goal — it's the <span class="hl">means</span> by which the instructions print themselves; your entire life is essentially a <span class="hl">temporary car</span> assembled by an ancient set of instructions, carrying it one more leg of the journey — when the stop comes, you change cars, and the instructions keep going.`
+- Illustration frame: Jigang is still in the picture, but in the passenger seat — in the driver's seat is a personified strand of DNA gripping the wheel, with a row of scrapped old cars by the roadside. Jigang's role in the picture is whatever position the mental image assigns to "you" — not necessarily the hero; the picture's irony only works precisely because "he's the one being driven."
 
-## 二、生成插画
+## Part 2: Generating the illustration
 
-工具：`assets/gen_illustration.py`。它把 `assets/ljg-portrait.png`（继刚的墨像）作 character reference 喂给模型，画出认得出的他；吉田诚治风格已内置在脚本里。所以 frame 只写画什么，不写风格词——写了反而和内置风格打架。
+Tool: `assets/gen_illustration.py`. It feeds `assets/ljg-portrait.png` (Jigang's ink portrait) as a character reference to the model, painting a recognizable him; the Seiji Yoshida (吉田诚治) style is already built into the script. So the frame only needs to describe what to paint, not style words — writing them would actually conflict with the built-in style.
 
-### 写 frame
+### Writing the frame
 
-frame 是一段英文构图描述，把意向画面落成可画的具体场景，四样东西写全：
+The frame is an English composition description that turns the mental image into a concrete, paintable scene, covering four things:
 
-- 继刚（你）在哪、在做什么：核心动作和位置。他的角色由画面分配，参照示例 B。
-- 真实隐喻物件：木板、漩涡、驾驶座、旧车、桥——抽象命题画不出来，必须落成可见物。
-- 对比和流向：谁在安全侧、谁在危险侧、信息朝哪走。
-- 中文标注 3-5 个，每个 ≤5 字，写明挂在哪个元素旁。标注之间用分号或顿号分隔——` / ` 会被安全钩子误判 BLOCK。机制细节让 `{{EXP}}` 正文扛，别塞进标注。
+- Where Jigang (you) is, what he's doing: the core action and position. His role is assigned by the picture, as in example B.
+- Real metaphorical objects: planks, whirlpools, driver's seats, old cars, bridges — abstract propositions can't be painted, they must become visible objects.
+- Contrast and direction of flow: who's on the safe side, who's on the dangerous side, which way information travels.
+- 3-5 Chinese labels, each ≤5 characters, specifying which element each is attached to. Separate labels with semicolons or Chinese enumeration commas — ` / ` gets misjudged and BLOCKed by the safety hook. Let `{{EXP}}` carry mechanistic detail in the body text; don't cram it into the labels.
 
-写完自问一句：这段 frame 画出来，是不是第一部分那幅意向画面？是，再生图。
+After writing, ask yourself: if this frame were painted, would it be the same mental image from part 1? If yes, generate the image.
 
-### 生图
+### Generating the image
 
 ```bash
 python3 assets/gen_illustration.py \
@@ -67,8 +67,8 @@ python3 assets/gen_illustration.py \
   --out /tmp/ljg_lib_ergodicity_sketch.png
 ```
 
-输出 PNG 的 `file://` 绝对路径填进 `{{SKETCH_IMG}}`；`{{SKETCH_TITLE}}` 是图名（英文 + 中文，如 `Ergodicity 遍历性`）。
+Fill the output PNG's absolute `file://` path into `{{SKETCH_IMG}}`; `{{SKETCH_TITLE}}` is the image's name (English + Chinese, e.g. `Ergodicity 遍历性`).
 
-### 验收
+### Verification
 
-生图每次出的都不一样，模型还会糊中文、把人画得不像、画错动作。生成后必 Read 亲验四样：继刚认得出、画面一眼读懂、中文标注正确无糊、和 `{{FRAME}}`/`{{EXP}}` 是同一幅画面。不过关就调 frame 重生——标注更短更少、主角动作说得更清、隐喻更具体，最稳。重生前先把当前这张存到别的路径，新的未必更好。
+Every generation produces something different, and the model can blur Chinese text, paint the person unrecognizably, or get the action wrong. After generating, always Read and verify four things: Jigang is recognizable, the picture reads at a glance, the Chinese labels are correct and not blurry, and it matches `{{FRAME}}`/`{{EXP}}` as the same picture. If it doesn't pass, adjust the frame and regenerate — shorter/fewer labels, clearer protagonist action, more concrete metaphor tend to work best. Save the current image to a different path before regenerating — the new one isn't necessarily better.

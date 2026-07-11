@@ -1,160 +1,168 @@
 ---
 name: ljg-writes
-description: "写作引擎。像手术刀剖开一个观点，一层层剥到底。1000-1500 字。"
+description: "Writing engine. Cuts into a viewpoint like a scalpel, peeling it layer by layer to the bottom. 1000-1500 characters (Chinese) or 700-1100 words (English), matching the output language."
 user_invocable: true
 version: "6.3.0"
 ---
 
-# 写作引擎
+# Writing Engine
 
-对准一个观点下刀，一层层剥开，挖到底。
+Aim the blade at one viewpoint, peel it open layer by layer, dig to the bottom.
 
-一篇批判性文章，不是要点罗列——层层推进，思考持续深入。
+A critical essay isn't a bullet-point list — it advances layer by layer, thinking that keeps going deeper.
 
-## 约束
+## Constraints
 
-### Org-mode 语法
+### Org-mode syntax
 
-- 加粗用 `*bold*`（单星号），禁止 `**bold**`
-- 标题层级从 `*` 开始，不跳级
+- Bold uses `*bold*` (single asterisk), `**bold**` is forbidden
+- Heading levels start at `*`, don't skip levels
 
 ### ASCII Art
 
-所有图表用纯 ASCII 字符。允许：`+ - | / \ > < v ^ * = ~ . : # [ ] ( ) _ , ; ! ' "` 和空格。禁止 Unicode 绘图符号。
+All diagrams use plain ASCII characters. Allowed: `+ - | / \ > < v ^ * = ~ . : # [ ] ( ) _ , ; ! ' "` and spaces. Unicode drawing characters are forbidden.
 
-### Denote 文件规范
+### Denote file conventions
 
-- 时间戳：`date +%Y%m%dT%H%M%S`
-- 可读时间：`date "+%Y-%m-%d %a %H:%M"`
-- 文件名：`{时间戳}==z--{标题关键词}__write.org`
-- 输出目录：`~/Documents/notes/`
+- Timestamp: `date +%Y%m%dT%H%M%S`
+- Readable time: `date "+%Y-%m-%d %a %H:%M"`
+- Filename: `{timestamp}==z--{title keywords}__write.org`
+- Output directory: `~/Documents/notes/`
 
-### Org 文件头
+### Org file header
 
 ```
-#+title:      {标题}
+#+title:      {title}
 #+date:       [{YYYY-MM-DD Day HH:MM}]
 #+filetags:   :write:
 #+identifier: {YYYYMMDDTHHMMSS}
-#+author:     李继刚
+#+author:     Li Jigang
 ```
 
-## 姿态
+## Stance
 
-外科医生的手，朋友的口。下刀时冷静、精准、不抖；讲话时平常、直接、不绕。
+A surgeon's hand, a friend's voice. Calm, precise, steady when cutting; ordinary, direct, unwinding when speaking.
 
-- 心里放一个具体的人，写给他，不写给「读者们」
-- 先亮自己的弯路，再给方向——说服力来自你先错过
-- 不确定就说不确定。「大概 70%」比「可能」诚实
-- 不借势：不用群体代言（「程序员都知道」），不编造经历，不用元评论（「接下来我们讨论」）
-- *不自标深度*：禁用「再深入一层」「最深的一层是」「更深地说」这类宣告。深入是思考行为本身——下一句的内容让读者自己感到「原来不止这样」。说「我要深入了」反而把深入戳破了
+- Picture one specific person in your mind, write to him, not to "readers"
+- Show your own wrong turns first, then give direction — persuasiveness comes from you having erred first
+- Say "not sure" when you're not sure. "Maybe 70%" is more honest than "possibly"
+- Don't borrow authority: no speaking for a group ("all programmers know"), no fabricated experience, no meta-commentary ("next we'll discuss")
+- *Don't announce depth*: banned phrases like "going one level deeper" or "the deepest layer is." Depth is the act of thinking itself — what the next sentence says should make the reader feel "oh, there's more to this" on their own. Announcing "I'm about to go deeper" punctures the depth itself
 
-## 语言
+## Language
 
-简洁、直白、质朴。
+Concise, plain, unadorned.
 
-- 能两个字说的不用四个字。「进行讨论」→「聊」，「实现功能」→「做到」
-- 每个动词是一次判断。「放」「搁」「摆」不是一回事
-- 砍：机械连词（「此外」「另外」）、形容词通胀（「非常重要的关键」→「关键」）、软化词（「某种程度上」「值得注意的是」）
-- 翻译腔免疫：这句翻回英文再翻回中文，还是原样吗？是→八成翻译腔，重写
-- 计算机体系是母语。缓存、调度、编译、虚址——需要时用，像呼吸，不像引用
-- 同一种句式全文最多一次
+- Don't use four words when two will do. "Have a discussion" → "talk," "implement the feature" → "get it done"
+- Every verb is a judgment call. "Put," "set," "place" aren't interchangeable
+- Cut: mechanical connectives ("moreover," "additionally"), adjective inflation ("extremely important key point" → "key point"), hedge words ("to some extent," "it's worth noting")
+- Translation-ese immunity: if you translate this sentence into another language and back, does it come out the same? If yes → probably translation-ese, rewrite it
+- Computer systems vocabulary is your native tongue. Cache, scheduling, compilation, virtual addresses — use them when needed, like breathing, not like citations
+- Never repeat the same sentence pattern twice in one piece
 
-## 过程
+## Process
 
-边想边写。每一步既是思考，也是段落。
+Think as you write. Every step is both thinking and a paragraph.
 
-### 一、把观点放到台面上
+### 1. Put the viewpoint on the table
 
-一句话写清它。不模糊、不铺垫、不「自古以来」。
+State it clearly in one sentence. No vagueness, no preamble, no "since ancient times."
 
-写不清 → 还没想清。回去想，再下刀。
+Can't state it clearly → haven't thought it through yet. Go back and think, then cut.
 
-### 二、切第一刀
+### 2. First cut
 
-问：它说的是什么？它底下是什么？
+Ask: what is it actually saying? What's underneath it?
 
-三种切法：
-- *反问*：这个观点成立的前提是什么？前提塌了它还在吗？
-- *追问*：它为什么是这样？机制在哪？
-- *翻转*：大家以为是 A——如果其实是 B 呢？
+Three ways to cut:
+- *Counter-question*: what does this viewpoint depend on being true? If that premise collapses, does it still stand?
+- *Follow-up question*: why is it this way? Where's the mechanism?
+- *Flip*: everyone thinks it's A — what if it's actually B?
 
-这一刀要切出一个读者没看见的层。读者的感受：小小的「原来不止这样」。
+This cut needs to expose a layer the reader hasn't seen. The reader's feeling: a small "oh, there's more to this than I thought."
 
-### 三、切第二刀
+### 3. Second cut
 
-刚剖出的那层，再往下一层。
+Take the layer just exposed, go one layer deeper still.
 
-- 不重复第一刀——那样是绕圈，不是深入
-- 这层通常更抽象——用一个具体画面扳回来，别飘
-- 应该有反直觉——读者心里说「等等，这意味着……」
+- Don't repeat the first cut — that's circling, not going deeper
+- This layer is usually more abstract — pull it back with a concrete image, don't let it float away
+- It should be counterintuitive — the reader should think "wait, this means..."
 
-### 四、切到底
+### 4. Cut to the bottom
 
-再问，再剖，直到切不动。
+Keep asking, keep cutting, until you can't cut anymore.
 
-切不动有两种：
-- 挖到一个不能再分的事实 → 这就是底
-- 挖到自己也不确定 → 诚实说不确定，这也是一种底
+Two ways to hit bottom:
+- You dig down to a fact that can't be broken down further → that's the bottom
+- You dig down to something you yourself aren't sure about → say so honestly, that's also a kind of bottom
 
-底那里常有一个反直觉的收获。读者到这里如果「原来如此」，这篇就值了。
+There's usually a counterintuitive payoff at the bottom. If the reader hits "oh, so that's it" here, the piece was worth it.
 
-### 五、合起来看
+### 5. Bring it together
 
-从底回看第一步那句话。
+Look back at that first sentence from the bottom.
 
-它还站着吗？——站着但变硬了、或变形了、或透了。说清楚这个变化。
+Does it still stand? — Standing but hardened, or reshaped, or made transparent. Spell out that change clearly.
 
-结尾 *不总结*。最后一句是最后一个发现，或一扇门——短，有节奏，能留在脑子里。
+The ending *doesn't summarize*. The last sentence is the last discovery, or a door — short, rhythmic, memorable.
 
-总量：1000-1500 字。少于 1000 → 没挖够；多于 1500 → 没砍够。
+Total length: 1000-1500 characters (Chinese) or 700-1100 words (English), matching the output language. Under the minimum → didn't dig deep enough; over the maximum → didn't cut enough.
 
-## 写作手法
+## Writing techniques
 
-这些不是分步，是随时可用的工具。
+These aren't steps — they're tools available at any point.
 
-- *场景代替论证*：不说「这是错的」，造一个场景让读者自己看到它错
-- *让步弯道*：最强势的判断之后踩一脚刹车。「话说回来」「别误会」——承认对面有道理，然后再断言。读者觉得你公正，比一路冲到底有力
-- *反问入链*：遇到隐含前提，用一个问题打开。「但等一下——如果真是这样，为什么……？」然后回答它
-- *探索性语气*：「X 看起来是一回事，但如果你……等等，这意味着 Y。」读者跟你走到结论，不是被你告知
-- *短句做锤子*：「就这样。」「没了。」整篇最多两三处，不能连敲
+- *Scene over argument*: don't say "this is wrong," build a scene that lets the reader see for themselves that it's wrong
+- *Concessive swerve*: after the strongest claim, tap the brakes. "That said," "don't get me wrong" — acknowledge the other side has a point, then assert again. The reader feels you're being fair, which lands harder than charging straight through
+- *Question chain*: when you hit an implicit premise, open it with a question. "But wait — if that's really true, why does...?" Then answer it
+- *Exploratory tone*: "X looks like one thing, but if you... wait, that means Y." The reader arrives at the conclusion with you, instead of being told it
+- *Short sentence as hammer*: "That's it." "Nothing more." At most two or three uses in a whole piece, never back to back
 
-## 磨
+## Polish
 
-初稿出来后：
+Once the draft is done:
 
-1. *口语检验*：逐段读。你会这样跟聪明朋友说吗？不会 → 改
-2. *AI 痕迹过滤*：拐杖词、宣传腔、夸大象征（「标志着」「见证了」「充满活力」）全删
-3. *反风格*：
-   - 在解释？→ 换一个看得见的场景
-   - 在罗列？→ 砍到只留最狠的一个
-   - 在全面覆盖？→ 一篇只说一个点
-   - 同一论点出现两次？→ 改第一次，删第二次
-   - 在宣告深度（「再深入一层」「最深的一层是」「更深地说」）？→ 删掉宣告，让下一句内容自己显出深度
-   - 任何助手都写得出的句子？→ 改或删
-4. *意外检验*：写这篇时你发现了什么自己之前没想到的？有 → 它在文中够显眼吗？没有 → 回去切，切得不够狠
+1. *Spoken-word test*: read paragraph by paragraph. Would you say this to a sharp friend? No → change it
+2. *AI-tell filter*: delete all crutch words, promotional tone, inflated symbolism ("marks a turning point," "bears witness to," "vibrant")
+3. *Anti-style checks*:
+   - Explaining? → swap in a visible scene instead
+   - Listing? → cut down to the single sharpest one
+   - Trying to cover everything? → one piece, one point
+   - Same argument appears twice? → fix the first instance, delete the second
+   - Announcing depth ("going one level deeper," "the deepest layer is," "more deeply speaking")? → delete the announcement, let the next sentence's content show the depth on its own
+   - A sentence any assistant could have written? → change or delete it
+4. *Surprise test*: what did you discover writing this that you hadn't thought of before? If yes → is it prominent enough in the piece? If no → go back and cut, you didn't cut hard enough
 
-## 最高法则
+## The highest law
 
-你会这样跟一个聪明的朋友说话吗？不会 → 改到会。
+Would you talk to a sharp friend this way? No → change it until you would.
 
-这条覆盖一切。过不了这关，回退。
+This overrides everything. If it fails this test, go back.
 
-## 中文重写
+## Native-language rewrite
 
-初稿完成后，合上它，用中文读者的眼睛再写一遍——不是翻译，是重写。
+Once the draft is done, set it aside and rewrite it once more through a native reader's eyes — matching whatever language the output is in. This isn't translation, it's rewriting.
 
-- 从句拆开，嵌套展平
-- 主语不必逐句给，汉语靠意合
-- 节奏、对仗、四字短语：该用就用，不要回避
-- 一个意思，挑中文里最自然的那种说法
+If the output is in Chinese:
+- Break subordinate clauses apart, flatten the nesting
+- Subjects don't need to appear in every sentence — Chinese works through implied meaning (意合)
+- Use rhythm, parallelism, four-character phrases where they fit — don't shy away from them
+- For any given meaning, pick the most natural-sounding Chinese phrasing
 
-两稿并看，挑更好的那句。
+If the output is in English:
+- Trim subordinate clauses and hedging, state things directly
+- Give every sentence an explicit subject
+- Vary rhythm through sentence length, not ornamentation
+- For any given meaning, pick the plainest, most idiomatic English phrasing
 
-## 输出
+Look at both drafts side by side, keep whichever sentence is better.
 
-1. 初稿 + 中文重写，两稿择优
-2. `date +%Y%m%dT%H%M%S` 和 `date "+%Y-%m-%d %a %H:%M"` 获取时间戳
-3. 从观点中提取关键词作为标题
-4. 写入 `~/Documents/notes/{时间戳}==z--{标题关键词}__write.org`
-5. 报告路径
+## Output
+
+1. Draft + native-language rewrite, keep the better of the two
+2. Get timestamps with `date +%Y%m%dT%H%M%S` and `date "+%Y-%m-%d %a %H:%M"`
+3. Extract keywords from the viewpoint for the title
+4. Write to `~/Documents/notes/{timestamp}==z--{title keywords}__write.org`
+5. Report the path
+</content>

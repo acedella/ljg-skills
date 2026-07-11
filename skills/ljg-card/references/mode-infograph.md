@@ -1,299 +1,300 @@
-# 模具：信息图（-i）
+# Mold: infograph (-i)
 
-样式为思想服务。没有"默认布局"：每张信息图的视觉形式都从内容的形状里长出来。模板只给画布材质（字体、颜色、噪点、署名），构图、排版、布局全部由你按内容从零设计。
+Style serves the idea. There's no "default layout": every infograph's visual form grows out of the shape of its content. The template only provides the canvas material (font, color, noise texture, signature) — composition, typesetting, and layout are all designed from scratch based on the content.
 
-## 步骤 1：读取模板
+## Step 1: Read the template
 
 Read `assets/infograph_template.html`
 
-模板极简，只提供：
+The template is minimal, providing only:
 
-- 字体加载（DM Serif Display + DM Sans + KingHwa_OldSong）
-- CSS 变量（`--bg`, `--green`, `--pink`, `--yellow`, `--ink`, `--ink-light`, `--white`, `--serif`, `--sans`, `--mono`）
-- SVG 噪点纹理（自动叠加）
-- `.colophon` 署名栏
-- `{{CUSTOM_CSS}}` 和 `{{CONTENT_HTML}}` 插槽
+- Font loading (DM Serif Display + DM Sans + KingHwa_OldSong)
+- CSS variables (`--bg`, `--green`, `--pink`, `--yellow`, `--ink`, `--ink-light`, `--white`, `--serif`, `--sans`, `--mono`)
+- SVG noise texture (auto-applied)
+- `.colophon` signature block
+- `{{CUSTOM_CSS}}` and `{{CONTENT_HTML}}` slots
 
-没有 header、没有 canvas、没有 utility class。所有 CSS 写在 `{{CUSTOM_CSS}}`，所有 HTML 写在 `{{CONTENT_HTML}}`。
+No header, no canvas, no utility classes. All CSS goes in `{{CUSTOM_CSS}}`, all HTML goes in `{{CONTENT_HTML}}`.
 
-## 步骤 2：理解思想
+## Step 2: Understand the idea
 
-### 2.1 提取元信息
+### 2.1 Extract metadata
 
-- 标题：≤ 15 字
-- 副标题：一句话核心 ≤ 30 字
-- 来源：内容的原始出处（作者、网站等），用于 footer 右侧（可选）
-- REF 编码：`REF—{领域} / {主题}`（写在画面哪个位置由你定）
+- Title: ≤ 15 characters
+- Subtitle: the core idea in one sentence, ≤ 30 characters
+- Source: the content's original source (author, website, etc.), for the right side of the footer (optional)
+- REF code: `REF—{domain} / {topic}` (position on the canvas is up to you)
 
-### 2.2 三个维度
+### 2.2 Three dimensions
 
-内容拿到手，先判断三件事。
+Once you have the content, first judge three things.
 
-密度，定画面的呼吸节奏：
+Density, which sets the visual breathing rhythm:
 
-| 密度 | 核心内容量 | 画面特征 |
+| Density | Core content volume | Visual characteristics |
 |------|-----------|---------|
-| 稀 | ≤ 50 字可说清 | 一个巨大元素统治画面。留白 ≥ 60%，越空越压得住。 |
-| 中 | 50-200 字 | 有结构的布局。2-3 个主要区块。留白 30-50%。 |
-| 密 | 200+ 字 | 多区块密集排布。标注、网格、分层。留白 ≤ 30%。实验室手册感。 |
+| Sparse | ≤ 50 characters can say it all | One giant element dominates the frame. Whitespace ≥ 60% — the emptier, the more commanding. |
+| Medium | 50-200 characters | A structured layout. 2-3 main blocks. Whitespace 30-50%. |
+| Dense | 200+ characters | Multiple densely packed blocks. Annotations, grids, layering. Whitespace ≤ 30%. A lab-manual feel. |
 
-结构，定画面的几何：
+Structure, which sets the frame's geometry:
 
-| 结构 | 信号 | 视觉几何 |
+| Structure | Signal | Visual geometry |
 |------|------|---------|
-| 单点 | 一个核心概念 | 一个锚点占据重心，其余退后 |
-| 对比 | A vs B、旧 vs 新 | 分裂、对立、两极 |
-| 层级 | 底层支撑上层 | 金字塔、阶梯、嵌套 |
-| 流程 | 先后顺序 | 纵向瀑布、时间轴、管道 |
-| 辐射 | 核心 + 衍生 | 中心放射、hub-spoke |
-| 并列 | 多个并行概念 | 非对称网格（禁止等分） |
+| Single point | One core concept | One anchor holds the center of gravity, everything else recedes |
+| Contrast | A vs B, old vs new | Split, opposition, two poles |
+| Hierarchy | Lower layer supports upper layer | Pyramid, staircase, nesting |
+| Process | Sequential order | Vertical waterfall, timeline, pipeline |
+| Radial | Core + derivatives | Central radiation, hub-and-spoke |
+| Parallel | Multiple parallel concepts | Asymmetric grid (equal division forbidden) |
 
-情绪，定画面的温度：
+Emotion, which sets the frame's temperature:
 
-| 情绪 | 排版风格 |
+| Emotion | Typography style |
 |------|---------|
-| 沉思的 | 大量留白，serif 主导，低对比 |
-| 锐利的 | 强对比，大字，粉色弹点 |
-| 温暖的 | 绿色为主，圆润布局，手写感 |
-| 技术的 | mono 标注，网格底纹，数据密集 |
+| Contemplative | Heavy whitespace, serif-dominant, low contrast |
+| Sharp | Strong contrast, big text, pink accent pops |
+| Warm | Green-dominant, rounded layout, handwritten feel |
+| Technical | Mono annotations, grid texture underlay, data-dense |
 
-### 2.3 输出判断
+### 2.3 Output your judgment
 
 ```
-密度：[稀/中/密]
-结构：[单点/对比/层级/流程/辐射/并列]
-情绪：[沉思/锐利/温暖/技术]
-色调：[沉思/锐利/温暖/技术/科研/创意/商业/默认]
-锚点：[画面中最大的那个元素是什么？放在哪里？]
+Density: [sparse/medium/dense]
+Structure: [single point/contrast/hierarchy/process/radial/parallel]
+Emotion: [contemplative/sharp/warm/technical]
+Tone: [contemplative/sharp/warm/technical/scientific/creative/business/default]
+Anchor: [what is the single largest element in the frame? where does it sit?]
 ```
 
-### 2.4 色调选择
+### 2.4 Choosing a tone
 
-按内容主题选最贴的色调。色调定三个核心变量，在 `{{CUSTOM_CSS}}` 里覆盖模板默认值。
+Pick the tone that best fits the content's theme. The tone determines three core variables, overridden in `{{CUSTOM_CSS}}` against the template defaults.
 
-| 色调 | `--bg` | `--green`（结构色） | `--pink`（弹点色） | 触发信号 |
+| Tone | `--bg` | `--green` (structure color) | `--pink` (accent color) | Trigger signal |
 |------|--------|-------------------|-------------------|----------|
-| 沉思 | `#F5F2ED` | `#C4B5A0` | `#8B5E3C` | 哲学、认知、本质、意义、存在 |
-| 锐利 | `#EDEDF0` | `#6E6E80` | `#D93025` | 批判、解构、争议、对立、辩论 |
-| 温暖 | `#F7F4EF` | `#C8B898` | `#C17F4E` | 人文、情感、生活、故事、成长 |
-| 技术 | `#F0F3F7` | `#8EAAB8` | `#1A936F` | 架构、系统、算法、代码、工程 |
-| 科研 | `#F2F6F4` | `#7DAE96` | `#D68C45` | 论文、实验、数据、研究、发现 |
-| 创意 | `#F6F3F2` | `#C0A89C` | `#B8432F` | 艺术、设计、创作、美学、灵感 |
-| 商业 | `#F4F3F0` | `#A8A498` | `#2D6A4F` | 商业、金融、市场、投资、战略 |
-| 默认 | `#F2F2F2` | `#B8D8BE` | `#E91E63` | 无法归类时 |
+| Contemplative | `#F5F2ED` | `#C4B5A0` | `#8B5E3C` | Philosophy, cognition, essence, meaning, existence |
+| Sharp | `#EDEDF0` | `#6E6E80` | `#D93025` | Critique, deconstruction, controversy, opposition, debate |
+| Warm | `#F7F4EF` | `#C8B898` | `#C17F4E` | Humanities, emotion, life, story, growth |
+| Technical | `#F0F3F7` | `#8EAAB8` | `#1A936F` | Architecture, systems, algorithms, code, engineering |
+| Scientific | `#F2F6F4` | `#7DAE96` | `#D68C45` | Papers, experiments, data, research, discovery |
+| Creative | `#F6F3F2` | `#C0A89C` | `#B8432F` | Art, design, creation, aesthetics, inspiration |
+| Business | `#F4F3F0` | `#A8A498` | `#2D6A4F` | Business, finance, markets, investment, strategy |
+| Default | `#F2F2F2` | `#B8D8BE` | `#E91E63` | When nothing else fits |
 
-密度修正（在基准色上微调）：
+Density adjustment (fine-tune on top of the base color):
 
-- 稀：弹点色可提 10-15% 饱和度。画面空旷，弹点要有存在感
-- 中：用基准值
-- 密：结构色降 10-15% 饱和度，免得密集排版看着累
+- Sparse: the accent color can go up 10-15% in saturation. The frame is empty, so the accent needs presence
+- Medium: use the base value
+- Dense: drop the structure color 10-15% in saturation, so dense layouts don't feel exhausting
 
-选择原则：
+Selection principle:
 
-- 扫内容高频关键词和主题，挑最贴的色调
-- 情绪和色调可以错开：沉思的情绪配技术的色调，没问题
-- 拿不准就用默认，配错了比不配还糟
-- 色调一旦选定，整张图统一
+- Scan the content for high-frequency keywords and themes, pick the best-matching tone
+- Emotion and tone can diverge: a contemplative emotion with a technical tone is fine
+- When unsure, use the default — a wrong-fit tone is worse than none
+- Once a tone is chosen, keep it consistent across the whole image
 
-## 步骤 3：设计画面
+## Step 3: Design the visuals
 
-### 3.1 材质系统
+### 3.1 Material system
 
-字体与墨色（所有色调共用）：
+Fonts and ink color (shared across all tones):
 
-| 变量 | 值 | 用途 |
+| Variable | Value | Use |
 |------|------|------|
-| `--serif` | DM Serif Display → KingHwa_OldSong | 标题、大字、金句 |
-| `--sans` | DM Sans → KingHwa_OldSong | 正文、标签 |
-| `--mono` | SF Mono | 数据标注、REF 编码 |
-| `--ink` | `#2D2926` | 主文字色 |
-| `--ink-light` | `#5C5350` | 次要文字 |
+| `--serif` | DM Serif Display → KingHwa_OldSong | Titles, big text, memorable lines |
+| `--sans` | DM Sans → KingHwa_OldSong | Body text, labels |
+| `--mono` | SF Mono | Data annotations, REF codes |
+| `--ink` | `#2D2926` | Main text color |
+| `--ink-light` | `#5C5350` | Secondary text |
 
-动态色调（由步骤 2.4 决定）：
+Dynamic tone (determined by step 2.4):
 
-| 变量 | 角色 | 90/8/2 |
+| Variable | Role | 90/8/2 |
 |------|------|--------|
-| `--bg` | 画布底色 | 90% 中性面 |
-| `--green` | 结构色——色块、边框、分区 | 8% 结构 |
-| `--pink` | 弹点——整张图 1-2 处精确命中 | 2% 强调 |
+| `--bg` | Canvas background | 90% neutral surface |
+| `--green` | Structure color — blocks, borders, sections | 8% structure |
+| `--pink` | Accent — 1-2 precise hits across the whole image | 2% emphasis |
 
-覆盖方法，在 `{{CUSTOM_CSS}}` 最前面写：
+Override method: at the very top of `{{CUSTOM_CSS}}`, write:
 
 ```css
 :root {
-  --bg: #F0F3F7;     /* 步骤 2.4 选定值 */
+  --bg: #F0F3F7;     /* value chosen in step 2.4 */
   --green: #8EAAB8;
   --pink: #1A936F;
 }
 ```
 
-### 3.2 设计自由度
+### 3.2 Design freedom
 
-下面这些没有默认值，全看内容定。
+The following have no default value — they're determined entirely by the content.
 
-锚点位置。标题/核心元素可以在：
+Anchor position. The title/core element can be:
 
-- 左上（传统）
-- 正中（碑刻感）
-- 右侧纵排（东亚美学）
-- 底部（悬念揭示）
-- 作为背景幽灵字（地形）
+- Top-left (traditional)
+- Dead center (stone-inscription feel)
+- Right side, vertical (East Asian aesthetic)
+- Bottom (suspenseful reveal)
+- A ghosted background text (like terrain)
 
-画面分割。可以是：
+Frame division. Can be:
 
-- 全画面不分割（稀密度）
-- 横向分割（上下两个世界）
-- 纵向分割（左右对比）
-- 不规则分割（clip-path 斜切）
-- 网格（密度=密时的实验室感）
+- No division at all, full-frame (sparse density)
+- Horizontal split (upper and lower worlds)
+- Vertical split (left-right contrast)
+- Irregular split (clip-path diagonal cut)
+- Grid (lab-manual feel when density = dense)
 
-文字大小。为手机端阅读优化（1080px 画布在手机上缩约 2.8 倍）：
+Text size. Optimized for mobile reading (a 1080px canvas shrinks ~2.8x on a phone):
 
-- 最大元素和最小元素的比例 ≥ 10:1
-- 可以用到 400px 的字（它不再是"文字"，是"地形"）
-- 最小可读标注不低于 24px（手机上约 8.7px）
-- 正文不低于 40px（手机上约 14.4px）
-- 装饰性文字（REF 编码等不需细读的）最小 22px
+- Ratio of largest to smallest element ≥ 10:1
+- Text can go up to 400px (at that point it's no longer "text," it's "terrain")
+- Minimum readable annotation no smaller than 24px (~8.7px on a phone)
+- Body text no smaller than 40px (~14.4px on a phone)
+- Decorative text (REF codes etc. that don't need close reading) minimum 22px
 
-色彩。90/8/2 法则（色值来自步骤 2.4）：
+Color. The 90/8/2 rule (color values from step 2.4):
 
-- 90% 中性色（`--bg` + `--white` + `--ink` 文字）
-- 8% 结构色（`--green` 一个区块）
-- 2% 弹点（`--pink` 一处精确命中）
+- 90% neutral (`--bg` + `--white` + `--ink` text)
+- 8% structure color (`--green`, one block)
+- 2% accent (`--pink`, one precise hit)
 
-### 3.3 密度指导
+### 3.3 Density guidance
 
-#### 稀（≤ 50 字）
+#### Sparse (≤ 50 characters)
 
-画面上一个元素压倒一切。可能是：
+One element dominates the frame entirely. It could be:
 
-- 一个 300-420px 的汉字/单词
-- 一行金句横跨全宽
-- 一个公式，周围是沉默
+- A single 300-420px character/word
+- One memorable line spanning the full width
+- One formula, surrounded by silence
 
-其余信息（词源、解释）以 24-28px 安静待在角落或底部，不争注意力。
+Other information (etymology, explanation) sits quietly at 24-28px in a corner or at the bottom, not competing for attention.
 
-参考构图：
-
-```
-┌─────────────────────────┐
-│ ref-code        22px    │
-│                         │
-│                         │
-│        坐              │
-│      400px serif        │
-│                         │
-│  subtitle   36px        │
-│                         │
-│  ─── quote ───          │
-│  44px serif             │
-│                         │
-│ [colophon]              │
-└─────────────────────────┘
-```
-
-#### 中（50-200 字）
-
-2-3 个区块，有主有次。锚点元素 120-180px，正文 40-44px，副标题 34-40px。
-
-区块别均匀排。一个大的占 60%，其余挤在一起；或者一个全宽条带打断节奏。
-
-参考构图（只供启发，不是固定模板）：
+Reference composition:
 
 ```
-┌─────────────────────────┐
-│ 标题 140px              │
-│ subtitle 36px           │
-├───────────┬─────────────│
-│           │             │
-│  核心解释  │  词源/数据  │
-│  40px     │  32px       │
-│  2fr      │  1fr        │
-│           │             │
-├───────────┴─────────────│
-│ ██████ 深色全宽条带 ██████│
-│ 核心公式 / 一句话 44px   │
-├─────────────────────────│
-│                         │
-│ 金句 48px serif         │
-│                         │
-│ [colophon]              │
-└─────────────────────────┘
++-------------------------+
+| ref-code        22px    |
+|                         |
+|                         |
+|      SEATED              |
+|      400px serif        |
+|                         |
+|  subtitle   36px        |
+|                         |
+|  --- quote ---          |
+|  44px serif             |
+|                         |
+| [colophon]              |
++-------------------------+
 ```
 
-#### 密（200+ 字）
+#### Medium (50-200 characters)
 
-画面密集但有序。多个小区块，标注层、网格线可见，实验室手册感。
+2-3 blocks, with a primary and secondaries. Anchor element 120-180px, body 40-44px, subtitle 34-40px.
 
-密不等于挤。密是信息多但每条各就各位。用线条、编号、色块分层级。正文 36-40px，标注 28-32px，标题 80-108px。
+Don't arrange blocks evenly. Let one big one take 60%, cram the rest together; or let one full-width band break the rhythm.
 
-参考构图：
+Reference composition (for inspiration only, not a fixed template):
 
 ```
-┌──────────┬──────────────┐
-│ 标题 84px│ ref-code 22px│
-│ sub 34px │ ×数据   28px │
-├──────────┴──────────────│
-│ ┌────┐ ┌────┐ ┌──────┐ │
-│ │ 01 │ │ 02 │ │      │ │
-│ │概念 │ │概念 │ │  03  │ │
-│ │36px│ │36px│ │ 大概念 │ │
-│ └────┘ └────┘ │ 40px │ │
-│               └──────┘ │
-├─────────────────────────│
-│ 标注区 · 28px mono      │
-│ 引用 · 数据来源 · 28px  │
-│ [colophon]              │
-└─────────────────────────┘
++-------------------------+
+| title 140px              |
+| subtitle 36px           |
++-----------+-------------+
+|           |             |
+| core       | etymology/  |
+| explanation| data        |
+| 40px       | 32px        |
+| 2fr        | 1fr         |
+|           |             |
++-----------+-------------+
+| ###### dark full-width band ######|
+| core formula / one sentence 44px |
++-------------------------+
+|                         |
+| memorable line 48px serif|
+|                         |
+| [colophon]              |
++-------------------------+
 ```
 
-### 3.4 拦截清单
+#### Dense (200+ characters)
 
-发现自己在做左边这些，停下：
+Dense but ordered frame. Multiple small blocks, visible annotation layers and grid lines, a lab-manual feel.
 
-| 如果你发现自己在做这个... | 停下来 |
+Dense doesn't mean crowded. Dense means a lot of information, each piece in its place. Use lines, numbering, and color blocks to layer the hierarchy. Body 36-40px, annotations 28-32px, title 80-108px.
+
+Reference composition:
+
+```
++----------+--------------+
+| title 84px| ref-code 22px|
+| sub 34px | x data  28px |
++----------+--------------+
+| +----+ +----+ +------+ |
+| | 01 | | 02 | |      | |
+| |concept| |concept| |  03  | |
+| |36px| |36px| | big concept | |
+| +----+ +----+ | 40px | |
+|               +------+ |
++-------------------------+
+| annotation zone - 28px mono |
+| citation - data source - 28px |
+| [colophon]              |
++-------------------------+
+```
+
+### 3.4 Things to catch yourself doing
+
+If you notice yourself doing any of these, stop:
+
+| If you catch yourself doing this... | Stop |
 |------------------------|-------|
-| 写了 `.header { padding: 56px }` | 你在用旧模板思维。从内容开始，不是从 header 开始。 |
-| 每个区块都是白色背景 | 至少一个用 `--green` 或 `--ink` |
-| 三列等宽 | 禁止。`2fr 1fr`、`1fr 340px`、一大两小。 |
-| 标题居中 | 除非密度=稀且结构=单点。否则左对齐或非传统位置。 |
-| 每张图都有"公式条带" | 这不是必须的。有些思想没有公式。 |
-| 弹点色用了 3 处以上 | 回到 2 处。 |
-| 没有一个元素超过 100px | 找到值得放大的那个。 |
-| 所有文字都在 30-44px | 张力没拉开。最大最小要差到 10:1。 |
-| 正文字号小于 36px | 手机上会不可读。最小正文 36px，最小标注 24px。 |
-| 区块之间间距都一样 | 有意识地做疏密交替。 |
-| 用 `max-width` 压短了本该一行放下的文字 | 画布 1080px。一句话能放一行就放一行。只在正文段落用 `max-width` 控制行宽（≤ 56ch），标题和金句不限宽——让它自然伸展到该停的地方。 |
+| Writing `.header { padding: 56px }` | You're thinking in old-template terms. Start from the content, not from a header. |
+| Every block has a white background | At least one should use `--green` or `--ink` |
+| Three equal columns | Forbidden. Use `2fr 1fr`, `1fr 340px`, one big two small. |
+| Centered title | Unless density=sparse and structure=single point. Otherwise left-align or use an untraditional position. |
+| Every image has a "formula band" | It's not required. Some ideas don't have a formula. |
+| Accent color used in 3+ places | Pull back to 2. |
+| Not a single element over 100px | Find the one worth blowing up. |
+| All text sits between 30-44px | The tension isn't stretched enough. Largest and smallest should differ by 10:1. |
+| Body text under 36px | Unreadable on mobile. Minimum body 36px, minimum annotation 24px. |
+| Equal spacing between every block | Deliberately alternate dense and sparse. |
+| Using `max-width` to squeeze text that should fit on one line | Canvas is 1080px. If a sentence fits on one line, let it. Only use `max-width` to control line width (≤ 56ch) for body paragraphs; don't constrain titles and memorable lines — let them stretch out naturally to where they should stop. |
 
-## 步骤 4：写 CSS + HTML
+## Step 4: Write the CSS + HTML
 
-所有 CSS 写入 `{{CUSTOM_CSS}}`，所有 HTML 写入 `{{CONTENT_HTML}}`。
+Write all CSS into `{{CUSTOM_CSS}}`, all HTML into `{{CONTENT_HTML}}`.
 
-CSS 从零写，别复制之前任何版本的 class 名或结构。每张图的 class 名反映这张图的内容（`.etymology`、`.core-split`、`.timeline`），不用通用名（`.section`、`.panel`、`.label`）。
+Write the CSS from scratch — don't copy class names or structure from any previous version. Each image's class names should reflect that image's content (`.etymology`, `.core-split`, `.timeline`), not generic names (`.section`, `.panel`, `.label`).
 
-替换变量：
+Variable substitution:
 
-| 变量 | 内容 |
+| Variable | Content |
 |------|------|
-| `{{CUSTOM_CSS}}` | 这张图的全部 CSS |
-| `{{CONTENT_HTML}}` | 这张图的全部 HTML |
-| `{{SOURCE_LINE}}` | 内容来源（可选）：`<span class="info-source">来源文字</span>`，无来源时空字符串 |
+| `{{CUSTOM_CSS}}` | All CSS for this image |
+| `{{CONTENT_HTML}}` | All HTML for this image |
+| `{{SOURCE_LINE}}` | Content source (optional): `<span class="info-source">source text</span>`, empty string if no source |
 
-写入：`/tmp/ljg_cast_infograph_{name}.html`
+Write to: `/tmp/ljg_cast_infograph_{name}.html`
 
-## 步骤 5：自检
+## Step 5: Self-check
 
-- [ ] 这张图的视觉形式，是从内容的形状里长出来的吗？
-- [ ] 换一段完全不同的内容，这个布局还说得通吗？说得通——你做的是模板，不是设计。
-- [ ] 最大元素和最小元素的比例 ≥ 10:1？
-- [ ] 弹点色 ≤ 2 处？
-- [ ] 色调和内容主题匹配？换个主题这组颜色还合适吗？
-- [ ] 有没有哪个元素第一眼就抓住人？
-- [ ] 留白是有意为之，还是剩下来的？
-- [ ] 告诉别人"这是 AI 做的"，他们会立刻信吗？会——重做。
-- [ ] 手机端检查：正文 ≥36px？标注 ≥24px？行高 ≥1.6？缩 2.8 倍后还能舒服读？
+- [ ] Did this image's visual form grow out of the shape of the content?
+- [ ] If you swapped in completely different content, would this layout still make sense? It should — you're making a template, not a design.
+- [ ] Ratio of largest to smallest element ≥ 10:1?
+- [ ] Accent color used ≤ 2 places?
+- [ ] Does the tone match the content's theme? Would this color set still fit if the theme changed?
+- [ ] Is there one element that grabs attention at first glance?
+- [ ] Is the whitespace intentional, or just leftover?
+- [ ] If you told someone "this was made by AI," would they believe it instantly? If yes — redo it.
+- [ ] Mobile check: body ≥36px? annotations ≥24px? line height ≥1.6? still comfortable to read after shrinking 2.8x?
 
-## 步骤 6：截图
+## Step 6: Screenshot
 
 ```bash
 node assets/capture.js /tmp/ljg_cast_infograph_{name}.html ~/Downloads/{name}.png 1080 800 fullpage

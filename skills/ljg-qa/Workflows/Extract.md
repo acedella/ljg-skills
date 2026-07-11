@@ -1,6 +1,6 @@
 # Extract Workflow
 
-把一份信息抽成 Q-A 链。
+Extract a piece of information into a Q-A chain.
 
 ## Voice Notification
 
@@ -11,184 +11,185 @@ curl -s -X POST http://localhost:31337/notify \
   > /dev/null 2>&1 &
 ```
 
-输出文本：`Running **Extract** in **ljg-qa**...`
+Output text: `Running **Extract** in **ljg-qa**...`
 
-## Step 1: 获取内容
+## Step 1: Retrieve the Content
 
-按输入类型走：
+Follow by input type:
 
-| 输入 | 工具 | 注意 |
+| Input | Tool | Note |
 |------|------|------|
-| URL（普通网页） | WebFetch | 需要登录的页面用 markdown-proxy |
-| arxiv 链接 | WebFetch（HTML 版） | 拿 abstract + 方法 + 实验段 |
-| PDF / 本地文件 | Read | 大 PDF 用 pages 参数分段读 |
-| 直接文本 | 跳过 | 直接进入 Step 2 |
-| 论文/书名 | WebSearch | 拿到 URL 再走 WebFetch |
+| URL (regular webpage) | WebFetch | Pages requiring login go through markdown-proxy |
+| arxiv link | WebFetch (HTML version) | Get the abstract + method + experiment sections |
+| PDF / local file | Read | For large PDFs, use the pages parameter to read in chunks |
+| Raw text | Skip | Go straight to Step 2 |
+| Paper/book title | WebSearch | Get the URL, then use WebFetch |
 
-确保拿到：核心论点 / 论证链 / 关键例子 / 边界讨论。
+Make sure you've captured: the core thesis / chain of argument / key examples / boundary discussion.
 
-## Step 2: 找观点骨架
+## Step 2: Find the Idea Skeleton
 
-读完后沉默 30 秒，回答这一个问题：
+After reading, sit silently for 30 seconds and answer this one question:
 
-> 这篇东西的核心论点是什么？它怎么把这个论点撑起来？哪几步是关键转折？
+> What is this piece's core thesis? How does it hold that thesis up? Which few steps are the key turning points?
 
-写下：
+Write down:
 
-- *核心论点*：一句话
-- *3-5 个关键转折*：每个转折一句话
+- *Core thesis*: one sentence
+- *3-5 key turning points*: one sentence each
 
-这是 Q 链的脊柱。脊柱立不起来，下面的 Q 都是浮的——回去重读。
+This is the spine of the Q chain. If the spine can't stand, everything below it is floating — go back and reread.
 
-## Step 3: 设计 Q 链
+## Step 3: Design the Q Chain
 
-每个关键转折长出一个或一组 Q。Q 必须满足：
+Every key turning point grows one Q or a group of Q's. Each Q must satisfy:
 
-1. 一句定义答不出来——切要害
-2. 答案能在原材料里找到根据
-3. 跟前一个 Q 有继承关系（Q2 是 Q1 答完后自然冒出来的）
+1. Can't be answered with one definition — cuts to the crux
+2. The answer can be grounded in the source material
+3. Has an inheritance relationship with the previous Q (Q2 naturally arises once Q1 is answered)
 
-Q 类型四类（动 / 对 / 因 / 界）和模式见 `../References/QuestionDesign.md`。一篇好 Q 链至少混合三类。
+For the four Q types (action / contrast / causation / boundary) and their patterns, see `../References/QuestionDesign.md`. A good Q chain mixes at least three types.
 
-*排序规则*：按论证依赖关系，不按章节顺序。原文先写背景再写方法是叙事需要，但 Q 链应该按「先问根问题，再问解法，再问代价」走。
+*Ordering rule*: order by argumentative dependency, not by chapter order. The original may write background before method for narrative reasons, but the Q chain should go "root question first, then the solution, then the cost."
 
-*数量*：5-10 个 Q。少则不够覆盖，多则读者疲劳。
+*Quantity*: 5-10 Q's. Fewer means incomplete coverage; more tires out the reader.
 
-## Step 4: 写 A
+## Step 4: Write the A's
 
-每个 A 严格四段，不可省，不可乱：
+Every A is strictly four parts, none skippable, none reordered:
 
 ```
-*结论*：（一句话——能脱离上下文被抄走）
+*Conclusion*: (one sentence — quotable out of context)
 
-*形式化*：（用文字 + 简单符号把思想压成一行可视关系——见下方"形式化的写法"）
+*Formalization*: (compress the idea into one visualizable line using words + simple symbols — see "How to Write a Formalization" below)
 
-*怎么想到的*：
-- 步骤 1（短句，只走一步推理）
-- 步骤 2
-- 步骤 3
+*How you got there*:
+- Step 1 (short sentence, exactly one reasoning step)
+- Step 2
+- Step 3
 
-*边界*：（这个结论在什么条件下不成立 / 论证还没覆盖什么）
+*Boundary*: (under what conditions this conclusion doesn't hold / what the argument hasn't covered)
 ```
 
-硬要求：
+Hard requirements:
 
-- *结论*：脱离上下文还能被抄走。读者把这句话发给朋友，朋友能 get
-- *形式化*：用文字 + 简单符号（→ = ≠ + × ⊃ ⊥ 等）把思想压成一行可视的关系——是"思想的几何"，不是"数学的公式"。让读者一眼看出对应关系。详见 `../References/QuestionDesign.md` 的"形式化的写法"
-- *论证步*：每条只走一步推理，前一步打开后一步的口子
-- *边界*：写「不成立的条件」，不写「未来工作」——前者是诚实度，后者是公关辞令
+- *Conclusion*: quotable out of context. If the reader sends this sentence to a friend, the friend gets it
+- *Formalization*: compress the idea into one visualizable line using words + simple symbols (→ = ≠ + × ⊃ ⊥ etc.) — it's "the geometry of ideas," not "the formalism of math." Let the reader see the correspondence at a glance. Details in the "How to Write a Formalization" section of `../References/QuestionDesign.md`
+- *Reasoning steps*: each one takes exactly one step of reasoning; the previous step opens the door to the next
+- *Boundary*: write "conditions under which it doesn't hold," not "future work" — the former is honesty, the latter is PR-speak
 
-### 形式化的写法（要点）
+### How to Write a Formalization (key points)
 
-四种常见模式：
+Four common patterns:
 
-- *等式*：`通才 = 协调员；专才 = 干活的`
-- *对比*：`旧: 大模型 = 全栈；新: 大模型 = 协调员`
-- *流向*：`数据 → token → 答案 = 损失 + 浪费`
-- *递进*：`调用 → 接口 → 双语热线`
+- *Equation*: `generalist = coordinator; specialist = the one doing the work`
+- *Contrast*: `old: big model = does everything; new: big model = coordinator`
+- *Flow*: `data → tokens → answer = loss + waste`
+- *Escalation*: `call → interface → bilingual hotline`
 
-只用 ASCII + 中文。禁 LaTeX、禁复杂数学符号。一行内放完。
+ASCII + natural language only. No LaTeX, no complex math symbols. Fit it on one line.
 
-## Step 5: 检查 Q 链方向感
+## Step 5: Check the Q Chain's Sense of Direction
 
-通读 Q 顺序：
+Read through the Q order:
 
-- *继承*：Q1 答完，Q2 是不是自然冒出来？
-- *依赖*：把 Q3 删了，Q4 还成立吗？
+- *Inheritance*: once Q1 is answered, does Q2 arise naturally?
+- *Dependency*: if you delete Q3, does Q4 still hold?
 
-如果 Q 之间是平行的（删一个不影响其他），重排或合并。Q 链是路径，不是清单。
+If the Q's are parallel (deleting one doesn't affect the others), reorder or merge them. The Q chain is a path, not a checklist.
 
-可以画一张草图（不入 org，只是自己的脚手架）：
+You can sketch it out (not to go in the org file, just your own scaffolding):
 
 ```
 Q1 ─┬─→ Q2
     └─→ Q3
 Q2 ──→ Q4
-Q4 ──→ Q5（收口反问）
+Q4 ──→ Q5 (closing counter-question)
 ```
 
-## Step 6: 过红线
+## Step 6: Cross the Red Lines
 
-逐条扫：
+Sweep through, one by one:
 
-- [ ] 每个 Q 不能用一句定义打发
-- [ ] 每个 A 四段齐（结论 / 形式化 / 步骤 / 边界）
-- [ ] 形式化句一眼能看出关系——不是数学公式，不是堆术语
-- [ ] Q 链有方向（不是并列罗列）
-- [ ] 没有「什么是 X」型 Q
-- [ ] Q 句 ≤ 20 字（一眼能扫完）
-- [ ] 没有学术腔（「值得注意的是」「综上所述」「在……背景下」）
-- [ ] A 没有靠堆术语保平安——所有术语翻译成具体动作或物件
-- [ ] 5-10 个 Q
+- [ ] No Q can be waved away with one definition
+- [ ] Every A has all four parts (conclusion / formalization / steps / boundary)
+- [ ] The formalization sentence shows the relationship at a glance — not a math formula, not a pile of jargon
+- [ ] The Q chain has direction (not a parallel list)
+- [ ] No "what is X"-type Q's
+- [ ] Q sentences ≤ 20 words (scannable in one glance)
+- [ ] No academic tone ("it's worth noting that," "in summary," "in the context of...")
+- [ ] A doesn't play it safe by stacking jargon — all jargon is translated into concrete actions or objects
+- [ ] 5-10 Q's
 
-任何一条不过，回去改。
+Fail any of these, go back and fix it.
 
-## Step 7: 写文件
+## Step 7: Write the File
 
-获取时间戳：
+Get the timestamp:
 
 ```bash
 date +%Y%m%dT%H%M%S         # → identifier
-date "+%Y-%m-%d %a %H:%M"   # → date 字段
+date "+%Y-%m-%d %a %H:%M"   # → date field
 ```
 
-denote schema 文件名：`{YYYYMMDDTHHMMSS}--qa-{主题}__qa.org`
+denote schema filename: `{YYYYMMDDTHHMMSS}--qa-{topic}__qa.org`
 
-- `qa-` 前缀：标记 Q-A 类型（与 ljg-paper 的 `paper-` 同构）
-- 主题：核心论点的 5-10 字提炼，去标点。优先用方法名/概念名/灵魂句关键字
-- `__qa` 后缀：keyword tag，便于 denote 搜索
+- `qa-` prefix: marks the Q-A type (parallel structure to ljg-paper's `paper-` prefix)
+- topic: a 5-10 word distillation of the core thesis, punctuation stripped. Prefer the method name / concept name / a key phrase from the source
+- `__qa` suffix: keyword tag, for denote search
 
-输出路径：`~/Documents/notes/`
+Output path: `~/Documents/notes/`
 
-写入后报告路径给用户。
+After writing, report the path to the user.
 
-## 文件结构
+## File Structure
 
 ```org
-#+title:      {一句精炼的核心观点——10-25 字}
-#+subtitle:   {原文标题}
+#+title:      {one refined sentence of the core idea — 10-25 words}
+#+subtitle:   {original title}
 #+date:       [{YYYY-MM-DD Day HH:MM}]
 #+filetags:   :qa:
 #+identifier: {YYYYMMDDTHHMMSS}
-#+source:     {URL 或来源}
+#+source:     {URL or source}
 
-* 引子
+* Lead-in
 
-（一段话，3-5 句：这篇东西在讲什么，为什么值得拿出来问。带读者落地，不是综述）
+(One paragraph, 3-5 sentences: what this piece is about, why it's worth pulling apart. Ground the reader, don't summarize.)
 
-* Q1: {一句尖锐的问句，≤ 20 字}
+* Q1: {one sharp question, ≤ 20 words}
 
-  *结论*：...
+  *Conclusion*: ...
 
-  *形式化*：...（如 `A = B + C` / `旧: X → 新: Y`）
+  *Formalization*: ... (e.g. `A = B + C` / `old: X → new: Y`)
 
-  *怎么想到的*：
+  *How you got there*:
   - ...
   - ...
   - ...
 
-  *边界*：...
+  *Boundary*: ...
 
 * Q2: ...
 
   ...
 
-* 收口
+* Closing
 
-（一句话压住整串 Q-A：作者真正贡献的那个东西是什么。不是总结，是命名）
+(One sentence that pins down the whole Q-A chain: what is the thing the author actually contributed. Not a summary — a naming.)
 ```
 
-注意：
+Note:
 
-- 加粗用 `*bold*`（org-mode），不用 `**bold**`（markdown）
-- 列表用 `- item`，不用 `* item`（`*` 在 org 是标题）
-- 分隔用空行或层级，不用 `---`
-- 代码用 `~code~` 或 `=code=`，不用反引号
+- Bold uses `*bold*` (org-mode), not `**bold**` (markdown)
+- Lists use `- item`, not `* item` (`*` is a heading in org)
+- Separate with blank lines or heading levels, not `---`
+- Code uses `~code~` or `=code=`, not backticks
 
-## 验收
+## Acceptance Criteria
 
-- *Q 切要害*：每个 Q 不能用一句定义打发
-- *A 有形式化收口*：每个 A 四段齐——结论句能被抄走，形式化一眼看出关系
-- *Q 链有方向*：删一个 Q 后续会塌
-- *不复述原文*：是骨架重建，不是段落改写
-- *中文母语*：每句默念听是否像中文人说话——动词驱动、不堆术语、不学术腔
+- *Q cuts to the crux*: no Q can be waved away with one definition
+- *A closes off with a formalization*: every A has all four parts — the conclusion sentence is quotable, the formalization shows the relationship at a glance
+- *Q chain has direction*: deleting one Q collapses what follows
+- *Doesn't restate the original*: it's a skeleton rebuild, not a paraphrase
+- *Native-language phrasing*: read every sentence silently and check whether it sounds like a native speaker — driven by verbs, no jargon-stacking, no academic tone
+</content>

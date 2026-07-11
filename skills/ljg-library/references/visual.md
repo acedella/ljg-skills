@@ -1,67 +1,67 @@
-# 视觉规格
+# Visual spec
 
-生成 HTML 前过一遍。卡 = 浅色光学玻璃卡身（规格写死在 template，不动）+ 一块嵌入的 AI 生成插画（图解板）。
+Go through this before generating the HTML. Card = light optical-glass card body (spec hardcoded in the template, don't touch) + one embedded AI-generated illustration (the illustration panel).
 
-## 玻璃卡身（继刚定的精确值，勿动）
+## Glass card body (Jigang's exact values, don't touch)
 
-| 角色 | 值 |
+| Role | Value |
 |------|-----|
-| 背景渐变 | `#eef1f7 → #e6ebf3 → #e3e8f2` 冷调雾白 |
-| 玻璃卡面 | `rgba(255,255,255,0.55)` + `backdrop-filter:blur(40px) saturate(1.3)` |
-| 高光边 | `1px solid rgba(255,255,255,0.85)` |
-| 柔投影 | `0 8px 32px rgba(31,41,72,0.12)` + `0 40px 80px -32px …`（悬空感） |
-| 正文 | `#1a1f2e` |
-| 次要 | `#5b6472` 中性灰蓝 |
+| Background gradient | `#eef1f7 → #e6ebf3 → #e3e8f2` cool misty white |
+| Glass card surface | `rgba(255,255,255,0.55)` + `backdrop-filter:blur(40px) saturate(1.3)` |
+| Highlight edge | `1px solid rgba(255,255,255,0.85)` |
+| Soft shadow | `0 8px 32px rgba(31,41,72,0.12)` + `0 40px 80px -32px …` (floating feel) |
+| Body text | `#1a1f2e` |
+| Secondary | `#5b6472` neutral blue-gray |
 
-三层明度浮起：雾白底、玻璃面、文字。卡身整体保持浅色；图解板里的生成图自带暖调背景，是卡上唯一的重色块，浅暖对比是设计意图。
+Three layers of brightness floating up: misty-white base, glass surface, text. The card body overall stays light-colored; the generated image in the illustration panel comes with its own warm-toned background, the only heavy block of color on the card — the light/warm contrast is intentional design.
 
-## 强调色
+## Accent color
 
-`python3 assets/extract_color.py <封面>` 提主色填 `{{ACCENT}}`，用在标签、英文行、`<span class="hl">` 关键词高亮、署名印四处。换书自动换色。米灰封面和亮色封面的处置、以及卡身色和图解板配色互不干扰的原则，见 SKILL.md 强调色一节。
+`python3 assets/extract_color.py <cover>` extracts the dominant color to fill `{{ACCENT}}`, used in four places: tags, English line, `<span class="hl">` keyword highlights, signature stamp. Change the book, the color changes automatically. For how to handle beige/gray covers and bright covers, and the principle that the card-body color and the illustration-panel palette don't interfere with each other, see the accent-color section in SKILL.md.
 
-## 字体
+## Fonts
 
-| 用途 | 字体 |
+| Purpose | Font |
 |------|------|
-| 取景框主句 / 费曼讲解 / 书名 / 副标 | Noto Serif SC（书卷气） |
-| 标签 / EN / block-label | JetBrains Mono |
-| 作者名 | Noto Sans SC |
+| Viewfinder main sentence / Feynman explanation / book title / subtitle | Noto Serif SC (literary feel) |
+| Tags / EN / block-label | JetBrains Mono |
+| Author name | Noto Sans SC |
 
-图解里的文字是生成图自带的场景内手写字，不归 CSS 管。
+The text in the illustration is handwritten text that comes with the generated scene, not managed by CSS.
 
-## 结构
+## Structure
 
 ```
-身份区：封面(198×287) | 书名+英文+副标+标签+作者头像
+Identity area: cover(198×287) | title+English+subtitle+tags+author avatar
 ─────
-取景框 block：标签 + 主句 {{FRAME}} + 费曼讲解 {{EXP}}（justify）
+Viewfinder block: label + main sentence {{FRAME}} + Feynman explanation {{EXP}} (justified)
 ─────
-图解 block：AI 生成插画 {{SKETCH_IMG}}（16:9）
+Illustration block: AI-generated illustration {{SKETCH_IMG}} (16:9)
 ─────
-署名：印 李继刚
+Signature: stamp "Li Jigang"
 ```
 
-无 header、无日期、无收藏编号——Tufte 式，墨水都给信息。
+No header, no date, no collection number — Tufte-style, every bit of ink goes to information.
 
-## 图解板
+## Illustration panel
 
-`.plate` 是一个裱框容器：`border-radius:16px; overflow:hidden`，里面塞 16:9 生成图（`<img class="sketch">` 满宽）。图自带背景，板只给圆角和柔投影，CSS 写死在 template。风格与主角机制见 SKILL.md；frame 写法与生图验收见 extraction.md。
+`.plate` is a framed container: `border-radius:16px; overflow:hidden`, containing a 16:9 generated image inside (`<img class="sketch">` full width). The image comes with its own background; the panel only adds rounded corners and a soft shadow, CSS hardcoded in the template. For style and protagonist mechanics see SKILL.md; for frame-writing and image verification see extraction.md.
 
-## 自适应与对齐
+## Adaptivity and alignment
 
-- 卡片 `flow + height:auto`，渲染必须 `fullpage`，高度跟内容走，底部不留白。
-- 取景框文本 `text-align:justify; text-justify:inter-ideograph`，右侧齐平。
-- 生成图 `width:100%`，16:9 自然撑满。
+- Card uses `flow + height:auto`, must render with `fullpage`, height follows content, no blank space at the bottom.
+- Viewfinder text uses `text-align:justify; text-justify:inter-ideograph`, flush on the right.
+- Generated image uses `width:100%`, 16:9 fills naturally.
 
-## 出厂自检
+## Factory self-check
 
-- [ ] 封面、头像加载出来了（`file://` 路径对）？
-- [ ] 主句 + 费曼讲解把这幅画面完整讲透，关键词染色？
-- [ ] 卡身强调色从封面提取、与封面协调、只点缀两成？
-- [ ] 生成图里继刚认得出？画面一眼读懂？
-- [ ] 中文标注正确无糊？
-- [ ] 图文同一幅画面（生成图就是 {{FRAME}}/{{EXP}} 讲的那幅）？
-- [ ] 文本两端对齐、右侧无豁口？
-- [ ] 高度自适应、底部无留白？
+- [ ] Did the cover and avatar load (correct `file://` paths)?
+- [ ] Do the main sentence + Feynman explanation thoroughly convey the picture, with keywords colored?
+- [ ] Is the card accent color extracted from the cover, harmonious with the cover, only accenting sparingly?
+- [ ] Is Jigang recognizable in the generated image? Does the picture read at a glance?
+- [ ] Are the Chinese labels correct and not blurry?
+- [ ] Do the text and image depict the same picture (is the generated image what `{{FRAME}}`/`{{EXP}}` describe)?
+- [ ] Is the text aligned on both ends, no gap on the right?
+- [ ] Does the height adapt, no blank space at the bottom?
 
-任何一条不过，回 SKILL.md Gotchas 找对应处置。
+If any item fails, go back to SKILL.md's Gotchas for the corresponding fix.

@@ -1,144 +1,145 @@
 ---
 name: ljg-map
-description: "一个行业 → 一张生态地形图卡（PNG）。以《千脑智能》参考系理论为地基：把行业摊成一张可俯瞰的「生态地形」——价值像河一样流过地貌，再在地形上标出两处——「瓶颈」（流量/产能在此收窄的隘口/水坝）和「价值捕获点」（利润在此沉淀的宝藏堆）。地形让权力结构一眼可见：卡流量的地方常常不是钱沉淀的地方。配三个关键指标的 base rate（刻度）+ 三个「大问题」（前沿）。deep research 真联网，图用 AI 生图（默认 -a 吉田诚治式绘本画风，与 ljg-library 同源；可选 -c pixel+cyber），继刚作小测量员立在地形上俯瞰。Use when user says '行业地图', '产业地图', '生态地形图', '画一下这个行业', 'industry map', 'map this industry', '行业版图', '产业链地图', '/ljg-map', or gives an industry/领域 name wanting its terrain mapped. 风格：默认 -a 绘本（同 ljg-library），加 -c 走 cyber。NOT FOR 一个领域降秩找生成器（用 ljg-rank）、拆一本书（用 ljg-book）、单个项目投资分析（用 ljg-invest）、一个概念深钻（用 ljg-think）。"
+description: "One industry → one ecological terrain card (PNG). Grounded in the reference-frame theory from *A Thousand Brains* (《千脑智能》): flatten an industry into a bird's-eye-view 'ecological terrain' — value flows through the landscape like a river — then mark two spots on the terrain: the 'bottleneck' (瓶颈, the pass/dam where flow/capacity narrows) and the 'value-capture point' (价值捕获点, the treasure pile where profit settles). The terrain makes power structure visible at a glance: where flow is choked is often not where the money settles. Add three key-metric base rates (a ruler) + three 'big questions' (the frontier). Deep research goes online for real; the image is AI-generated (default -a Seiji Yoshida (吉田诚治)-style picture-book art, same lineage as ljg-library; optional -c pixel+cyber); Jigang (继刚) appears as a tiny surveyor standing on the terrain, looking out over it. Use when user says '行业地图' (industry map), '产业地图' (industry map), '生态地形图' (ecological terrain map), '画一下这个行业' (draw this industry), 'industry map', 'map this industry', '行业版图' (industry landscape), '产业链地图' (industry-chain map), '/ljg-map', or gives an industry/领域 name wanting its terrain mapped. Style: default -a picture-book (same as ljg-library), add -c for cyber. NOT FOR reducing a domain to its generators (use ljg-rank), breaking down a book (use ljg-book), single-project investment analysis (use ljg-invest), or deep-diving a single concept (use ljg-think)."
 user_invocable: true
 version: "2.1.0"
 ---
 
-# ljg-map：生态地形图卡
+# ljg-map: Ecological Terrain Card
 
-输入一个行业，输出一张可俯瞰的生态地形——价值怎么流、卡在哪个隘口、钱在哪堆成宝藏、未来在哪决战。
+Input an industry, output a bird's-eye-view ecological terrain — where value flows, where it's choked, where money piles up into treasure, where the future battle will be fought.
 
-## 地基：参考系理论（《千脑智能》）
+## Foundation: Reference-Frame Theory (*A Thousand Brains*, 《千脑智能》)
 
-Hawkins 的看法：大脑认识任何东西，都是把它的特征钉在一个参考系（一张地图）的位置上，靠移动和预测来学。看行业也一样。没有地图时，一个行业在脑子里是一团模糊的公司名单；摊成生态地形——价值之河在地貌间流动、每个环节是一片地形——原先看不见的结构就看得见了：价值往哪流、在哪收窄、利润在哪沉淀。
+Hawkins's view: the brain understands anything by pinning its features to a position on a reference frame (a map), and learns by moving around and predicting. The same goes for looking at an industry. Without a map, an industry sits in your head as a blurry list of company names; flatten it into an ecological terrain — a river of value flowing through a landscape, each segment its own terrain feature — and structure that was previously invisible becomes visible: where value flows, where it narrows, where profit settles.
 
-所以这不是装饰风景，是有结构的地形。每片地貌的位置要说得出理由——谁在上游谁在下游、河在哪收窄成隘口、宝藏堆在哪片地。位置说不出生态理由，就只是一座好看的空岛，参考系没建起来。
+So this isn't decorative scenery — it's structured terrain. Every landform's position needs an ecological reason — who's upstream, who's downstream, where the river narrows into a pass, where the treasure piles up. If a position can't be justified ecologically, it's just a pretty empty island — the reference frame was never actually built.
 
-thesis（必上卡）：**把一个行业摊成生态地形，你才看得见——河在哪收窄（瓶颈），金子在哪沉淀（价值捕获）。而这两处，常常不是同一处。**
+Thesis (must be on the card): **Only by flattening an industry into ecological terrain can you see — where the river narrows (the bottleneck) and where the gold settles (value capture). And these two spots are often not the same place.**
 
-## 两处标注，和它们的错位
+## Two Marked Spots, and Their Mismatch
 
-整张卡要办成的事：把两处在地形上标得一眼可辨，并让它们的错位或重合现形。deep research 先找准，再译成地形。
+What the whole card needs to accomplish: mark both spots on the terrain so they're instantly distinguishable, and make their mismatch or overlap visible. Deep research pins them down first, then translates them into terrain.
 
-### 瓶颈（河在此收窄 → 隘口/水坝/独木桥）
+### Bottleneck (瓶颈) (where the river narrows → pass / dam / single-log bridge)
 
-行业里被卡住的环节——产能、流量、控制权在这里收窄。识别信号：
+The segment of the industry that's choked — where capacity, flow, or control narrows. Signals to identify it:
 
-- **稀缺产能**：扩产要数年、要巨额资本（晶圆厂、锂矿）
-- **单点控制**：一两家把着，绕不过去（ASML 光刻机、Google 搜索入口）
-- **牌照/专利/标准闸**：法律或技术标准设的关卡（医药审批、CUDA 生态）
-- **物理/认知极限**：带宽、延迟、注意力、信任——绕不开的天花板
+- **Scarce capacity**: expanding takes years and massive capital (fabs, lithium mines)
+- **Single-point control**: one or two players hold the chokepoint, and there's no way around them (ASML's lithography machines, Google's search entry point)
+- **License/patent/standard gate**: a legal or technical-standard checkpoint (drug approval, the CUDA ecosystem)
+- **Physical/cognitive limit**: bandwidth, latency, attention, trust — a ceiling that can't be gotten around
 
-一句话测试：**这个行业要扩大产出，最先卡住的是哪一环？** 那一环画成收窄的隘口或水坝，插红牌。
+One-line test: **to scale up output in this industry, which segment gets choked first?** Draw that segment as a narrowing pass or dam, and pin a red flag on it.
 
-### 价值捕获点（利润在此沉淀 → 宝藏堆/金库）
+### Value-Capture Point (价值捕获点) (where profit settles → treasure pile / vault)
 
-钱实际留下来的环节。创造价值和捕获价值是两回事。识别信号：
+The segment where the money actually stays. Creating value and capturing value are two different things. Signals to identify it:
 
-- **议价权**：上下游都得求它，它说了算（操作系统、平台收租）
-- **高毛利且持续**：利润率高、还守得住（品牌、专利药、网络效应）
-- **赢家通吃**：规模或网络效应让头部吃掉大部分利润
+- **Bargaining power**: both upstream and downstream have to come to it, and it calls the shots (operating systems, platforms collecting rent)
+- **High and durable margins**: high profit margin that's also defensible (brands, patented drugs, network effects)
+- **Winner-take-all**: scale or network effects let the leader eat most of the profit
 
-一句话测试：**这个行业赚到的钱，最后沉在哪一环？** 那一环画成金币宝藏堆，插金牌。
+One-line test: **where does the money this industry earns finally settle?** Draw that segment as a pile of gold treasure, and pin a gold flag on it.
 
-### 错位与重合
+### Mismatch and Overlap
 
-瓶颈和价值捕获是两个独立的量，先分别找，再看它们落在地形哪片：
+Bottleneck and value capture are two independent quantities — find each separately first, then see where they land on the terrain:
 
-- **重合**：卡脖子的就是赚钱的（ASML、台积电）——宝藏堆挨着隘口，权力与利润同源。
-- **错位**：创造价值的环节守着薄田，利润被另一处抽走（创作者村庄种田，平台港口收钱；硬件田薄，英伟达坝上堆金山）。
+- **Overlap**: whoever holds the chokepoint is also the one making the money (ASML, TSMC) — the treasure pile sits right next to the pass, power and profit share the same source.
+- **Mismatch**: the segment that creates value sits on thin soil, while the profit is siphoned off elsewhere (creators farm the village while the platform's harbor collects the rent; hardware's field is thin while Nvidia's dam piles up a mountain of gold).
 
-caption 一句话点破这张地形的权力结构（如「双头抽租：两处宝藏一前一后，中间村庄只种田不收钱」）。错位是这类卡最值钱的发现——权力结构变成地形上看得见的金山与薄田。
+The caption should nail the terrain's power structure in one line (e.g. "double-headed rent extraction: two treasure piles front and back, the village in the middle just farms and collects nothing"). Mismatch is the single most valuable finding this kind of card can produce — a power structure turned into a visible mountain of gold and a strip of thin soil on the terrain.
 
-## 三个大问题
+## Three Big Questions
 
-正好三个悬着的问题——张力还在、答案未定、一旦定了就改写格局。往往在地形的前沿：隘口会不会被新路绕过？宝藏会不会迁到另一片地？哪个新势力在改河道？每个一句话，可争论、指向未来，三个不重叠。判定标准见 `references/research.md`。
+Exactly three questions that are still hanging — tension still live, answer undetermined, and once settled it rewrites the landscape. Usually found at the terrain's frontier: will the pass get bypassed by a new route? Will the treasure migrate to another plot of land? Which new force is redirecting the river? One sentence each, debatable, future-facing, and the three shouldn't overlap. Criteria in `references/research.md`.
 
-## base rate：地形的刻度
+## Base Rate: the Terrain's Ruler
 
-地形给结构，没刻度会被个案带偏——看见一个独角兽就以为遍地黄金。base rate 是刻度：这个行业最关键三个指标的基线值，没有额外信息时该持有的先验。三件东西合起来才是完整的参考系：地形管「在哪」，base rate 管「多少」，三大问题管「接下来」。卡上也按这个顺序读。每个 base rate 三个字段：指标名 + 数值（区间/百分比，大字）+ 一句「这意味着」，点破它戳掉的那个幻觉。判据：决策相关、反直觉、可查证——真数字，不编。详见 `references/research.md`。
+Terrain gives structure, but without a ruler it gets skewed by anecdotes — see one unicorn and think gold is everywhere. The base rate is the ruler: the baseline value of the industry's three most critical metrics, the prior you should hold absent extra information. Three things together make a complete reference frame: terrain handles "where," base rate handles "how much," the three big questions handle "what's next." Read the card in that order too. Each base rate has three fields: metric name + value (range/percentage, in large type) + one line of "here's what this means," nailing down the illusion it dispels. Criteria: decision-relevant, counter-intuitive, verifiable — real numbers, not made up. Details in `references/research.md`.
 
-## 风格 mold
+## Style Molds
 
-| mold | 参数 | 风格 |
-|------|------|------|
-| **吉田诚治绘本地图（默认）** | `-a` | 与 ljg-library 同源画风：暖调手绘绘本油画、蜜糖/琥珀/木棕、低角度阳光斜射、俯瞰地形有质感、手写木牌字；非卡通非像素 |
-| **pixel + cyber-hacker** | `-c` | 刻意出格：暗黑霓虹、16-bit 像素地形、CRT/glitch、终端字 |
+| mold | flag | style |
+|------|------|-------|
+| **Seiji Yoshida (吉田诚治) picture-book map (default)** | `-a` | Same lineage as ljg-library: warm hand-painted picture-book oil style, honey/amber/wood-brown, low-angle slanting sunlight, textured bird's-eye terrain, handwritten wooden signposts; not cartoon, not pixel |
+| **pixel + cyber-hacker** | `-c` | Deliberately breaks style: dark neon, 16-bit pixel terrain, CRT/glitch, terminal font |
 
-默认 `-a` 与 ljg-library 是一家人（同一套吉田诚治绘本 DNA），只是构图换成俯瞰地形图；`-c` 是刻意跳出 house style 的赛博变体。两种都由 `assets/gen_illustration.py --mold a|c` 生成；继刚固定作小测量员立在地形高处俯瞰（从墨像参考生成，认得出他）。
+The default `-a` is family with ljg-library (same Seiji Yoshida picture-book DNA), just with the composition switched to a bird's-eye terrain map; `-c` is a deliberate cyber departure from house style. Both are generated by `assets/gen_illustration.py --mold a|c`; Jigang (继刚) always appears as the tiny surveyor standing at the highest point looking out over the terrain (generated from an ink-portrait reference, recognizable).
 
-## 流程
+## Workflow
 
 ```
-输入：行业/领域名（可附用户判断）[+ -a/-c 选 mold，默认 -a]
+Input: industry/domain name (user's own judgment can be attached) [+ -a/-c to pick mold, default -a]
   ↓
-1. deep research：价值链结构、关键环节、利润分布、卡点、未决问题 + 三个 base rate（见 references/research.md）
-2. 定位两处：🔴 瓶颈（最先卡产出的环）+ 🟡 价值捕获（钱最后沉的环）；看错位还是重合
-3. 把研究译成地形 frame（英文）：河怎么流、各环节是什么地貌、隘口在哪、宝藏在哪、继刚站哪、3-6 个中文地名（见 references/visual.md + example.md）
-4. 生图：python3 assets/gen_illustration.py --mold a --frame "<...>" --out /tmp/ljg_map_{slug}_terrain.png
-5. 提炼三个 base rate（指标 + 数值 + 这意味着）
-6. 提炼三个大问题
-7. 选 accent 色（绘本 mold 挑蜜糖琥珀木棕暖色，见 visual.md）
-8. 填 assets/map_template.html 占位变量（{{MAP_IMG}} = file://生成图）
-9. 渲染（capture.js，fullpage）
-10. Read 成品 PNG 亲眼验（对照 visual.md 出厂自检），不行调 frame 重生 → 交付
+1. Deep research: value-chain structure, key segments, profit distribution, chokepoints, open questions + three base rates (see references/research.md)
+2. Pin down the two spots: 🔴 bottleneck (segment where output chokes first) + 🟡 value capture (segment where money finally settles); check mismatch vs. overlap
+3. Translate the research into a terrain frame (English): how the river flows, what landform each segment is, where the pass is, where the treasure is, where Jigang stands, 3-6 Chinese place-name labels (see references/visual.md + example.md)
+4. Generate the image: python3 assets/gen_illustration.py --mold a --frame "<...>" --out /tmp/ljg_map_{slug}_terrain.png
+5. Distill three base rates (metric + value + "what this means")
+6. Distill three big questions
+7. Pick an accent color (for the picture-book mold, pick warm honey/amber/wood-brown tones, see visual.md)
+8. Fill in the placeholders in assets/map_template.html ({{MAP_IMG}} = file:// to the generated image)
+9. Render (capture.js, fullpage)
+10. Read the finished PNG and inspect it with your own eyes (check against visual.md's factory checklist); if it's off, adjust the frame and regenerate → deliver
 ```
 
-## 研究与视觉两份 reference
+## Two Reference Docs: Research and Visual
 
-- 执行前先 Read `references/research.md`——研究一个行业要问的五组问题、瓶颈与价值捕获的排查步骤、三大问题与 base rate 的提炼标准、研究 agent 扇出纪律。
-- 生成前先 Read `references/visual.md`——玻璃卡身规格、两 mold 调色板、怎么把研究译成地形 frame、出厂自检。再看 `references/example.md`——一张真渲染验收过的范例（AI 影视，双头抽租），frame 可改复用。
+- Before executing, Read `references/research.md` — the five groups of questions to ask when researching an industry, the steps for identifying bottleneck and value capture, the criteria for distilling the three big questions and base rates, and the discipline for fanning out research agents.
+- Before generating, Read `references/visual.md` — the glass-card body spec, the palettes for both molds, how to translate research into a terrain frame, and the factory self-check. Then look at `references/example.md` — a fully-rendered, verified worked example (AI film/video, double-headed rent extraction), whose frame you can adapt and reuse.
 
-## 模板变量（map_template.html）
+## Template Variables (map_template.html)
 
-| 变量 | 内容 |
+| Variable | Content |
 |------|------|
-| `{{ACCENT}}` | 卡身强调色 hex（绘本 mold 挑蜜糖琥珀木棕暖色，如 `#c47a1a` / `#b8860b` / `#725d42`；cyber 挑霓虹色） |
-| `{{INDUSTRY}}` `{{EN}}` | 行业中文名 / 英文名 |
-| `{{TAGS}}` | 3-4 个核心环节/概念标签，每个 `<span class="tag">…</span>` |
-| `{{THESIS}}` | 参考系 thesis 句（摊成地形才看得见两处、二者常错位），关键词 `<span class="hl">` |
-| `{{MAP_IMG}}` | 生态地形图的 `file://` 绝对路径 |
-| `{{MAP_CAPTION}}` | 图下一行小注：点破错位/权力结构 |
-| `{{BASE_RATES}}` | 三个 base rate：每个 `<div class="brate"><div class="blabel">指标名</div><div class="bval">数值</div><div class="bmean">这意味着…</div></div>` |
-| `{{Q1}}` `{{Q2}}` `{{Q3}}` | 三个大问题，每个一句话 |
+| `{{ACCENT}}` | Card-body accent color hex (for picture-book mold, pick warm honey/amber/wood-brown, e.g. `#c47a1a` / `#b8860b` / `#725d42`; cyber mold picks neon) |
+| `{{INDUSTRY}}` `{{EN}}` | Industry name in Chinese / English |
+| `{{TAGS}}` | 3-4 core segment/concept tags, each as `<span class="tag">…</span>` |
+| `{{THESIS}}` | The reference-frame thesis sentence (only by flattening into terrain can you see both spots, and they're often mismatched), with keywords in `<span class="hl">` |
+| `{{MAP_IMG}}` | Absolute `file://` path to the ecological terrain image |
+| `{{MAP_CAPTION}}` | One line under the image: nails the mismatch/power structure |
+| `{{BASE_RATES}}` | Three base rates: each `<div class="brate"><div class="blabel">metric name</div><div class="bval">value</div><div class="bmean">what this means…</div></div>` |
+| `{{Q1}}` `{{Q2}}` `{{Q3}}` | The three big questions, one sentence each |
 
-## 渲染
+## Rendering
 
 ```bash
 node ~/.claude/skills/ljg-card/assets/capture.js \
   /tmp/ljg_map_{name}.html ~/Downloads/{name}-生态地形图.png 1080 1440 fullpage
 ```
 
-复用 ljg-card 的 capture.js（playwright 已装）。`fullpage` 不能省，卡片高度跟内容走。
+Reuses ljg-card's capture.js (playwright already installed). Don't drop `fullpage` — card height follows content.
 
-## 交付
+## Delivery
 
-1. Read 成品 PNG 亲眼验，地形图放大看，对照 visual.md 出厂自检逐条过。生图不满意（地名糊、两处没标清、继刚不像）就调 frame 重生。
-2. 报告：文件路径 + 一句话点出这张地形最重要的发现（通常是错位）+ 用了哪个 mold。
+1. Read the finished PNG and inspect it with your own eyes; zoom in on the terrain image and go through the visual.md factory checklist item by item. If the generated image is unsatisfactory (place names blurry, the two spots not clearly marked, Jigang doesn't look right), adjust the frame and regenerate.
+2. Report: file path + one sentence pointing out this terrain's most important finding (usually the mismatch) + which mold was used.
 
-## 必过的检查
+## Must-Pass Checks
 
-1. **是生态地形不是装饰风景**——每片地貌的位置说得出生态理由（上下游、河怎么流、谁卡谁、金子堆哪）。说不出就回去重译。
-2. **两处必标且分得开**——🔴 瓶颈（隘口/坝，红牌）、🟡 价值捕获（宝藏堆，金牌）。
-3. **错位/重合必点破**——caption 说破权力结构。
-4. **正好三个大问题**——未决、指向未来、互不重叠。
-5. **deep research 不靠印象**——价值链、利润分布、卡点必须联网查证。编出来的环节过不了「这环到底卡不卡、赚不赚」的复核。
-6. **base rate 真查不编**——区间可以，编造不行。编的先验比没有更糟。
-7. **数字和问题不进图**——base rate 数字、三大问题放卡的文字块；图只承载地形 + 两处标注 + 几个地名。
-8. **真渲染真验图**——必须 capture.js 渲染、必须 Read PNG 亲眼看，不许凭「已生成」交差。
-9. **卡上中文过关**——thesis/caption/三大问题默念出声，翻译腔重写；不用「这一刀」「锋利」（当元描述）「钉死」「砸实」这类自我修辞。
-10. **house style 同源**——浅色玻璃卡身 + 嵌入生图，与 ljg-library 一家人。
+1. **It's ecological terrain, not decorative scenery** — every landform's position must have an ecological reason (upstream/downstream, how the river flows, who chokes whom, where the gold piles up). If you can't say why, go back and retranslate.
+2. **Both spots must be marked and clearly distinct** — 🔴 bottleneck (pass/dam, red flag), 🟡 value capture (treasure pile, gold flag).
+3. **Mismatch/overlap must be called out** — the caption must state the power structure plainly.
+4. **Exactly three big questions** — undecided, future-facing, non-overlapping.
+5. **Deep research, not impressions** — the value chain, profit distribution, and chokepoints must be verified online. Segments made up from thin air won't survive the re-check of "does this segment actually choke, does it actually make money."
+6. **Base rates must be real, not invented** — ranges are fine, fabrication is not. A made-up prior is worse than no prior at all.
+7. **Numbers and questions don't go into the image** — base-rate numbers and the three big questions live in the card's text blocks; the image only carries the terrain + the two marked spots + a few place names.
+8. **Real render, real inspection** — must render via capture.js and must Read the PNG with your own eyes; never hand it in on the claim of "already generated."
+9. **The Chinese text on the card must pass muster** — read the thesis/caption/three big questions aloud silently, and rewrite anything that sounds like translationese; don't use self-congratulatory rhetoric like "这一刀" (this cut), "锋利" (sharp, as meta-commentary), "钉死" (nailed down), "砸实" (hammered solid).
+10. **Same house style lineage** — light-colored glass card body + embedded generated image, family with ljg-library.
 
 ## Gotchas
 
-- **退化成装饰风景**：最常见的失手。自问「河往哪流、谁在上游、隘口卡谁、金子堆哪」，答不出就是空岛。
-- **默认两处重合**：瓶颈和价值捕获要分别独立排查，再看落点——错位才是洞见，默认重合会把它抹掉。
-- **环节画成公司**：地貌 = 功能位（晶圆代工山、模型训练谷、分发港），公司只是当下占地者，作地名小字。换了占地者，地貌还在。
-- **图里堆精确细节**：生图画不好多标签和长数字。地名 3-6 个、每个 2-5 字（长地名容易糊）；数字和问题全走 HTML 文字块。
-- **frame 里地名用分号或顿号分隔**：` / ` 分隔中文标注会被安全钩子误判 BLOCK，不用斜杠。
-- **生图必看图**：同一个 frame 每次出的图都不一样，会糊中文地名、两处没标清、继刚不像。生成后必 Read 亲验，不行调 frame 重生；重生前把当前这张先存到别的路径。
-- **accent 是卡身色**：从 mold 调色板挑（绘本蜜糖琥珀木棕暖色，cyber 霓虹）；地形图配色是生成图自带，两边不串。
-- **/tmp 文件名带行业 slug**：并行铸卡时临时 HTML 和生成图都用唯一名，共享固定名会串图。
-- **批量管线**：`gen_illustration.py` 直调 marswave，不走 listenhub 交互门控，可进批量；每张都要联网、花 API 额度、亲眼验一回图，排任务留余地。
-- **研究扇出**：并发研究 agent 必须同步返回，禁挂 Monitor 后台漂着；批量错峰；关键数字落盘前抽样独立复核。
+- **Degenerating into decorative scenery**: the most common failure. Ask yourself "where does the river flow, who's upstream, who does the pass choke, where does the gold pile up" — if you can't answer, it's an empty island.
+- **Defaulting to assuming the two spots overlap**: bottleneck and value capture must be checked independently, then compared for where they land — mismatch is the real insight; defaulting to overlap erases it.
+- **Drawing segments as companies**: landforms = functional positions (wafer-foundry mountains, model-training valley, distribution harbor); companies are just the current occupants, shown as small place-name labels. Occupants change, the landform stays.
+- **Cramming precise detail into the image**: image generation can't handle many labels or long numbers well. Keep place names to 3-6, each 2-5 characters (long names get blurry); put numbers and questions entirely in HTML text blocks.
+- **Using semicolons or Chinese enumeration commas to separate place names in the frame**: separating Chinese labels with ` / ` gets falsely flagged BLOCK by the safety hook — don't use a slash.
+- **Must look at the generated image**: the same frame produces a different image every time — Chinese place names may blur, the two spots may not be clearly marked, Jigang may not look right. Always Read the generated image and inspect it; if it's off, adjust the frame and regenerate — save the current one to a different path before regenerating.
+- **Accent is the card-body color**: pick it from the mold's palette (picture-book: warm honey/amber/wood-brown; cyber: neon); the terrain image's own color scheme is separate and the two shouldn't clash.
+- **/tmp filenames should include the industry slug**: when minting cards in parallel, temp HTML and generated images must use unique names — sharing a fixed name will mix up images.
+- **Batch pipeline**: `gen_illustration.py` calls marswave directly, bypassing listenhub's interactive gating, so it can run in batch; each image still needs network access, spends API budget, and needs a real visual check — leave slack in scheduling.
+- **Research fan-out**: concurrent research agents must return synchronously — never leave a Monitor dangling in the background; stagger batches; sample-check key numbers independently before they're committed.
+</content>

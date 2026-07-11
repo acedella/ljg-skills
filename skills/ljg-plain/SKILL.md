@@ -1,105 +1,106 @@
 ---
 name: ljg-plain
-description: "Cognitive atom: Plain (白). Rewrites any content so a smart 12-year-old groks it. Structure-free — form follows content. Use when user says '白话说', '说人话', '解释一下', 'plain', 'grok'."
+description: "Cognitive atom: Plain (白). Rewrites any content so a smart 12-year-old groks it. Structure-free — form follows content. Use when user says '白话说' (say it plainly), '说人话' (talk like a human), '解释一下' (explain it), 'plain', 'grok'."
 user_invocable: true
 version: "5.0.0"
 ---
 
-# ljg-plain: 白
+# ljg-plain: Plain (白)
 
-让人 grok。
+Make people grok it.
 
-不规定怎么写。规定不能怎么写。下限锁死，上限放开。不同主题有不同的最佳写法——类比、故事、问答、递进的例子、一个长场景——由内容决定形式。
+Doesn't prescribe how to write. Prescribes how not to write. The floor is locked, the ceiling is open. Different topics have different best forms — analogy, story, Q&A, a chain of escalating examples, one long scene — content decides the form.
 
-## 格式约束
+## Format constraints
 
-### Org-mode 语法
+### Org-mode syntax
 
-- 加粗用 `*bold*`（单星号），禁止 `**bold**`
-- 标题层级从 `*` 开始，不跳级
+- Bold uses `*bold*` (single asterisk), `**bold**` is forbidden
+- Heading levels start at `*`, don't skip levels
 
 ### ASCII Art
 
-所有图表用纯 ASCII 字符。允许：`+ - | / \ > < v ^ * = ~ . : # [ ] ( ) _ , ; ! ' "` 和空格。禁止 Unicode 绘图符号。
+All diagrams use plain ASCII characters. Allowed: `+ - | / \ > < v ^ * = ~ . : # [ ] ( ) _ , ; ! ' "` and spaces. Unicode drawing characters are forbidden.
 
-### Denote 文件规范
+### Denote file conventions
 
-- 时间戳：`date +%Y%m%dT%H%M%S`
-- 可读时间：`date "+%Y-%m-%d %a %H:%M"`
-- 文件名：`{时间戳}--plain-{简短标题}__plain.org`
-- 输出目录：`~/Documents/notes/`
+- Timestamp: `date +%Y%m%dT%H%M%S`
+- Readable time: `date "+%Y-%m-%d %a %H:%M"`
+- Filename: `{timestamp}--plain-{short title}__plain.org`
+- Output directory: `~/Documents/notes/`
 
-### Org 文件头
+### Org file header
 
 ```
-#+title:      plain-{简短标题}
+#+title:      plain-{short title}
 #+date:       [{YYYY-MM-DD Day HH:MM}]
 #+filetags:   :plain:atom:
 #+identifier: {YYYYMMDDTHHMMSS}
-#+source:     {URL 或来源描述}
+#+source:     {URL or source description}
 ```
 
-文件写入后报告路径。
+Report the path after the file is written.
 
-## 红线（每条必须过，顺序即优先级）
+## Red lines (every one must pass, order is priority)
 
-1. *口语检验* — 最高法则。读出声来，你会这样跟一个聪明的朋友说话吗？不会→改到会。连词不是敌人——"但是""所以"是思维转弯的声音，只砍机械连词（"此外""值得注意的是"）
-2. *零术语* — 聪明的 12 岁孩子能复述。专业词必须出现时，先用大白话把意思落地，再顺带提术语名
-3. *短词优先* — 能用两个字说的不用四个字。「进行分析」→「看」。大词不让你显得聪明，只让人读得累
-4. *一句一事* — 每句只推进一步。长句拆短
-5. *具体* — 名词看得见，动词有力气。「有人觉得情况不太好」→「张三说项目要黄了」。形容词能砍就砍
-6. *开头给理由* — 第一句话让人想读下一句。不铺垫、不背景、不「自古以来」
-7. *不填充* — 删开场白、拐杖词、夸大象征。每句都在干活
-8. *信任读者* — 跳过软化、辩解、手把手引导。说一遍够了
-9. *诚实* — 想不清楚就说想不清楚。"大概 70%" 比"可能"诚实
+1. *Spoken-word test* — the highest law. Read it out loud: would you talk to a sharp friend this way? No → change it until you would. Connectives aren't the enemy — "but" and "so" are the sound of a thought turning a corner. Only cut mechanical connectives ("moreover," "it's worth noting")
+2. *Zero jargon* — a smart 12-year-old should be able to retell it. When a technical term has to appear, ground its meaning in plain language first, then mention the term in passing
+3. *Short words first* — don't use four words when two will do. "Conduct an analysis of" → "look at." Big words don't make you sound smart, they just make people tired of reading
+4. *One thing per sentence* — every sentence advances exactly one step. Break up long sentences
+5. *Concrete* — nouns you can see, verbs with force. "Someone thinks things aren't looking great" → "Zhang San says the project's about to die." Cut adjectives wherever you can
+6. *Give the reason up front* — the first sentence should make people want to read the next one. No preamble, no background, no "since ancient times"
+7. *No filler* — cut the throat-clearing, the crutch words, the inflated symbolism. Every sentence should be doing work
+8. *Trust the reader* — skip the hedging, the justifying, the hand-holding. Saying it once is enough
+9. *Honesty* — if you haven't thought it through, say so. "Maybe 70%" is more honest than "possibly"
 
-## 工具箱（选用，不必全用）
+## Toolbox (optional, don't need to use them all)
 
-写的时候可以从这里拿工具，没有哪个是必须的：
+Tools you can reach for while writing — none of them mandatory:
 
-- *类比* — 找结构对得上的日常经验。好类比承重（去掉它文章塌），多层（挖一层还像），自明（不需要解释类比本身）。动词延伸到新对象时检查中文动宾搭配是否自然
-- *好问题* — 找读者的卡点，变成问题。读者被卡住，才想往下读
-- *裂缝* — 模型/类比在哪里不够？那个点往往最值钱。不宣布它，让读者自己感到
-- *画面* — 闭眼能看到的场景。硬造的画面比没有更糟
-- *故事* — 一个具体的人遇到一个具体的问题。读者跟着走
-- *反问入链* — 遇到隐含前提，用问题打开，然后回答它
-- *骨架图* — 概念涉及空间关系时，嵌入 ASCII 图（`#+begin_example` 块）
+- *Analogy* — find an everyday experience with matching structure. A good analogy bears weight (remove it and the piece collapses), has multiple layers (dig one layer deeper and it still holds), and is self-evident (doesn't need the analogy itself explained). When extending the verb to a new object, check whether the verb-object pairing sounds natural in the output language
+- *Good question* — find where the reader gets stuck, turn it into a question. A reader who's stuck wants to keep reading
+- *The crack* — where does the model/analogy fall short? That point is often the most valuable. Don't announce it, let the reader feel it themselves
+- *Image* — a scene you can see with your eyes closed. A forced image is worse than no image
+- *Story* — one specific person hits one specific problem. The reader follows along
+- *Question chain* — when you hit an implicit premise, open it with a question, then answer it
+- *Skeleton diagram* — when a concept involves spatial relationships, embed an ASCII diagram (`#+begin_example` block)
 
-## 执行
+## Execution
 
-### 1. 获取内容
+### 1. Get the content
 
-URL → WebFetch | 文本 → 直接用 | 文件路径 → Read | 概念 → 直接解释 | 书名/论文名 → WebSearch
+URL → WebFetch | text → use directly | file path → Read | concept → explain directly | book/paper title → WebSearch
 
-### 2. 写
+### 2. Write
 
-形式自由。从工具箱里选最适合这个主题的方式，也可以不选——如果有更好的写法，用它。
+Form is free. Pick whichever tool from the toolbox fits this topic best, or pick none — if there's a better way to write it, use that instead.
 
-输出是一篇从第一行流到最后一行的连贯文章。全文只有文件标题，正文无子标题。
+The output is one continuous piece flowing from the first line to the last. The whole piece has only the file title, no subheadings in the body.
 
-禁止：
-- 结构标签（`* 类比` / `* 裂缝` 等）
-- 指向写作过程的元评论（「打个比方」「接下来我们讨论」）
+Forbidden:
+- Structural labels (`* Analogy` / `* Crack` etc.)
+- Meta-commentary pointing at the writing process ("to give an analogy," "next let's discuss")
 
-### 3. 过红线
+### 3. Pass the red lines
 
-逐条扫红线清单。额外检查：
+Go through the red-line checklist item by item. Additionally check:
 
-- 破公式——否定式排比全文不超过两处，三段式改两项或四项
-- 变节奏——长短句交替，段落结尾多样
-- 杀金句——听起来像可引用的，重写
-- 查跳跃——每步逻辑可追？前句说 A，后句跳到 B→补桥
-- 查译感——动宾搭配中文天然吗？不自然→换动词或换句式
+- Break the formula — negation-style parallelism no more than twice in the whole piece; turn three-part structures into two or four items
+- Vary the rhythm — alternate long and short sentences, vary how paragraphs end
+- Kill the soundbites — anything that sounds too quotable, rewrite it
+- Check for jumps — is every step of logic traceable? If the previous sentence says A and the next jumps to B → add a bridge
+- Check for translation feel — does the verb-object pairing sound natural in the output language? If not → swap the verb or the sentence structure
 
-扫完列修改清单（哪句触发什么，改前→改后）。清单不写入文件。
+Once done, list the changes made (which sentence triggered what, before → after). This list doesn't go into the file.
 
-### 4. 生成 Org 文件
+### 4. Generate the org file
 
-按 Denote 规范获取时间戳，写出文件头 + 正文，存入 `~/Documents/notes/`。
+Get the timestamp per the Denote convention, write the file header + body, save to `~/Documents/notes/`.
 
-## 验收
+## Acceptance criteria
 
-- *Grok*：读完能用自己的话复述核心
-- *零术语*：12 岁孩子能跟上
-- *记得住*：读完脑子里留下了什么——一个画面、一个问题、一个转折，什么都行
-- *想读完*：从头到尾没有想跳过的段落
+- *Grok*: after reading, can retell the core idea in their own words
+- *Zero jargon*: a smart 12-year-old can keep up
+- *Memorable*: after reading, something stays in the mind — an image, a question, a turn, anything at all
+- *Wants to finish*: no paragraph from start to end that makes you want to skip it
+</content>

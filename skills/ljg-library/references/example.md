@@ -1,10 +1,10 @@
-# Frame 范例
+# Frame examples
 
-两个可以照着改的完整命令。frame 只写画什么——继刚作主角的构图、隐喻物件、中文标注；风格词不写，`gen_illustration.py` 已内置吉田诚治风格，写了会打架。
+Two complete commands you can adapt directly. The frame only describes what to paint — Jigang (继刚) as protagonist's composition, the metaphorical objects, the Chinese labels; style words aren't written, since `gen_illustration.py` already has the Seiji Yoshida (吉田诚治) style built in, and writing them would conflict.
 
-## 范例一 ·《非对称风险》遍历性
+## Example 1 · *Antifragile*/*Skin in the Game*-style ergodicity
 
-意向画面（提炼过程见 extraction.md 示例 A）：人群各玩一次平均 +5%；「你」独自沿一条时间线走，路上一道吸收壁，进去出不来，正期望也通向归零。继刚就是那个走时间线的「你」。
+Mental image (see extraction.md example A for the distillation process): a crowd each plays once, averaging +5%; "you" walk alone along a single timeline, and along the way there's an absorbing wall — go in and you can't get out — where even a positive expectation leads to ruin. Jigang is that "you" walking the timeline.
 
 ```bash
 python3 assets/gen_illustration.py \
@@ -12,11 +12,11 @@ python3 assets/gen_illustration.py \
   --out /tmp/ljg_lib_ergodicity_sketch.png
 ```
 
-出图：继刚走暖光木栈道奔向吞噬一切的漩涡，远处人群在安全平路，木牌写着标注。
+Resulting image: Jigang walking a warm-lit wooden boardwalk toward a whirlpool that swallows everything, with a crowd on a safe flat path in the distance, and wooden signs bearing the labels.
 
-## 范例二 ·《千脑智能》参考系投票
+## Example 2 · *A Thousand Brains* reference-frame voting
 
-意向画面：一个大脑不是一个观察者，而是上千根皮质柱各画一张「参考系」地图给同一个物体建模型，你看见的「一个东西」是上千张地图投票出的共识。继刚 = 前景那根正在画地图的柱子。
+Mental image: a brain is not a single observer but thousands of cortical columns each drawing a "reference frame" map of the same object to model it — the "one thing" you perceive is a consensus voted on by thousands of maps. Jigang = the column in the foreground currently drawing a map.
 
 ```bash
 python3 assets/gen_illustration.py \
@@ -24,13 +24,13 @@ python3 assets/gen_illustration.py \
   --out /tmp/ljg_lib_qiannao_sketch.png
 ```
 
-出图：暖光圆形书馆，继刚在前景画参考系网格地图，身后层层叠叠小灯桌各画同一只杯子，光线汇聚到顶上悬浮的咖啡杯。此图实际生成并验收过：标注全对、继刚认得出、厅堂氛围到位。
+Resulting image: a warm circular library hall, Jigang in the foreground drawing a reference-frame grid map, tiers of small lamplit desks behind him each drawing the same cup, light converging upward onto a floating coffee cup at the top. This image was actually generated and reviewed: labels all correct, Jigang recognizable, hall atmosphere on point.
 
-## 复用要点
+## Reuse notes
 
-- 先定主角：继刚在哪、朝哪、做什么核心动作。他的角色由画面分配，未必是英雄（见 extraction.md 示例 B）。
-- 隐喻落实：抽象命题换成可见物——木板、桥、漩涡、驾驶座、旧车。
-- 写清对比和流向：谁在安全侧、谁在危险侧、线条朝哪汇聚。
-- 标注 3-5 个，每个 ≤5 字，写明挂在哪个元素旁，之间用分号或顿号分隔（` / ` 会被安全钩子拦）。
-- 风格词不写，已内置。
-- 生图后必 Read 验：继刚认得出、画面读得懂、中文不糊；不行调 frame 重生，重生前先存住当前这张。
+- Fix the protagonist first: where Jigang is, which way he's facing, what core action he's performing. His role is assigned by the picture — he isn't necessarily the hero (see extraction.md example B).
+- Ground the metaphor: turn abstract propositions into visible objects — planks, bridges, whirlpools, driver's seats, old cars.
+- Spell out the contrast and direction of flow: who's on the safe side, who's on the dangerous side, where lines converge.
+- 3-5 labels, each ≤5 characters, specifying which element each is attached to, separated by semicolons or Chinese enumeration commas (` / ` gets blocked by the safety hook).
+- Style words aren't written — already built in.
+- Always Read and verify after generating: is Jigang recognizable, does the picture read clearly, is the Chinese text not blurry; if not, adjust the frame and regenerate — save the current image first before regenerating.

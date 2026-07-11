@@ -1,79 +1,80 @@
-# 视觉规格：卡身、mold、地形 frame 译法
+# Visual Spec: Card Body, Molds, Terrain-Frame Translation
 
-生成前过一遍。卡 = 浅色光学玻璃卡身（写死在 template，不动）+ 一块嵌入的 AI 生成生态地形图。
+Read this through before generating. Card = light-colored optical-glass card body (hard-coded in the template, don't touch) + one embedded AI-generated ecological terrain image.
 
-## 玻璃卡身（写死，勿动）
+## Glass Card Body (hard-coded, do not touch)
 
-| 角色 | 值 |
+| Role | Value |
 |------|-----|
-| 背景渐变 | `#eef1f7 → #e6ebf3 → #e3e8f2` 冷调雾白 |
-| 玻璃卡面 | `rgba(255,255,255,0.55)` + `backdrop-filter:blur(40px) saturate(1.3)` |
-| 高光边 | `1px solid rgba(255,255,255,0.85)` |
-| 柔投影 | `0 8px 32px rgba(31,41,72,0.12)` + `0 40px 80px -32px …` |
-| 正文 | `#1a1f2e` ｜ 次要 `#5b6472` |
+| Background gradient | `#eef1f7 → #e6ebf3 → #e3e8f2` cool misty white |
+| Glass card surface | `rgba(255,255,255,0.55)` + `backdrop-filter:blur(40px) saturate(1.3)` |
+| Highlight edge | `1px solid rgba(255,255,255,0.85)` |
+| Soft shadow | `0 8px 32px rgba(31,41,72,0.12)` + `0 40px 80px -32px …` |
+| Body text | `#1a1f2e` ｜ secondary `#5b6472` |
 
-卡身保持浅色；地形图自带背景（绘本蜜糖琥珀暖调或 cyber 暗黑），是卡上唯一的重色块——这层深浅对比是特意留的。
+Keep the card body light-colored; the terrain image brings its own background (picture-book honey/amber warm tones, or cyber dark) and is the only heavy-color block on the card — this contrast in tone is deliberate.
 
-## 强调色 {{ACCENT}}
+## Accent Color {{ACCENT}}
 
-用在 kicker、标签、英文行、thesis 关键词高亮、大问题序号、base rate 数字、署名印。绘本 mold 挑蜜糖琥珀木棕暖色（`#c47a1a` / `#b8860b` / `#725d42`）配吉田诚治暖调地形；cyber mold 挑霓虹色（靛蓝/青）。和地形图自带配色互不干扰。
+Used for the kicker, tags, the English line, thesis keyword highlights, the big-question numbers, the base-rate numbers, and the signature stamp. For the picture-book mold, pick warm honey/amber/wood-brown tones (`#c47a1a` / `#b8860b` / `#725d42`) to match Seiji Yoshida's (吉田诚治) warm terrain; for the cyber mold, pick neon (indigo/cyan). Neither should clash with the terrain image's own palette.
 
-## 字体（卡身文字）
+## Fonts (card-body text)
 
-thesis / 大问题 / 行业名 → Noto Serif SC；标签 / EN / base rate 数字 → JetBrains Mono。地形图里的地名是生成图自带的（绘本手写木牌字、cyber 终端字），不归 CSS 管。
+thesis / big questions / industry name → Noto Serif SC; tags / EN / base-rate numbers → JetBrains Mono. Place names inside the terrain image are baked into the generated image itself (picture-book handwritten wooden-sign lettering, or cyber terminal font) and aren't controlled by CSS.
 
-## 结构
+## Structure
 
 ```
-身份区：生态地形图 kicker | 行业名 + EN + tags
+Identity block: ecological terrain kicker | industry name + EN + tags
 ─────
-参考系 thesis：{{THESIS}}
+Reference-frame thesis: {{THESIS}}
 ─────
-生态地形 block：AI 生成地形图 {{MAP_IMG}}（16:9，瓶颈🔴 + 价值捕获🟡 标在地形上）
-              {{MAP_CAPTION}} 图下一行小注，点破错位/权力结构
+Ecological terrain block: AI-generated terrain image {{MAP_IMG}} (16:9, bottleneck 🔴 + value capture 🟡 marked on the terrain)
+              {{MAP_CAPTION}} one-line caption under the image, nailing the mismatch/power structure
 ─────
-基准率 block：{{BASE_RATES}} 三栏（指标 / 大字数值 / 这意味着）
+Base-rate block: {{BASE_RATES}} three columns (metric / big number / what this means)
 ─────
-三大问题 block：{{Q1}}{{Q2}}{{Q3}} ①②③
+Three-big-questions block: {{Q1}}{{Q2}}{{Q3}} ①②③
 ─────
-署名：印 李继刚
+Signature: seal — Li Jigang (李继刚)
 ```
 
-图和文字各管各的：图承载意境、两处标注、几个地名；base rate 数字和三大问题走卡的文字块。生图画不好多标签和长数字，这个分工就是解法。
+Image and text each carry their own load: the image carries the atmosphere, the two marked spots, and a few place names; base-rate numbers and the three big questions live in the card's text blocks. Image generation can't handle many labels or long numbers well — this division of labor is the fix for that.
 
-## 两个 mold
+## The Two Molds
 
-地形板 `.mapplate` 是裱框容器（`border-radius:16px; overflow:hidden`），里面塞 16:9 生成 PNG。风格 DNA 写死在 `assets/gen_illustration.py`：
+The terrain plate `.mapplate` is a framing container (`border-radius:16px; overflow:hidden`) that holds the generated 16:9 PNG. The style DNA is hard-coded in `assets/gen_illustration.py`:
 
-| mold | `--mold` | 风格 |
+| mold | `--mold` | style |
 |------|----------|------|
-| **吉田诚治绘本地图（默认）** | `a` | 与 ljg-library 同源：暖调手绘绘本油画、低角度阳光斜射；蜜糖琥珀木棕 `#c47a1a`/`#725d42`，配柔和青绿水草；俯瞰地形有质感、手写木牌地名；非卡通非像素 |
-| **pixel + cyber-hacker** | `c` | 16-bit 像素地形 + 赛博黑客；暗底 + CRT/glitch；霓虹绿青洋红；终端地名 |
+| **Seiji Yoshida (吉田诚治) picture-book map (default)** | `a` | Same lineage as ljg-library: warm hand-painted picture-book oil style, low-angle slanting sunlight; honey/amber/wood-brown `#c47a1a`/`#725d42`, paired with soft teal water-plants; textured bird's-eye terrain, handwritten wooden place-name signs; not cartoon, not pixel |
+| **pixel + cyber-hacker** | `c` | 16-bit pixel terrain + cyber-hacker; dark background + CRT/glitch; neon green/cyan/magenta; terminal-font place names |
 
-脚本的 COMMON 已内置「俯瞰生态地形 + 价值之河 + 瓶颈红牌（隘口/坝）+ 价值捕获金牌（宝藏堆）+ 继刚作小测量员」。frame 只管这个行业的地形怎么布。
+The script's COMMON block already bakes in "bird's-eye ecological terrain + river of value + bottleneck red flag (pass/dam) + value-capture gold flag (treasure pile) + Jigang as a tiny surveyor." The frame only needs to lay out this particular industry's terrain.
 
-## 怎么把研究译成地形 frame
+## How to Translate Research into a Terrain Frame
 
-deep research 出「价值链 + 瓶颈在哪环 + 价值捕获在哪环」之后，写一段英文地形构图：
+Once deep research has produced "value chain + which segment is the bottleneck + which segment is value capture," write a paragraph of English terrain composition:
 
-- **价值之河**：价值从上游流向下游，一条河或路从地形一端蜿蜒到另一端。
-- **各环节 = 地貌**：上游原料/设备是山脉矿场，制造是工坊熔炉谷，平台/渠道是港口集镇，终端/用户是外海或城。环节是功能位，公司作地名小字。
-- **瓶颈**：收窄的隘口、水坝、独木桥——河在此被卡。
-- **价值捕获**：金币宝藏堆、金库——钱在此沉。错位就让宝藏远离创造它的薄田，重合就让宝藏挨着隘口。
-- **继刚**：小测量员立在高处俯瞰（COMMON 已含，frame 可点他站哪）。
-- **地名 3-6 个**，每个 2-5 字，写明挂在哪片地貌旁，之间用分号或顿号分隔（` / ` 会被安全钩子拦）。多了、长了都容易糊。
+- **River of value**: value flows from upstream to downstream, a river or road winding from one end of the terrain to the other.
+- **Each segment = a landform**: upstream raw materials/equipment are mountain mines, manufacturing is a workshop-and-furnace valley, platforms/channels are harbor towns, end-users/consumers are the open sea or a city. Segments are functional positions; companies are shown only as small place-name labels.
+- **Bottleneck**: a narrowing pass, a dam, a single-log bridge — where the river gets choked.
+- **Value capture**: a pile of gold treasure, a vault — where the money settles. A mismatch places the treasure far from the thin soil that created it; an overlap places the treasure right next to the pass.
+- **Jigang**: the tiny surveyor stands at a high point looking out (already in COMMON; the frame can specify where he stands).
+- **3-6 place names**, each 2-5 characters, noting which landform each hangs beside, separated by semicolons or Chinese enumeration commas (` / ` gets blocked by the safety hook). Too many or too long, and they blur.
 
-行业结构决定布局：供应链型河谷、平台型中心岛、分层型梯田坡（判据见 research.md）。
+The industry's structure decides the layout: supply-chain type gets a river valley, platform type gets a central island, layered type gets terraced hillside (criteria in research.md).
 
-## 出厂自检
+## Factory Self-Check
 
-- [ ] 瓶颈隘口🔴（红牌）与价值捕获宝藏🟡（金牌）一眼可辨、位置对？
-- [ ] 价值之河流向清晰（上游→下游）？错位/重合读得出？
-- [ ] 继刚测量员认得出（眼镜胡子）、不抢地形主角？
-- [ ] 中文地名正确无糊？（糊了减地名、调 frame 重生）
-- [ ] 图就是 thesis/caption 讲的那张地形？
-- [ ] base rate 三栏 + 三大问题在卡的文字块、清晰？
-- [ ] 卡身强调色只点缀（绘本蜜糖琥珀木棕暖色）？
-- [ ] 文本两端对齐、右侧无空白、高度自适应、底部无留白（fullpage）？
+- [ ] Are the bottleneck pass 🔴 (red flag) and the value-capture treasure 🟡 (gold flag) instantly distinguishable, and correctly positioned?
+- [ ] Is the river of value's direction clear (upstream→downstream)? Can the mismatch/overlap be read off?
+- [ ] Is Jigang the surveyor recognizable (glasses, beard), without stealing the terrain's spotlight?
+- [ ] Are the Chinese place names correct and not blurry? (If blurry, cut place names and regenerate the frame.)
+- [ ] Is the image actually the terrain described by the thesis/caption?
+- [ ] Are the base-rate three-column block and the three big questions in the card's text block, and clear?
+- [ ] Is the card-body accent color used only as an accent (warm honey/amber/wood-brown for picture-book)?
+- [ ] Is the text aligned on both sides, no whitespace on the right, height auto-adjusting, no blank space at the bottom (fullpage)?
 
-任何一条不过，回 SKILL.md Gotchas 找对应处置。
+Fail any of these — go back to SKILL.md's Gotchas for the corresponding fix.
+</content>

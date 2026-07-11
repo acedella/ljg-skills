@@ -1,103 +1,104 @@
-# 研究 playbook：建图、找两处、提三问三率
+# Research Playbook: Building the Map, Finding the Two Spots, Distilling the Three Questions and Three Rates
 
-卡好看之前，先把行业研究对。这份文件管研究：查什么、怎么扇出、怎么把环节摆上地形、怎么找准两处、怎么提炼三大问题和三个 base rate。研究失手，卡就退化成行业百科配插图。
+Before the card can look good, the industry research has to be right. This file governs the research: what to look up, how to fan it out, how to place segments on the terrain, how to pin down the two spots precisely, and how to distill the three big questions and three base rates. If the research fails, the card degenerates into an illustrated industry encyclopedia entry.
 
-研究的目标不是堆事实，是找到这个行业真正的坐标系——价值沿什么方向流、各环节钉在哪、流量在哪收窄、利润在哪沉淀。有了地图，原先看不见的结构就看得见了——这是《千脑智能》参考系理论落在行业分析上的用法。
+The goal of the research isn't to pile up facts — it's to find the industry's true coordinate system: which direction value flows, where each segment is pinned, where flow narrows, where profit settles. Once you have the map, structure that was previously invisible becomes visible — this is the reference-frame theory from *A Thousand Brains* (《千脑智能》), applied to industry analysis.
 
-## 一、deep research：查什么
+## I. Deep Research: What to Look Up
 
-联网研究（走 Research / web-access skill），围绕五组问题，每组都落到「环节」上：
+Research online (via the Research / web-access skill), organized around five groups of questions, each grounded in a specific "segment":
 
-1. **价值链结构**：从原始投入到终端用户，价值经过哪些环节？谁喂给谁？
-2. **各环节的玩家**：每个环节当下谁占着？集中还是分散？玩家是占位者，环节才是功能位。
-3. **利润分布**：钱最后沉在哪一环？哪环毛利高且守得住？哪环是苦力活？——价值捕获的证据。
-4. **产能/流量卡点**：要扩大产出最先卡哪一环？谁扩产难、谁单点控制、谁设了闸？——瓶颈的证据。
-5. **未决张力**：这个行业当下最大的争论、变量、转折点？什么一旦定了会改写格局？——三大问题的素材。
+1. **Value-chain structure**: from raw input to end user, which segments does value pass through? Who feeds whom?
+2. **Players in each segment**: who currently occupies each segment? Concentrated or fragmented? Players are occupants; the segment itself is the functional position.
+3. **Profit distribution**: where does the money finally settle? Which segment has high, defensible margins? Which segment is thankless grunt work? — evidence for value capture.
+4. **Capacity/flow chokepoints**: to scale up output, which segment chokes first? Who finds it hard to expand capacity, who holds single-point control, who has set up a gate? — evidence for the bottleneck.
+5. **Unresolved tensions**: what's the industry's biggest current debate, variable, or turning point? What would rewrite the landscape once settled? — material for the three big questions.
 
-用户给了自己的判断，就当先验：研究去验证、补全、挑战它。经典行业可借模型内部知识，但每条都默问一句：这是查到的，还是我编的？编的删。
+If the user has already given their own read on the industry, treat it as a prior: research should verify, complete, and challenge it. For well-established industries you can draw on the model's own knowledge, but always ask of every item: is this something I looked up, or something I made up? Cut what's made up.
 
-## 二、扇出纪律
+## II. Fan-Out Discipline
 
-并发研究 agent 时三条都要守：
+When running concurrent research agents, keep all three rules:
 
-- **同步返回**：每个 agent 的 prompt 明令同步返回结果，禁挂 Monitor 后台漂着。
-- **批量 + 错峰**：查限流 API 时批量发、错开时序，别同时砸。
-- **抽样复核**：落盘前对关键事实（谁占哪环、毛利多少、谁卡着）抽样独立复核，单一来源的数字不直接进卡。
+- **Synchronous return**: every agent's prompt must explicitly require a synchronous result — never leave a Monitor dangling in the background.
+- **Batch + stagger**: when hitting rate-limited APIs, batch requests and stagger their timing — don't slam them all at once.
+- **Sample-check**: before committing to disk, independently sample-check key facts (who occupies which segment, what the margin is, who holds the chokepoint) — never let a number from a single source go straight onto the card.
 
-五组问题可以分给五个并行 explorer 各查一组，回来合并去重。
+The five question groups can be split across five parallel explorers, each covering one group, then merged and deduplicated.
 
-## 三、地形布局（按行业结构定）
+## III. Terrain Layout (Determined by Industry Structure)
 
-价值怎么走，决定河怎么流、地貌怎么排：
+How value moves determines how the river flows and how the landforms are arranged:
 
-| 行业型 | 地形布局 | 价值之河 | 两处的典型位置 |
+| Industry type | Terrain layout | River of value | Typical location of the two spots |
 |--------|----------|----------|----------------|
-| **供应链/制造型**（半导体、新能源、咖啡、医药） | 河谷：上游山脉 → 下游外海 | 一条河左→右穿谷 | 瓶颈=上游某收窄隘口/坝；价值捕获=议价权那片地的宝藏 |
-| **分层技术型**（软件、AI、云） | 层叠梯田/山坡：底层基建 → 顶层应用 | 河/路从坡底盘上坡顶 | 瓶颈=某关键底层台阶；价值捕获=某高毛利层的宝藏 |
-| **平台/双边型**（电商、外卖、社交、支付） | 中心岛 + 多边码头 | 多条河汇向中心收租港 | 瓶颈=进出中心的卡口；价值捕获=中心港的金库 |
+| **Supply-chain/manufacturing type** (semiconductors, new energy, coffee, pharma) | River valley: upstream mountains → downstream open sea | One river flows left→right through the valley | Bottleneck = a narrowing pass/dam upstream; value capture = the treasure on the land holding the bargaining power |
+| **Layered technology type** (software, AI, cloud) | Terraced hillside: bottom-layer infrastructure → top-layer application | A river/road winds up the slope from bottom to top | Bottleneck = a key bottom-layer step; value capture = the treasure at a high-margin layer |
+| **Platform/two-sided type** (e-commerce, delivery, social, payments) | Central island + multi-sided docks | Multiple rivers converge toward the central rent-collecting harbor | Bottleneck = the chokepoint in and out of the center; value capture = the central harbor's vault |
 
-判据：价值「流过去」用河谷，「叠上去」用梯田坡，「连起来」用中心岛。拿不准，默认河谷。
+Criteria: if value "flows through," use a river valley; if it "stacks up," use a terraced hillside; if it "connects together," use a central island. If unsure, default to a river valley.
 
-## 四、环节译成地貌
+## IV. Translating Segments into Landforms
 
-研究出的关键环节（功能位）各译成一片地貌——上游原料/设备是山脉矿场，制造是工坊熔炉谷，平台/渠道是港口集镇，终端/用户是外海或城。地貌是功能位，公司只是当下占地者，作地名小字。每片地貌的位置说得出生态理由：谁在河上游、谁离外海近、河在哪被卡。
+Translate each key segment (functional position) turned up by the research into a landform — upstream raw materials/equipment become mountain mines, manufacturing becomes a workshop-and-furnace valley, platforms/channels become harbor towns, end-users/consumers become the open sea or a city. The landform is the functional position; the company is just the current occupant, shown as a small place-name label. Every landform's position must have an ecological justification: who's upstream on the river, who's closest to the open sea, where the river gets choked.
 
-测试：每个关键环节都能在地形上找到对应地貌、位置说得出理由吗？摆不进去，说明价值链没理清，回第一步。
+Test: can every key segment be mapped onto a corresponding landform with a justified position? If it can't fit, the value chain hasn't been thought through yet — go back to step one.
 
-具体画法（隘口、宝藏、测量员）见 `visual.md`。
+For the concrete drawing (pass, treasure, surveyor), see `visual.md`.
 
-## 五、两处分别排查，再看落点
+## V. Check the Two Spots Separately, Then See Where They Land
 
-不要假设瓶颈和价值捕获重合，分别独立找：
+Don't assume the bottleneck and value capture coincide — find them independently:
 
-- **第一遍找瓶颈**（🔴）：问「要扩大产出最先卡哪环」，用 SKILL.md 的四类信号（稀缺产能、单点控制、牌照专利标准闸、物理认知极限）逐环排查。
-- **第二遍找价值捕获**（🟡）：问「钱最后沉在哪环」，用三类信号（议价权、高毛利且持续、赢家通吃）逐环排查。
-- **再看落点**：同一环是重合（宝藏挨着隘口，caption 点「卡脖子的就是赚钱的」）；不同环是错位（宝藏远离创造它的薄田，caption 点「价值在这种，钱在那收」）。
+- **First pass, find the bottleneck** (🔴): ask "which segment chokes output first," and check each segment against SKILL.md's four signal types (scarce capacity, single-point control, license/patent/standard gate, physical/cognitive limit).
+- **Second pass, find value capture** (🟡): ask "where does the money finally settle," and check each segment against three signal types (bargaining power, high and durable margins, winner-take-all).
+- **Then see where they land**: same segment = overlap (treasure sits next to the pass, caption nails it as "whoever holds the chokepoint makes the money"); different segments = mismatch (treasure sits far from the thin soil that created it, caption nails it as "value is created here, money is collected there").
 
-错位是这张卡最值钱的发现，优先把它做足——它就是这个行业的权力地图。
+Mismatch is the single most valuable finding on this card — prioritize fleshing it out fully; it's the industry's power map.
 
-## 六、三个大问题
+## VI. Three Big Questions
 
-地图画完，提炼正好三个决定行业未来的大问题。四条判定，每个都要过：
+Once the map is drawn, distill exactly three questions that will determine the industry's future. Four criteria, all must pass:
 
-- **未决**：答案还没定。已成定论的不算。
-- **高杠杆**：一旦定了会改写格局——流向变、瓶颈被绕过、价值池迁移。
-- **可争论**：聪明人会在它上面分两派，不是科普题。
-- **指向未来**：问「会不会、谁将、何时」，不问「是什么」。
+- **Unresolved**: the answer isn't settled yet. Foregone conclusions don't count.
+- **High-leverage**: once settled, it rewrites the landscape — the flow direction shifts, the bottleneck gets bypassed, the value pool migrates.
+- **Debatable**: smart people split into two camps over it — not a trivia question.
+- **Future-facing**: asks "will it, who will, when will," not "what is it."
 
-去哪找——地图的前沿：
+Where to look — the map's frontier:
 
-- 瓶颈前沿：这个卡点会被新技术绕过吗？
-- 价值池前沿：利润会从当前环节迁走吗？迁到哪？
-- 流向前沿：哪个新玩家、新模式在改写价值流方向？
-- 边界前沿：这个行业会和哪个相邻行业融合，或被谁吞并？
+- Bottleneck frontier: will this chokepoint get bypassed by new technology?
+- Value-pool frontier: will profit migrate away from the current segment? To where?
+- Flow-direction frontier: which new player or new model is rewriting the direction value flows?
+- Boundary frontier: will this industry merge with an adjacent one, or get absorbed by it?
 
-三个互不重叠，合起来盖住这个行业最关键的不确定性。测试：拿给一个圈内人看，他会不会说「对，这就是我们天天吵的三件事」？摆三条科普常识就是没找到，重提。
+The three should not overlap, and together should cover the industry's most critical uncertainty. Test: show it to an industry insider — would they say "yes, this is exactly what we argue about every day"? If what you've got are three pieces of textbook common knowledge, you haven't found it — try again.
 
-## 七、三个 base rate
+## VII. Three Base Rates
 
-地图给结构，base rate 给刻度——三个最关键指标的基线值，没有额外信息时该持有的先验。这是贝叶斯的用法：先验先于个案。
+The map gives structure; the base rate gives scale — the baseline value of the three most critical metrics, the prior you should hold absent extra information. This is Bayesian reasoning applied: the prior comes before the anecdote.
 
-**选哪三个，三条判据都要过**：
+**Choosing the three: all three criteria must pass**:
 
-- **决策相关**：知道这个数会改变你怎么下注。
-- **反直觉**：大众印象偏离它。一个 base rate 的价值，等于它和大众印象之间的落差。
-- **可查证**：查得到真数字，区间也行，不编。
+- **Decision-relevant**: knowing this number would change how you bet.
+- **Counter-intuitive**: it diverges from the popular impression. A base rate's value is proportional to the gap between it and the popular impression.
+- **Verifiable**: a real number (or range) can be found — don't make it up.
 
-**每个三字段**：指标名 + 基准数值（区间/百分比，大字）+ 一句「这意味着」——点破它戳掉的那个幻觉。
+**Each has three fields**: metric name + baseline value (range/percentage, large type) + one line of "here's what this means" — nailing down the illusion it dispels.
 
-**怎么找**：问「这个行业里，外行最容易被个案带偏的三个数是什么」——成功率/存活率（创业、新药、餐馆）、份额分配（咖啡豆农拿零售价的 1-3%）、成本/价格曲线（训练成本年降幅）、集中度（前几名吃掉多少）。挑落差最大的三个。
+**How to find them**: ask "in this industry, what are the three numbers outsiders are most likely to be misled by from a single anecdote" — success/survival rate (startups, new drugs, restaurants), share of the split (coffee farmers get 1-3% of retail price), cost/price curves (year-over-year drop in training cost), concentration (how much the top few players eat up). Pick the three with the biggest gap from popular impression.
 
-**查证**：数字来自可追溯来源，区间表达诚实（「~10%」「1–3%」「$1亿+」），多来源对一下。编的 base rate 比没有更糟——它假装是先验，其实是幻觉。
+**Verification**: numbers should be traceable to a source, ranges expressed honestly ("~10%," "1-3%," "$100M+"), cross-checked across multiple sources. A made-up base rate is worse than none at all — it masquerades as a prior when it's really an illusion.
 
-## 八、继刚作测量员
+## VIII. Jigang the Surveyor
 
-继刚固定作小测量员立在地形高处俯瞰这片行业生态（从墨像参考生成，认得出他）。`gen_illustration.py` 的 COMMON 已内置这一项，frame 只需点他站哪（如「立在右侧山头举着地图」）。画法见 `visual.md`。
+Jigang (继刚) always appears as the tiny surveyor standing at a high point on the terrain, looking out over this industry's ecology (generated from an ink-portrait reference, recognizable). The COMMON block of `gen_illustration.py` already bakes this in; the frame just needs to specify where he's standing (e.g. "standing on the hill to the right, holding up a map").  See `visual.md` for how it's drawn.
 
-## 九、卡上中文的关口
+## IX. The Chinese-Text Checkpoint on the Card
 
-thesis、caption、三大问题都是要上卡的中文，每句默念出声，卡的地方整句重写，问一句「汪曾祺会这么写吗」：
+The thesis, caption, and three big questions are all Chinese text going onto the card. Read every sentence aloud silently, and rewrite anything that snags, asking "would a native writer put it this way":
 
-- 名词化改回动词：「价值的捕获」→「谁把钱赚走」。
-- 介词链砍掉：「通过 X 实现 Y」→ 动词直接带宾语。
-- 不用「这一刀」「锋利」（当元描述）「钉死」「砸实」这类给自己话配乐的词，内容够力读者自己看得出。
+- Turn nominalizations back into verbs: "价值的捕获" ("the capture of value") → "谁把钱赚走" ("who takes the money").
+- Cut preposition chains: "通过 X 实现 Y" ("achieve Y through X") → put the verb directly with its object.
+- Don't use self-congratulatory words like "这一刀" (this cut), "锋利" (sharp, as meta-commentary), "钉死" (nailed down), "砸实" (hammered solid) — if the content is strong enough, the reader can see it without you narrating your own cleverness.
+</content>

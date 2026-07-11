@@ -1,59 +1,59 @@
 ---
 name: ljg-blind
-description: 盲区扫描——读昨天你与 AI 的全部对话，照出暴露的思维盲区（不是不懂的知识，是让某类真相一直看不见的思维习惯），再从微信读书挑一本书的一章精准补上，落成一篇完整分析笔记。Use when user says '扫盲区', '盲区', '照盲区', '看看我的思维盲区', '我昨天想漏了什么', 'blind spot', 'ljg-blind', '/ljg-blind', or wants yesterday's AI conversations analyzed for cognitive blind spots plus a targeted weread chapter to fill them. 可选参数：传一个日期(YYYY-MM-DD)扫那天而非昨天。NOT FOR 纵向深钻一个观点（用 ljg-think）、一个领域降秩（用 ljg-rank）、陪读一篇文本（用 ljg-read）、找一个领域的约束（用 ljg-constraint）。
+description: "Blind spot scan (盲区扫描) — reads all of yesterday's conversations between you and AI, and illuminates a cognitive blind spot (not a knowledge gap, but a thinking habit that keeps some category of truth permanently invisible), then picks one precisely-matched chapter from WeRead (微信读书) to fill it, writing the whole thing up as a complete analysis note. Use when user says '扫盲区' (scan blind spot), '盲区' (blind spot), '照盲区' (illuminate blind spot), '看看我的思维盲区' (look at my cognitive blind spots), '我昨天想漏了什么' (what did I miss thinking yesterday), 'blind spot', 'ljg-blind', '/ljg-blind', or wants yesterday's AI conversations analyzed for cognitive blind spots plus a targeted WeRead chapter to fill them. Optional parameter: pass a date (YYYY-MM-DD) to scan that day instead of yesterday. NOT FOR drilling vertically into a single viewpoint (use ljg-think), reducing the order of a domain (use ljg-rank), reading alongside a text (use ljg-read), or finding the constraints of a domain (use ljg-constraint)."
 user_invocable: true
 ---
 
-# 盲区扫描
+# Blind Spot Scan
 
-读你昨天跟 AI 的全部对话，照出那个你自己看不见的思维盲区，从微信读书点亮补它的一章。
+Read all of yesterday's conversations with AI, illuminate the thinking blind spot you can't see yourself, and light up a chapter from WeRead (微信读书) that fills it.
 
-## 盲区是什么
+## What a blind spot is
 
-盲区不是知识缺口。不是"没读过某本书""不知道某个事实"——那种缺口，查一下就补上了。
+A blind spot isn't a knowledge gap. It's not "haven't read some book" or "don't know some fact" — that kind of gap gets closed the moment you look it up.
 
-盲区是一种结构性的思维习惯，它让某一类真相对你**系统性地不可见**。你不是想不到，是这个习惯让你压根没往那个方向看。它藏在你怎么想事情的方式里，不藏在你想的内容里。
+A blind spot is a structural thinking habit that makes some category of truth **systematically invisible** to you. It's not that you couldn't think of it — this habit means you never even looked in that direction. It hides in how you think about things, not in what you think about.
 
-所以证据不在"他说错了什么"。在——他没往哪看，他在哪绕了，他默认了什么却从没检。
+So the evidence isn't in "what he got wrong." It's in — where he never looked, where he circled without landing, what he defaulted to but never checked.
 
-## 五种盲区信号
+## Five blind-spot signals
 
-从昨天的对话里找这五种。每一种都要落到具体的话上，不能凭感觉。
+Look for these five in yesterday's conversation. Each one must land on a specific thing said — not a gut feeling.
 
-1. **绕开点**——一个难题他打开了，又飞快合上。证据：问题抛出，转头换话题，或一句"这个先不管"滑过去。
-2. **空转框架**——反复换视角切同一个问题，没有一个落地。证据：一个问题被套上三四副框架，每副都浅尝辄止，最后没结论。
-3. **单一取景框**——一整天只调用一两副 f（逢事就"约束""进化""博弈"），没试过别的镜子。这是他最隐蔽的盲区：越趁手的 f，越挡住别的 f 能照见的东西。（继刚看世界 = f(x)，四轴是他默认的四副 f；正因为默认，才最该查他今天是不是又只用了其中一副。）
-4. **未检前提**——一个默认假设贯穿全程，他当硬约束在用，从没问过它是不是假墙。证据：某个"本来就该这样"的说法，反复出现却从未被他自己质疑。
-5. **相邻空缺**——从他问的东西反推，本该问、却没问的那个角落。不是凭空猜，是他自己的线索指向那儿。
+1. **Avoidance point** — a hard problem he opened, then quickly shut. Evidence: a question gets raised, then the topic changes, or a "let's not worry about that for now" slides right past it.
+2. **Idling framework** — switching perspectives on the same problem again and again, none of them landing. Evidence: one problem gets three or four frameworks slapped onto it, each explored only shallowly, ending without a conclusion.
+3. **Single viewfinder** — a whole day spent calling on only one or two f's (defaulting to "constraint," "evolution," "game theory" for everything), never trying a different lens. This is his most hidden blind spot: the more comfortable an f becomes, the more it blocks what other f's could reveal. (Jigang sees the world as world = f(x); the four axes are his default four f's — and precisely because they're the default, it's most worth checking whether today he again only used one of them.)
+4. **Unchecked premise** — a default assumption running through the whole conversation, being used as a hard constraint, never once questioned as to whether it's really a fake wall. Evidence: some "this is just how it should be" statement, repeated but never once questioned by himself.
+5. **Adjacent gap** — working backward from what he did ask, the corner that should have been asked about but wasn't. Not a guess out of nowhere — his own clues point there.
 
-## 选哪一个
+## Which one to pick
 
-从信号里挑 **1 个**作为今天的盲区。宁可一个说透，不要五个都点一遍——盲区的密度低于精度。判据三条：
+Pick **1** of the signals as today's blind spot. Better to say one thing thoroughly than to touch all five — blind-spot density matters less than precision. Three criteria:
 
-- **杠杆**——补上它，下一步打开的可能性最多。
-- **真盲**——是他自己看不见的，不是知道了在拖的。
-- **对位 mission**——贴 M0（找新取景框）/ M1（求本质）。盲区若正好挡在他的主线上，优先。读 `~/.claude/PAI/USER/TELOS/MISSION.md` 确认主线。
+- **Leverage** — filling it opens the most possibilities for the next step.
+- **Genuinely blind** — something he truly can't see, not something he already knows and is procrastinating on.
+- **Aligned with the mission** — matches M0 (finding a new viewfinder) / M1 (seeking the essence). If the blind spot happens to be blocking his main line, prioritize it. Read `~/.claude/PAI/USER/TELOS/MISSION.md` to confirm the main line.
 
 ---
 
-## 操作步骤
+## Operating steps
 
-### 第一步 · 定日期
+### Step 1 · Set the date
 
 ```bash
-# 默认昨天；用户传了 YYYY-MM-DD 就用那天（macOS BSD date）
+# Defaults to yesterday; if the user passed YYYY-MM-DD, use that day (macOS BSD date)
 target=${1:-$(date -v-1d +%Y-%m-%d)}
 ```
 
-### 第二步 · 捞当天的对话
+### Step 2 · Pull that day's conversations
 
-会话文件在 `~/.claude/projects/-Users-lijigang*/*.jsonl`，每行一条消息（type=user / assistant / system）。只要继刚的真人发言，滤掉工具回显和子 agent 噪声：
+Session files live at `~/.claude/projects/-Users-lijigang*/*.jsonl`, one message per line (type=user / assistant / system). Keep only Jigang's actual human utterances, filtering out tool echoes and subagent noise:
 
 ```bash
-target=<上一步的日期>
+target=<date from previous step>
 out=/tmp/ljg-blind-${target}.txt
 : > "$out"
-# 只取顶层会话文件（排除 subagents/workflows），只留真人纯文本
+# Only take top-level session files (excluding subagents/workflows), keep only plain human text
 for f in $(rg -l "\"timestamp\":\"${target}" ~/.claude/projects/-Users-lijigang*/ 2>/dev/null | grep -vE 'subagents/|workflows/'); do
   jq -r 'select(.type=="user" and ((.timestamp // "") | startswith("'"${target}"'"))) |
     (.message.content) as $c |
@@ -63,107 +63,108 @@ for f in $(rg -l "\"timestamp\":\"${target}" ~/.claude/projects/-Users-lijigang*
     select($t|length>0) |
     "[" + (.timestamp|.[11:16]) + "] " + $t' "$f" 2>/dev/null >> "$out"
 done
-# 滤掉工具回显 / 系统噪声 / 本次调用请求自身
+# Filter out tool echoes / system noise / this very invocation's own request
 grep -vE 'tool_use_id|system-reminder|caveat|Caveat|local-command|command-name|command-message|<task-notification>|ljg-blind|扫盲区' "$out" > "${out}.f" && mv "${out}.f" "$out"
 wc -c "$out"
 ```
 
-材料若 >50KB，按对话分段读，先识别每段在讨论什么主题，再往下看。可辅助看几条相邻的 assistant 回复定上下文。
+If the material exceeds 50KB, read it in segments by conversation, first identifying what topic each segment discusses before going further. You can also glance at a few adjacent assistant replies to establish context.
 
-**数据稀薄兜底**：当天真人输入 <200 字或没有对话——直接在输出里写明「当天对话稀薄 / 无」，**不强造盲区**。宁可交白卷，不许编。
+**Thin-data fallback**: if that day's human input is under 200 characters or there's no conversation at all — say so directly in the output, "conversation that day was thin / absent," **don't force a blind spot**. Better to turn in a blank page than fabricate one.
 
-### 第三步 · 读出盲区
+### Step 3 · Read out the blind spot
 
-按上面「五种盲区信号」过一遍，每命中一处都记下证据（哪几句话、什么转折让你看出来的）。然后按「选哪一个」的三条判据，选出 1 个最要紧的盲区。
+Go through the "Five blind-spot signals" above, and for every hit, note the evidence (which specific lines, what turn made you see it). Then use the three criteria in "Which one to pick" to select the **1** most important blind spot.
 
-### 第四步 · 微信读书选章
+### Step 4 · Pick a WeRead chapter
 
-调 weread skill（`WEREAD_API_KEY` 在环境变量里，格式 `wrk-xxxx`；若没有，提示 `export WEREAD_API_KEY=<key>`）。三步：
+Call the weread skill (`WEREAD_API_KEY` should be in the environment, format `wrk-xxxx`; if missing, prompt `export WEREAD_API_KEY=<key>`). Three steps:
 
-1. **搜书**——从盲区里抽 1-2 个核心词当 keyword：
+1. **Search for a book** — pull 1-2 core terms from the blind spot as the keyword:
 
 ```bash
 curl -s -X POST https://i.weread.qq.com/api/agent/gateway \
   -H "Authorization: Bearer $WEREAD_API_KEY" -H "Content-Type: application/json" \
-  -d '{"api_name":"/store/search","keyword":"<核心词>","count":8,"skill_version":"1.0.3"}' \
-  | jq -r '.results[].books[]?.bookInfo | "\(.bookId)\t\(.title)\t\(.author)\t评分\(.newRating)"'
+  -d '{"api_name":"/store/search","keyword":"<core term>","count":8,"skill_version":"1.0.3"}' \
+  | jq -r '.results[].books[]?.bookInfo | "\(.bookId)\t\(.title)\t\(.author)\trating \(.newRating)"'
 ```
 
-从返回里挑评分尽量 ≥750（新版评分是 ×100，即 7.5）、且最贴盲区的 1 本，记 bookId。评分不是唯一标准——对症 > 高分，一本 7.4 但正打在盲区上，胜过一本 8.5 但擦边的。
+From the results, pick the 1 book that scores as close to ≥750 as possible (the new rating scale is ×100, i.e. 7.5) and matches the blind spot best, and note the bookId. Rating isn't the only criterion — a match beats a high score: a 7.4 book that hits the blind spot dead on beats an 8.5 book that only grazes it.
 
-2. **看目录**——挑最对症那 **1 章**，不是整本、不是序章泛泛：
+2. **Check the table of contents** — pick the single **1 chapter** that fits best, not the whole book, not a vague preface:
 
 ```bash
 curl -s -X POST https://i.weread.qq.com/api/agent/gateway \
   -H "Authorization: Bearer $WEREAD_API_KEY" -H "Content-Type: application/json" \
   -d '{"api_name":"/book/chapterinfo","bookId":"<bookId>","skill_version":"1.0.3"}' \
-  | jq -r '.chapters[] | select(.level<=2) | "\(.chapterUid)\t[\(.level)] \(.title)\t\(.wordCount)字"'
+  | jq -r '.chapters[] | select(.level<=2) | "\(.chapterUid)\t[\(.level)] \(.title)\t\(.wordCount) words"'
 ```
 
-记 chapterUid、章节标题、wordCount。
+Note the chapterUid, chapter title, and wordCount.
 
-3. **估时长**——`wordCount / 280`（中文阅读速度）向上圆到 5 的倍数。无 wordCount 就按目录感觉在 15-45 分钟之间估一个；标题带「上篇/下篇」「卷一」这类宏观词，时长再 ×1.5。
+3. **Estimate the time** — `wordCount / 280` (Chinese reading speed), rounded up to the nearest multiple of 5. Without a wordCount, estimate 15-45 minutes by feel from the table of contents; if the title has macro-scale words like "Part 1/Part 2" or "Volume One," multiply the estimate by 1.5.
 
-4. **构造链接**：`weread://reading?bId={bookId}&chapterUid={chapterUid}`
+4. **Build the link**: `weread://reading?bId={bookId}&chapterUid={chapterUid}`
 
-**兜底**：搜索全空 / 没对症章节 → 选整本相关书，链接退到 `weread://reading?bId={bookId}`，文里说明为什么没能精准到章。
+**Fallback**: if the search comes up completely empty / there's no matching chapter → pick the whole related book instead, fall the link back to `weread://reading?bId={bookId}`, and explain in the text why it couldn't be narrowed down to a specific chapter.
 
-### 第五步 · 写笔记
+### Step 5 · Write the note
 
-获取时间戳：`date +%Y%m%dT%H%M%S` 和 `date "+%Y-%m-%d %a %H:%M"`（时间用当前，不是 target）。
+Get timestamps: `date +%Y%m%dT%H%M%S` and `date "+%Y-%m-%d %a %H:%M"` (use the current time, not the target date).
 
-写入 `~/Documents/notes/{时间戳}--盲区-{主题}__blind.org`。org-mode 格式，禁止 markdown 语法。
+Write to `~/Documents/notes/{timestamp}--blind-{topic}__blind.org`. Org-mode format, no markdown syntax allowed.
 
-正文模板：
+Body template:
 
 ```org
-#+title: 盲区扫描 · {一句话点出这个盲区}
+#+title: Blind Spot Scan · {one sentence naming this blind spot}
 #+date: [YYYY-MM-DD Weekday HH:MM]
 #+filetags: :blind:weread:topology:
 
-* 昨天你在想什么
-<1-2 段。当天对话的思维地形——哪几件事、绕着哪个核心在转。给证据：哪几句话看出来的。不流水账，抓主线。>
+* What you were thinking about yesterday
+<1-2 paragraphs. The terrain of yesterday's conversation — which few things, circling which core. Give evidence: which specific lines show this. Not a play-by-play — grab the main thread.>
 
-* 照出来的盲区
-<挑出的那 1 个盲区。先一句话点破它是哪种（绕开点 / 空转框架 / 单一取景框 / 未检前提 / 相邻空缺）。再 2-3 段说清：它具体长什么样、昨天哪几处暴露了它、为什么你自己看不见。要点到杠杆——补上之后会打开什么。>
+* The blind spot revealed
+<The 1 blind spot picked out. First, one sentence naming which type it is (avoidance point / idling framework / single viewfinder / unchecked premise / adjacent gap). Then 2-3 paragraphs spelling out: what it specifically looks like, which moments yesterday exposed it, why he can't see it himself. Must name the leverage — what opens up once it's filled.>
 
-* 这一章给你
-- 书：《书名》 — 作者
-- 章节：<章节标题>
-- 时长：约 N 分钟
-- 链接：[[weread://reading?bId=XXX&chapterUid=YYY][在微信读书打开]]
-- 为什么是它：<3-4 句。把盲区和这一章对上——这章具体讲什么、怎么补这个盲区。不要泛泛说"开阔视野"，要说清这一章的哪个东西正对这个盲区的哪个缺口。>
+* This chapter is for you
+- Book: "Title" — Author
+- Chapter: <chapter title>
+- Time: about N minutes
+- Link: [[weread://reading?bId=XXX&chapterUid=YYY][Open in WeRead]]
+- Why this one: <3-4 sentences. Match the blind spot to this chapter — what this chapter specifically covers, how it fills this blind spot. Don't say vague things like "broadens perspective" — spell out exactly which part of this chapter addresses exactly which gap in the blind spot.>
 ```
 
-报告文件路径给用户。
+Report the note's file path to the user.
 
 ---
 
-## 语气规则（写笔记时守住）
+## Tone rules (hold to these when writing the note)
 
-这篇笔记是写给一个跟你长期一起思考的人的，不是报告，不是陌生读者。
+This note is written for someone who has been thinking alongside you for a long time — it's not a report, not for a stranger reader.
 
-- **中文写作，禁翻译腔**。少用「然而 / 此外 / 值得注意的是」；少用名词化（「对…的理解」→「懂…」，「做出…的决定」→「决定」）；主语能省则省；短句优先。写完默念一遍，问：一个没读过翻译小说的中国人会这么说吗？汪曾祺会这么写吗？卡的地方整段重写，不是换个词。
-- **禁切痕风金属比喻**。不写「这一刀」「再狠一层」「锋利的话」「砸实」「钉死」「硬话」这一整套自夸元修辞。盲区照得准不准，读者看得出，不用作者吆喝力度。
-- **有温度、有毛刺、有判断**。可以有立场，别装中立到虚伪；但标清楚这是判断，不是客观事实。
+- **Write in the same language as the input/request; no translation-ese.** If writing in Chinese: avoid stiff connectives like 然而/此外/值得注意的是 (however/moreover/it's worth noting); avoid over-nominalization (对…的理解 → 懂… "understanding of X" → "get X", 做出…的决定 → 决定 "make a decision to..." → "decide"); drop the subject where possible; prefer short sentences. Read it back silently and ask: would someone who's never read a translated novel talk like this? Would Wang Zengqi (汪曾祺, a Chinese writer known for plain, natural prose) write it this way? If writing in English, apply the equivalent test: would a sharp, plainspoken writer actually say it like this out loud? Rewrite the whole passage where it snags — don't just swap a word.
+- **No "sharpened blade" metal metaphors.** Don't write things like "this cut," "one level fiercer," "sharp words," "nail it down," "lock it in" — this whole self-congratulatory rhetorical toolkit. Whether a blind spot is named accurately shows in the reading; it doesn't need the author shouting about how hard he swung.
+- **Have warmth, have rough edges, have judgment.** It's fine to take a stance — don't fake neutrality to the point of dishonesty; but label clearly when something is judgment, not objective fact.
 
-## org 严格语法（禁混 markdown）
+## Strict org syntax (don't mix in markdown)
 
-- 标题用 `*` / `**` / `***`，不要 `#`
-- 加粗 `*字*`，斜体 `/字/`，等宽 `~code~`
-- 列表用 `-`，不要 `*`（`*` 在 org 是标题）
-- 链接 `[[url][text]]`，不要 `[text](url)`
-- 分隔线 `-----`，不要 `---`；不要 markdown 的 `>` 引用
+- Headings use `*` / `**` / `***`, not `#`
+- Bold `*text*`, italic `/text/`, monospace `~code~`
+- Lists use `-`, not `*` (`*` is a heading in org)
+- Links `[[url][text]]`, not `[text](url)`
+- Dividers `-----`, not `---`; no markdown `>` blockquotes
 
-## 自检（写完前过一遍）
+## Self-check (run through before finishing)
 
-- 盲区有具体证据吗？每一处都能指到昨天哪几句话？没有就退回第三步。
-- 只选了 1 个盲区、说透了吗？还是贪多点了三四个？
-- 章节链接里 bookId 和 chapterUid 都不为空、格式对？
-- 翻译腔查了吗？名词化、「是…的」句、可省的连词，扫一遍。
-- 切痕风金属比喻查了吗？「这一刀」「钉死」「砸实」一个不留。
-- 三段都有内容、不空段？
+- Does the blind spot have concrete evidence? Can every point be traced back to specific lines from yesterday? If not, go back to Step 3.
+- Did you pick only 1 blind spot and say it thoroughly? Or greedily touch three or four?
+- Does the chapter link have both bookId and chapterUid non-empty, correctly formatted?
+- Checked for translation-ese? Scan for over-nominalization, stilted constructions, droppable connectives.
+- Checked for sharpened-blade metal metaphors? Not one "this cut," "nail it down," "lock it in" left.
+- Do all three sections have content, no empty sections?
 
-## 和「早信」的分工
+## Division of labor with the "morning letter"
 
-Pulse 每天早上有个自动早信（`陈平安思维拓扑.org`），是陈平安的口气、每天一封、挑一个洞。ljg-blind 是**随手调**的分析版——同一套「读昨天 → 看盲区 → weread 选章」的底子，但更系统、专照盲区、分析写得更足，而且能扫任意一天（传日期参数）。想要一封信，等早信；想主动查某天的盲区、要一篇能存档的分析，用 ljg-blind。
+Pulse sends an automatic morning letter every day (`陈平安思维拓扑.org`, "Chen Ping'an's Thinking Topology"), written in Chen Ping'an's voice, one per day, picking one hole to point at. ljg-blind is the **on-demand** analysis version — same underlying process of "read yesterday → see the blind spot → pick a WeRead chapter," but more systematic, focused purely on blind spots, written with fuller analysis, and able to scan any given day (pass a date parameter). Want a letter — wait for the morning letter; want to proactively check a given day's blind spot, want an analysis piece you can archive — use ljg-blind.
+</content>

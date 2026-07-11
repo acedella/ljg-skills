@@ -1,139 +1,139 @@
-# 模具：白板（-w）
+# Mold: whiteboard (-w)
 
-把推理过程写成看得见的样子：概念用箭头串成链，关键词标出来，旁边配简笔图标。推进但不急，每行走一步推理，留白处喘口气。板上留住的是思考怎么一步步走出来的，结论只是最后一格。
+Write the reasoning process out so it can be seen: concepts strung together with arrows into a chain, key words called out, simple icon sketches alongside. It advances but doesn't rush — each line takes one step of reasoning, with room to breathe between them. What the board holds onto is how the thinking got there step by step; the conclusion is just the last panel.
 
-三个字定调：
+Three words set the tone:
 
-- 「余白」：空间自己就是主角。内容四周、段落之间的空，本身就是设计
-- 「枯」：用色克制，靠亮度差和微温差说话。全局暖灰调，一抹微朱点睛
-- 「素」：无装饰。无边框堆砌、无噪点纹理、无拟物质感。干净到只剩内容和空气
+- "Negative space" (余白): the space itself is the protagonist. The empty area around the content and between paragraphs is itself the design
+- "Austerity" (枯): restrained color, speaking through subtle differences in brightness and warmth. An overall warm-gray tone, with a single dab of cinnabar as the accent
+- "Plainness" (素): no decoration. No piled-up borders, no noise texture, no faux-material feel. Clean down to just content and air
 
-## 步骤 1：读取模板
+## Step 1: Read the template
 
 Read `assets/whiteboard_template.html`
 
-模板提供：
+The template provides:
 
-- 书写字体加载（Permanent Marker + Kalam，对应 `--marker` / `--hand`）
-- CSS 变量：`--bg`（外层暖灰底 `#EBE5DA`）、`--board`（和紙奶白板面 `#F7F3EC`）、`--ink`（墨）、`--ink-light`（灰墨）、`--yellow`（焙茶高亮）、`--red`（石灰箭头）、`--shu`（朱砂）、`--blue` / `--green` / `--orange`（备用色）、`--marker-bg`
-- `.board-frame` 画框：极淡暖灰线，几乎隐入背景
-- SVG 箭头 marker 五色（`arrow-r` / `arrow-w` / `arrow-b` / `arrow-g` / `arrow-y`）
-- `.colophon` 署名栏
-- `{{CUSTOM_CSS}}` 和 `{{CONTENT_HTML}}` 插槽
+- Handwriting font loading (Permanent Marker + Kalam, mapped to `--marker` / `--hand`)
+- CSS variables: `--bg` (outer warm-gray background `#EBE5DA`), `--board` (milky washi board surface `#F7F3EC`), `--ink` (ink), `--ink-light` (light ink gray), `--yellow` (roasted-tea highlight), `--red` (limestone-gray arrow), `--shu` (cinnabar), `--blue` / `--green` / `--orange` (spare colors), `--marker-bg`
+- `.board-frame` frame: an extremely faint warm-gray line, almost invisible against the background
+- Five-color SVG arrow markers (`arrow-r` / `arrow-w` / `arrow-b` / `arrow-g` / `arrow-y`)
+- `.colophon` signature block
+- `{{CUSTOM_CSS}}` and `{{CONTENT_HTML}}` slots
 
-## 步骤 2：理解内容，选择风格
+## Step 2: Understand the content, choose a style
 
-### 2.1 提取结构
+### 2.1 Extract the structure
 
-从内容中提取：
+Extract from the content:
 
-- 核心论点：一句话总结
-- 推理链：论点怎么一步步推出来的？识别 A → B → C 结构
-- 3-8 个关键概念：可作链条节点
-- 分支点：推理在哪里分岔、汇合、转折
-- 可画的概念：哪些能用简笔画快速表达
+- Core argument: summarize in one sentence
+- Reasoning chain: how was the argument derived step by step? Identify the A → B → C structure
+- 3-8 key concepts: candidates for chain nodes
+- Branch points: where does the reasoning fork, converge, or turn?
+- Drawable concepts: which ones can be quickly expressed as a simple sketch?
 
-### 2.2 选择风格路线
+### 2.2 Choose a style track
 
-| 风格 | 视觉特征 | 触发信号 | 主色 |
+| Style | Visual signature | Trigger signal | Main color |
 |------|---------|---------|------|
-| 逻辑链（默认） | 横向推理链（→ 连接）+ 纵向层级 + 焙茶关键词 + 内嵌简笔画 | 有因果/推理/论证/阐释结构 | `--red` 箭头 + `--yellow` 高亮 |
-| 脑暴墙 | 核心词居中 + 放射状分支 + 色块便签 + 关键词散落 | 发散型/多观点/创意/头脑风暴 | `--yellow` 主导 |
-| 时间线 | 纵向时间轴 + 节点 + 旁注 + 对比色 | 时间/阶段/进程/回顾类 | `--green` 主导 |
-| 矩阵分析 | 2x2 或多格矩阵 + 象限标签 + 要素散布 | 分类/对比/评估/决策框架 | `--blue` 主导 |
+| Logic chain (default) | Horizontal reasoning chain (connected with →) + vertical hierarchy + roasted-tea keywords + embedded sketches | Content has causal/reasoning/argumentative/explanatory structure | `--red` arrows + `--yellow` highlights |
+| Brainstorm wall | Core word centered + radiating branches + colored sticky-note blocks + scattered keywords | Divergent/multi-viewpoint/creative/brainstorming content | `--yellow` dominant |
+| Timeline | Vertical timeline + nodes + side notes + contrasting colors | Time/stages/progression/retrospective content | `--green` dominant |
+| Matrix analysis | 2x2 or multi-cell matrix + quadrant labels + scattered factors | Classification/comparison/evaluation/decision-framework content | `--blue` dominant |
 
-选择原则：
+Selection principle:
 
-- 默认逻辑链——最见推演过程
-- 多个并列观点 → 脑暴墙
-- 有时间/阶段维度 → 时间线
-- 涉及分类/象限 → 矩阵分析
+- Default to logic chain — it best shows the reasoning process
+- Multiple parallel viewpoints → brainstorm wall
+- A time/stage dimension → timeline
+- Involves classification/quadrants → matrix analysis
 
-### 2.3 色调：和紙奶白 + 朱砂
+### 2.3 Tone: milky washi + cinnabar
 
-日式极简。奶白底如手漉和紙，墨色文字如书道落笔，朱砂红如方印点睛。用结构和字重说话，不用颜色喊。
+Japanese minimalism. A milky background like hand-pulled washi paper, ink-colored text like brushed calligraphy, cinnabar red like the touch of a seal — the finishing accent. Let structure and font weight do the talking; don't shout with color.
 
-| 变量 | 色值 | 角色 |
+| Variable | Value | Role |
 |------|------|------|
-| `--board` | `#F7F3EC` 和紙 | 奶白底，温暖的手漉和紙 |
-| `--ink` | `#2C2826` 墨 | 正文，温暖的近黑色如墨汁 |
-| `--ink-light` | `#8A8478` 灰墨 | 标注、旁白 |
-| `--yellow` | `#7A6B4E` 焙茶 | 高亮文字——在奶白底上沉稳可读 |
-| `--red` | `#A09888` 石 | 箭头：安静的石灰色，只引路 |
-| `--shu` | `#C03C28` 朱砂 | 点睛——真正的朱砂红，每张板 ≤ 3 处 |
+| `--board` | `#F7F3EC` washi | Milky background, warm hand-pulled washi paper |
+| `--ink` | `#2C2826` ink | Body text, a warm near-black like ink |
+| `--ink-light` | `#8A8478` light ink gray | Annotations, asides |
+| `--yellow` | `#7A6B4E` roasted tea | Highlighted text — reads calm and legible against the milky background |
+| `--red` | `#A09888` stone-gray | Arrows: a quiet limestone gray, there only to guide the eye |
+| `--shu` | `#C03C28` cinnabar | The finishing accent — genuine cinnabar red, ≤ 3 uses per board |
 
-画框：`rgba(180,170,155,0.15)` 极淡暖灰线，几乎隐入背景。
+Frame: an extremely faint warm-gray line at `rgba(180,170,155,0.15)`, nearly invisible against the background.
 
-原则：
+Principles:
 
-- 奶白底上靠字重和焙茶色立层级
-- 墨落在和紙上，这层对比是全板的底子
-- 圈标、下划线统一用 `--yellow`（焙茶）
-- 箭头用 `--red`（石灰），安静引路，不抢戏
-- `--shu`（朱砂）只用于：结论框边线、核心论点圈标、署名旁的印章。每张板 ≤ 3 处
-- 朱砂是唯一的高饱和色，正因为少，才打眼
+- Build hierarchy on the milky background through font weight and the roasted-tea color
+- Ink on washi is the base contrast for the entire board
+- Circling marks and underlines uniformly use `--yellow` (roasted tea)
+- Arrows use `--red` (limestone gray), quietly guiding without stealing the scene
+- `--shu` (cinnabar) is used only for: the conclusion box's border, the circling mark on the core argument, and the seal beside the signature. ≤ 3 uses per board
+- Cinnabar is the only high-saturation color — precisely because it's rare, it catches the eye
 
-#### 内容驱动色温偏移
+#### Content-driven temperature shift
 
-默认保持侘寂灰调。内容主题不同，底色和高亮可以微微偏冷或偏暖；不加新色相。
+Default to keeping the wabi-sabi gray tone. Depending on the content's theme, the background and highlight can shift slightly warmer or cooler; don't introduce a new hue.
 
-检测：扫内容关键词，匹配主导类型。跨类时取篇幅最大的主题。
+Detection: scan the content's keywords and match them to a dominant type. When multiple types overlap, use whichever theme takes up the most space.
 
-| 类型 | 触发词 | `--board` | `--yellow` | 光暈色调 |
+| Type | Trigger words | `--board` | `--yellow` | Glow tone |
 |------|--------|-----------|------------|---------|
-| 默认（和紙） | 无匹配 | `#F7F3EC` | `#7A6B4E` | 暖朱 |
-| 技术 | AI、算法、模型、代码、架构、系统、API、数据、工程、网络 | `#F3F4F7` | `#5A6878` | 冷蓝 |
-| 人文 | 哲学、认知、意义、伦理、存在、美学、叙事、历史、文学、心理 | `#F7F0E5` | `#8A6A3E` | 深暖 |
-| 商业 | 投资、商业、增长、市场、估值、融资、战略、竞争、利润、ROI | `#F4F5F0` | `#5A7054` | 中性绿 |
+| Default (washi) | No match | `#F7F3EC` | `#7A6B4E` | Warm cinnabar |
+| Technical | AI, algorithm, model, code, architecture, system, API, data, engineering, network | `#F3F4F7` | `#5A6878` | Cool blue |
+| Humanities | Philosophy, cognition, meaning, ethics, existence, aesthetics, narrative, history, literature, psychology | `#F7F0E5` | `#8A6A3E` | Deep warm |
+| Business | Investment, business, growth, market, valuation, financing, strategy, competition, profit, ROI | `#F4F5F0` | `#5A7054` | Neutral green |
 
-实现：匹配到非默认类型时，在 `{{CUSTOM_CSS}}` 顶部加变量覆盖 + 表面光暈覆盖。默认类型不覆盖。
+Implementation: when a non-default type matches, add variable overrides + a surface glow overlay at the top of `{{CUSTOM_CSS}}`. Don't override anything for the default type.
 
-技术：
+Technical:
 ```css
 :root { --board: #F3F4F7; --yellow: #5A6878; }
 .board > .surface { background: radial-gradient(ellipse at 25% 20%, rgba(120,140,170,0.05) 0%, transparent 50%), radial-gradient(ellipse at 75% 55%, rgba(150,165,190,0.03) 0%, transparent 45%); }
 ```
 
-人文：
+Humanities:
 ```css
 :root { --board: #F7F0E5; --yellow: #8A6A3E; }
 .board > .surface { background: radial-gradient(ellipse at 25% 20%, rgba(190,160,120,0.05) 0%, transparent 50%), radial-gradient(ellipse at 75% 55%, rgba(210,180,140,0.03) 0%, transparent 45%); }
 ```
 
-商业：
+Business:
 ```css
 :root { --board: #F4F5F0; --yellow: #5A7054; }
 .board > .surface { background: radial-gradient(ellipse at 25% 20%, rgba(130,160,130,0.05) 0%, transparent 50%), radial-gradient(ellipse at 75% 55%, rgba(160,185,155,0.03) 0%, transparent 45%); }
 ```
 
-原则：
+Principles:
 
-- 只覆盖 `--board`、`--yellow` 和表面光暈，其他变量一律不动
-- 偏移要轻，轻到不并排对比看不出，但整体氛围不同
-- `--ink`、`--red`、`--shu` 不随内容变化，微朱始终是全板唯一不动的颜色
+- Only override `--board`, `--yellow`, and the surface glow — leave every other variable untouched
+- Keep the shift subtle — subtle enough that it's not obvious in a side-by-side comparison, but the overall mood still differs
+- `--ink`, `--red`, and `--shu` never change with the content — the touch of cinnabar always stays the one constant color on the board
 
-### 2.4 标题设计
+### 2.4 Title design
 
-标题是整张板的第一眼。
+The title is the first thing the eye lands on.
 
-必须做到：
+Must do:
 
-- 标题是一句完整的判断/结论，不是一个词。原文标题只是概念名时，从内容里提炼核心论断作主标题，概念名作副标题
-- 主标题中 1-2 个关键词用 `--yellow`（焙茶）标出，其余墨色
-- 主标题下方用手写波浪横线收束（SVG wavy path，opacity 0.3）
+- The title is a complete judgment/conclusion, not a single word. When the original title is just a concept name, extract the core argument from the content as the main title, and use the concept name as a subtitle
+- Mark 1-2 key words in the main title with `--yellow` (roasted tea); the rest stay ink-colored
+- Below the main title, close it off with a handwritten wavy underline (SVG wavy path, opacity 0.3)
 
-标题结构：
+Title structure:
 ```html
 <div class="board-title">
-  <div class="board-title-sub">副标题或引导语（较小，ink-light）</div>
-  <h1 class="board-title-main">墨色文字<span class="y">焙茶关键词</span>墨色文字</h1>
+  <div class="board-title-sub">subtitle or lead-in (smaller, ink-light)</div>
+  <h1 class="board-title-main">ink-colored text<span class="y">roasted-tea keyword</span>ink-colored text</h1>
   <svg class="title-line" width="600" height="8">
     <path d="M0,4 Q150,0 300,4 T600,4" stroke="var(--yellow)" fill="none" stroke-width="2" opacity="0.3"/>
   </svg>
 </div>
 ```
 
-标题 CSS 参考：
+Title CSS reference:
 ```css
 .board-title { text-align: center; padding: 56px 48px 16px; }
 .board-title-sub { font: 500 34px/1.4 var(--hand); color: var(--ink-light); margin-bottom: 4px; }
@@ -142,28 +142,28 @@ Read `assets/whiteboard_template.html`
 .title-line { display: block; margin: 0 auto; }
 ```
 
-## 步骤 3：设计画面
+## Step 3: Design the visuals
 
-### 3.1 板面元素工具箱
+### 3.1 Board-surface element toolbox
 
-所有视觉元素用 CSS + SVG 实现，不用外部图片。
+Build all visual elements with CSS + SVG, no external images.
 
-#### 文字层级
+#### Text hierarchy
 
-| 层级 | 字体 | 字号 | 颜色 | 用途 |
+| Level | Font | Size | Color | Use |
 |------|------|------|------|------|
-| 主标题 | `--marker` | 64-80px | `--ink` 墨 | 板面顶部大标题，关键词嵌焙茶 |
-| 链条文字 | `--hand` 700 | 34-40px | `--ink` 墨 | 逻辑链中的概念和说明 |
-| 关键词 | `--hand` 700 | 34-42px | `--yellow` | 链条中要强调的概念 |
-| 标注 | `--hand` 400 | 24-28px | `--ink-light` | 旁注、补充、小字 |
-| 大号数字 | `--marker` | 72-120px | `--yellow` 或 `--red` | 数据亮点 |
+| Main title | `--marker` | 64-80px | `--ink` ink | The big title at the top of the board, keywords embedded in roasted tea |
+| Chain text | `--hand` 700 | 34-40px | `--ink` ink | Concepts and explanations in the logic chain |
+| Keywords | `--hand` 700 | 34-42px | `--yellow` | Concepts to emphasize within the chain |
+| Annotation | `--hand` 400 | 24-28px | `--ink-light` | Side notes, supplements, small text |
+| Large numerals | `--marker` | 72-120px | `--yellow` or `--red` | Data highlights |
 
-中文处理：Permanent Marker 和 Kalam 对中文无效，回退到 PingFang SC。中文靠颜色（焙茶/朱砂）和装饰（下划线、圈标）维持手写感。
+Note on non-Latin/CJK text: Permanent Marker and Kalam don't render Chinese characters, and fall back to PingFang SC. When the content is Chinese, the handwritten feel is carried instead through color (roasted tea/cinnabar) and decoration (underlines, circling marks).
 
-#### 手写标记效果（CSS）
+#### Handwritten-mark effects (CSS)
 
 ```css
-/* 链条箭头 — 逻辑推进的视觉线索 */
+/* Chain arrow — the visual cue for logical progression */
 .chain-arrow {
   color: var(--red);
   font: 700 34px var(--hand);
@@ -171,13 +171,13 @@ Read `assets/whiteboard_template.html`
   display: inline;
 }
 
-/* 焙茶高亮 */
+/* Roasted-tea highlight */
 .chalk-yellow {
   color: var(--yellow);
   font-weight: 700;
 }
 
-/* 手写圈标 */
+/* Handwritten circle mark */
 .chalk-circled {
   border: 2.5px solid var(--yellow);
   border-radius: 45% 55% 50% 48%;
@@ -185,13 +185,13 @@ Read `assets/whiteboard_template.html`
   display: inline-block;
 }
 
-/* 下划线 */
+/* Underline */
 .chalk-underline {
   border-bottom: 3px solid var(--red);
   padding-bottom: 2px;
 }
 
-/* 方框（重要结论） */
+/* Box (for an important conclusion) */
 .chalk-box {
   border: 2.5px solid var(--ink);
   border-radius: 3px;
@@ -202,14 +202,14 @@ Read `assets/whiteboard_template.html`
 .chalk-box-yellow { border-color: var(--yellow); }
 .chalk-box-shu { border-color: var(--shu); }
 
-/* 虚线框 */
+/* Dashed box */
 .chalk-dashed {
   border: 2px dashed var(--ink-light);
   border-radius: 3px;
   padding: 14px 18px;
 }
 
-/* 编号标记 */
+/* Numbered marker */
 .chalk-num {
   display: inline-flex;
   align-items: center;
@@ -222,7 +222,7 @@ Read `assets/whiteboard_template.html`
   margin-right: 8px;
 }
 
-/* 问号/感叹号标记 */
+/* Question mark / exclamation mark badge */
 .chalk-question {
   display: inline-flex;
   align-items: center;
@@ -234,7 +234,7 @@ Read `assets/whiteboard_template.html`
   font: 700 28px var(--hand);
 }
 
-/* 微朱点睛 — 极少量使用，每张板 ≤ 3 处 */
+/* Cinnabar accent — used extremely sparingly, ≤ 3 per board */
 .shu-circle {
   border: 2.5px solid var(--shu);
   border-radius: 45% 55% 50% 48%;
@@ -242,7 +242,7 @@ Read `assets/whiteboard_template.html`
   display: inline-block;
 }
 
-/* 朱印 — 结论旁的方印，侘寂点睛 */
+/* Cinnabar seal — a square seal beside the conclusion, the wabi-sabi finishing touch */
 .shu-stamp {
   display: inline-block;
   border: 2px solid var(--shu);
@@ -254,148 +254,151 @@ Read `assets/whiteboard_template.html`
 }
 ```
 
-#### 简笔画（SVG inline）
+#### Simple sketches (inline SVG)
 
-用简单 SVG path 画概念图标。stroke 用 `var(--ink)` 或 `var(--yellow)`，stroke-width: 2-3px，只用 stroke 不用 fill（手写线条风格）。每个图标 3-5 个 path。
+Use simple SVG paths to draw concept icons. Use `var(--ink)` or `var(--yellow)` for stroke, stroke-width: 2-3px, stroke only, no fill (a handwritten line-art style). 3-5 paths per icon.
 
-常用：人（圆头+线身+四肢）、问号、趋势图（折线）、房子（三角+方）、动物（极简轮廓）、灯泡、闪电。
+Common ones: a person (round head + line body + limbs), a question mark, a trend chart (a folded line), a house (triangle + square), an animal (a minimal outline), a light bulb, a lightning bolt.
 
-手写质感：线条不要完美平直，path 可以有微小抖动。
+Handwritten feel: lines shouldn't be perfectly straight — a path can carry a slight wobble.
 
-### 3.2 布局原则
+### 3.2 Layout principles
 
-板面是链式的：主体是横向逻辑链，纵向分层递进。
+The board surface is chain-like: the main body is a horizontal logic chain, progressing in vertical layers.
 
-核心规则：
+Core rules:
 
-- 链式流动：每行一条推理链，概念用 → 连接，从左到右
-- 纵向层级：每层是推理的下一步，上下层用缩进或间距关联
-- 内嵌图标：简笔画和文字混排同一行，不单独占区
-- 焙茶高亮：重要概念用 `--yellow`，在墨色文字里一眼可见
-- 箭头统一 `--red`（石灰），是逻辑推进的视觉节拍
-- 疏密有致：核心推理链紧凑（行间距 1.8 倍），话题转换处留出呼吸（間）
-- 留白即内容：不求写满。关键转折前后留大间距，让读者的思维有落脚处
-- 自然不对齐：链条不需要严格左对齐，像真手写时的自然缩进
+- Chain flow: each line is one reasoning chain, concepts connected with → from left to right
+- Vertical hierarchy: each layer is the next step of the reasoning, related to the layer above/below through indentation or spacing
+- Embedded icons: sketches and text mix inline on the same line, not given their own separate zone
+- Roasted-tea highlights: important concepts use `--yellow`, visible at a glance against the ink-colored text
+- Arrows uniformly `--red` (limestone gray), the visual beat of logical progression
+- Vary density: keep the core reasoning chain tight (1.8x line spacing), and leave breathing room (間, ma) at topic transitions
+- Whitespace is content: don't aim to fill the board. Leave large gaps before and after a major turn, giving the reader's thinking somewhere to land
+- Natural misalignment: the chain doesn't need to be strictly left-aligned — let it drift the way real handwriting naturally does
 
-#### 间距层级（区域分隔）
+#### Spacing hierarchy (for separating zones)
 
-用间距说话，不用线说话。板面上不画分隔线，只有写得紧和写得松。
+Let spacing do the talking instead of lines. Don't draw dividing lines on the board — only tight writing and loose writing.
 
-| 层级 | 间距 | 用途 | CSS |
+| Tier | Spacing | Use | CSS |
 |------|------|------|-----|
-| 零距 | 0-4px | 同一条链的续行 | `.cl + .cl { margin-top: 2px; }` |
-| 小距 | 14-20px | 同一话题内的不同链 | `margin-top: 16px` |
-| 中距 | 32-44px | 不同话题之间（間） | `margin-top: 36px` |
-| 大距 | 52-72px | 大转折/新章节（大間） | `margin-top: 60px`，可加手写波浪线 |
+| Zero gap | 0-4px | A continuation line of the same chain | `.cl + .cl { margin-top: 2px; }` |
+| Small gap | 14-20px | Different chains within the same topic | `margin-top: 16px` |
+| Medium gap | 32-44px | Between different topics (間) | `margin-top: 36px` |
+| Large gap | 52-72px | A major turn/new chapter (大間) | `margin-top: 60px`, can add a handwritten wavy line |
 
-禁止：
+Forbidden:
 
-- `border-top` 直线分隔——板面上不画直线分区
-- ↓ 箭头泛滥——只在明确的"因此/所以"递进时用，每张板 ≤ 3 个
-- 等间距排布——间距不等才像手写
+- `border-top` straight-line dividers — no straight lines to divide zones on the board
+- Overusing ↓ arrows — only use them for an explicit "therefore/so" progression, ≤ 3 per board
+- Evenly-spaced layout — uneven spacing is what makes it feel handwritten
 
-手写波浪线（只用于大距分隔，可选）：
+Handwritten wavy line (for large-gap separation only, optional):
 ```html
 <svg width="800" height="8" style="display:block;margin:0 auto;opacity:0.15;">
   <path d="M0,4 Q100,0 200,4 T400,4 T600,4 T800,4" stroke="var(--ink)" fill="none" stroke-width="1.5"/>
 </svg>
 ```
 
-### 3.3 画面构成（按风格）
+### 3.3 Visual composition (by style)
 
-#### 逻辑链（默认）
+#### Logic chain (default)
 ```
-[大标题 — 墨色, 居中, 关键词嵌焙茶]
+[Big title — ink color, centered, keyword embedded in roasted tea]
 
-→ 概念A → 观察X → 排除Y → 推出Z → 结论1
-                                                  ↓
-→ 展开结论1 → [简笔画] → 补充说明 → 推出概念B
-                                                  ↓
-    概念B → 举例... → 但有一个问题 → [?]
-                                                  ↓
-→ 解答... → 因此 → [最终结论 — 朱砂框]
+→ Concept A → Observe X → Rule out Y → Derive Z → Conclusion 1
+                                                  |
+                                                  v
+→ Expand conclusion 1 → [sketch] → Additional note → Derive concept B
+                                                  |
+                                                  v
+    Concept B → For example... → But there's a problem → [?]
+                                                  |
+                                                  v
+→ Answer... → Therefore → [Final conclusion — cinnabar box]
 ```
-- 每行一条推理链，行与行之间用 ↓ 连接
-- 行首带 → 的是主干推理，不带的是补充
-- 链条自然流动，像在板上从左往右写
-- 适当穿插简笔画，破掉纯文字的单调
+- Each line is one reasoning chain, lines connected with a ↓
+- Lines starting with → are the main thread of reasoning, those without are supplementary
+- Let the chain flow naturally, as if writing left-to-right on the board
+- Sprinkle in sketches where appropriate, to break up the monotony of pure text
 
-#### 脑暴墙
+#### Brainstorm wall
 ```
-       [色块1]   [色块2]
+       [color block 1]   [color block 2]
             \     /
-     [色块3] → [核心词] ← [色块4]
+     [block 3] → [core word] ← [block 4]
             /     \
-       [色块5]   [色块6]
+       [block 5]   [block 6]
 
-  底部：关键结论，下划线
+  Bottom: key conclusion, underlined
 ```
 
-#### 时间线
+#### Timeline
 ```
-  [标题]
+  [Title]
 
-  ●──────●──────●──────●──────●
-  阶段1   阶段2   阶段3   阶段4   阶段5
-  │       │       │       │       │
-  注释    注释    注释    注释    注释
-```
-
-#### 矩阵分析
-```
-  [标题]
-            │ 维度A高
-    ────────┼────────
-    象限1   │ 象限2
-            │
-    ────────┼────────
-    象限3   │ 象限4
-            │ 维度A低
-   维度B低       维度B高
+  o------o------o------o------o
+  Stage1  Stage2  Stage3  Stage4  Stage5
+  |       |       |       |       |
+  Note    Note    Note    Note    Note
 ```
 
-## 步骤 4：写 CSS + HTML
+#### Matrix analysis
+```
+  [Title]
+            | Dimension A high
+    --------+--------
+    Quad 1  | Quad 2
+            |
+    --------+--------
+    Quad 3  | Quad 4
+            | Dimension A low
+   Dim B low     Dim B high
+```
 
-所有 CSS 写入 `{{CUSTOM_CSS}}`，所有 HTML 写入 `{{CONTENT_HTML}}`。
+## Step 4: Write the CSS + HTML
 
-CSS 从零写，class 名反映内容语义（`.premise-chain`、`.conclusion-box`），不用通用名。
+Write all CSS into `{{CUSTOM_CSS}}`, all HTML into `{{CONTENT_HTML}}`.
 
-色调变量：默认侘寂色调直接用模板值。内容匹配技术/人文/商业类型时（见「内容驱动色温偏移」），在 CUSTOM_CSS 顶部覆盖 `--board`、`--yellow` 和 `.board > .surface`。
+Write the CSS from scratch, with class names reflecting the content's semantics (`.premise-chain`, `.conclusion-box`), not generic names.
 
-逻辑链布局技巧：
+Tone variables: for the default wabi-sabi tone, use the template values directly. When the content matches the technical/humanities/business type (see "Content-driven temperature shift"), override `--board`, `--yellow`, and `.board > .surface` at the top of CUSTOM_CSS.
 
-- 每条链用 `display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 6px;` 实现自然换行
-- 箭头用 `<span class="chain-arrow">→</span>` 内嵌文字流
-- 焙茶关键词用 `<span class="chalk-yellow">关键词</span>`
-- 简笔画 SVG 用 `display: inline-block; vertical-align: middle;` 嵌入行内
-- 行间距不等——同一论点的行紧凑（`margin-top: 12px`），新话题换大间距（`margin-top: 28px`）
-- 带 → 开头的行可加 `padding-left` 缩进，形成层次
+Logic-chain layout tips:
 
-替换变量：
+- Each chain uses `display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 6px;` for natural wrapping
+- Arrows use `<span class="chain-arrow">→</span>` inline in the text flow
+- Roasted-tea keywords use `<span class="chalk-yellow">keyword</span>`
+- Sketch SVGs use `display: inline-block; vertical-align: middle;` to sit inline
+- Uneven line spacing — lines within the same point stay tight (`margin-top: 12px`), a new topic gets a larger gap (`margin-top: 28px`)
+- Lines starting with → can add `padding-left` indentation, to build up layers
 
-| 变量 | 内容 |
+Variable substitution:
+
+| Variable | Content |
 |------|------|
-| `{{CUSTOM_CSS}}` | 全部自定义 CSS |
-| `{{CONTENT_HTML}}` | 全部内容 HTML |
-| `{{SOURCE_LINE}}` | 内容来源（可选）：`<span class="info-source">来源文字</span>`，无来源时空字符串 |
+| `{{CUSTOM_CSS}}` | All custom CSS |
+| `{{CONTENT_HTML}}` | All content HTML |
+| `{{SOURCE_LINE}}` | Content source (optional): `<span class="info-source">source text</span>`, empty string if no source |
 
-写入：`/tmp/ljg_cast_whiteboard_{name}.html`
+Write to: `/tmp/ljg_cast_whiteboard_{name}.html`
 
-## 步骤 5：自检
+## Step 5: Self-check
 
-- [ ] 和紙底 + 墨色文字，看着舒适不刺眼？
-- [ ] 内容匹配技术/人文/商业类型时，色温偏移（--board、--yellow、光暈）应用了？
-- [ ] 灰调为主，微朱（--shu）≤ 3 处？
-- [ ] 标题是完整判断句？高亮词用焙茶（--yellow）？
-- [ ] 标题够大够粗（≥ 64px）？
-- [ ] 余白充足——四周留白 ≥ 72px，段间留白有呼吸感？
-- [ ] 链条文字 ≥ 34px？标注 ≥ 24px？
-- [ ] 区域分隔用间距层级，无 border-top 直线？
-- [ ] 至少 2 个简笔图标（SVG），线条用 ink 色？
-- [ ] 无拟物装饰（无噪点纹理、无厚重画框、无质感滤镜）？
-- [ ] 整体干净、安静、暖？
+- [ ] Does the washi background + ink-colored text feel comfortable, not harsh?
+- [ ] When the content matched the technical/humanities/business type, was the temperature shift (--board, --yellow, glow) applied?
+- [ ] Gray tones dominate, cinnabar (--shu) used ≤ 3 times?
+- [ ] Is the title a complete judgment sentence? Highlighted words in roasted tea (--yellow)?
+- [ ] Is the title big and bold enough (≥ 64px)?
+- [ ] Enough negative space — margins ≥ 72px around the edges, paragraph gaps feel like they breathe?
+- [ ] Chain text ≥ 34px? Annotations ≥ 24px?
+- [ ] Zone separation uses the spacing hierarchy, no border-top straight lines?
+- [ ] At least 2 simple icon sketches (SVG), lines in the ink color?
+- [ ] No faux-material decoration (no noise texture, no heavy frame, no texture filters)?
+- [ ] Overall clean, quiet, and warm?
 
-## 步骤 6：截图
+## Step 6: Screenshot
 
 ```bash
 node assets/capture.js /tmp/ljg_cast_whiteboard_{name}.html ~/Downloads/{name}.png 1080 800 fullpage

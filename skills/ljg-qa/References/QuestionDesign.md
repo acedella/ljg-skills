@@ -1,162 +1,163 @@
 # Question Design
 
-如何让 Q 切要害，A 不散掉。
+How to make Q cut to the crux, and A not fall apart.
 
-## Q 的四类（动-对-因-界）
+## The Four Types of Q (action-contrast-cause-boundary)
 
-每类对应作者论证的一个支点。一篇好 Q 链至少混合三类。
+Each type corresponds to a pivot point in the author's argument. A good Q chain mixes at least three types.
 
-| 类型 | 模式 | 例 |
+| Type | Pattern | Example |
 |------|------|---|
-| *动作* | 「他是怎么做到的？」 | 「他怎么把 X 转成 Y？」 |
-| *对比* | 「为什么是 A 不是 B？」 | 「为什么用迭代而不是并行？」 |
-| *因果* | 「为什么这个解法成立？」 | 「为什么链式推理能涌现？」 |
-| *边界* | 「它在什么时候失效？」 | 「数据稀疏时这套办法还成立吗？」 |
+| *Action* | "How did they pull this off?" | "How does it turn X into Y?" |
+| *Contrast* | "Why A and not B?" | "Why iterate instead of running in parallel?" |
+| *Causation* | "Why does this solution hold?" | "Why does chain-of-thought reasoning emerge?" |
+| *Boundary* | "When does it fail?" | "Does this approach still hold when data is sparse?" |
 
-混合的意义：
+Why mixing matters:
 
-- 纯动作问题 = 教程
-- 纯对比 = 辩论稿
-- 纯因果 = 论文
-- 纯边界 = 反思
+- Pure action questions = a tutorial
+- Pure contrast = a debate brief
+- Pure causation = a paper
+- Pure boundary = a reflection piece
 
-只有混合，才能复刻原作那种「方法 + 代价 + 限制」的真实张力。
+Only a mix reproduces the real tension of "method + cost + limitation" that the original work has.
 
-## Q 的禁忌
+## Q Taboos
 
-- ❌ 「什么是 X？」 —— 一句定义打发，没承重
-- ❌ 「X 有几个步骤？」 —— 算不上问题，是问目录
-- ❌ 「X 重要吗？」 —— 答案预设，没张力
-- ❌ 「我们应当如何看待 X？」 —— 学术腔，没具体动作
-- ❌ 「X 的优缺点是什么？」 —— 商学院八股
-- ❌ 「X 对未来意味着什么？」 —— 没法落地
+- ❌ "What is X?" — answered away with one definition, bears no weight
+- ❌ "How many steps does X have?" — not really a question, it's asking for a table of contents
+- ❌ "Is X important?" — the answer is presupposed, no tension
+- ❌ "How should we think about X?" — academic tone, no concrete action
+- ❌ "What are the pros and cons of X?" — business-school cliché
+- ❌ "What does X mean for the future?" — can't be grounded
 
-## Q 的语气
+## Q's Tone
 
-不要包装。不要「那么」「接下来让我们讨论」。直接砸：
+Don't dress it up. No "well then," no "let's go on to discuss." Cut straight in:
 
-| 重写前 | 重写后 |
+| Rewritten from | Rewritten to |
 |--------|--------|
-| 我们应当如何看待 token 经济性问题？ | 钱花在哪一步才划算？ |
-| 在 AI 工程实践中，并行处理是否合适？ | 并行海投错在哪？ |
-| 该方法的核心机制是什么？ | 它凭什么能 work？ |
-| 这种方法有什么局限？ | 它在哪儿翻车？ |
+| How should we think about the issue of token economics? | Which step is the money actually worth spending on? |
+| In AI engineering practice, is parallel processing appropriate? | Where does parallel mass-attempting go wrong? |
+| What is the core mechanism of this method? | Why does it even work? |
+| What are the limits of this method? | Where does it fall over? |
 
-口语 > 学术腔。20 字以内 > 长复合句。
+Colloquial beats academic. Under 20 words beats a long compound sentence.
 
-## A 的四段
+## A's Four Parts
 
 ```
-*结论*：（一句话——能脱离上下文被抄走）
-*形式化*：（一行可视的文字关系式）
-*怎么想到的*：（2-4 条短句的论证步）
-*边界*：（什么时候不成立 / 没覆盖什么）
+*Conclusion*: (one sentence — able to be quoted out of context)
+*Formalization*: (one visualizable line of the relationship, in words)
+*How you got there*: (2-4 short-sentence reasoning steps)
+*Boundary*: (when it doesn't hold / what it doesn't cover)
 ```
 
-### 结论句的硬要求
+### The Conclusion Sentence's Hard Requirement
 
-一句话脱离上下文被抄走。读者把这句话发给朋友，朋友读完能 get 你说的什么。
+One sentence, quotable out of context. If the reader forwards this sentence to a friend, the friend gets what you mean.
 
-- ✓ 「深度比广度贵，但只有深度能换洞察。」
-- ✓ 「奖励信号会把模型锁死在已会的轨迹里。」
-- ✗ 「总的来说，token 应该用得讲究些。」
-- ✗ 「该方法在多个维度上都展现了一定优势。」
+- ✓ "Depth costs more than breadth, but only depth buys you insight."
+- ✓ "The reward signal locks the model onto trajectories it already knows."
+- ✗ "Overall, tokens should be spent with some care."
+- ✗ "This method shows certain advantages across multiple dimensions."
 
-### 形式化的硬要求
+### The Formalization's Hard Requirement
 
-用文字 + 简单符号把思想压成一行可视的关系。是"思想的几何"，不是"数学的公式"。
+Compress the idea into one visualizable line using words + simple symbols. It's "the geometry of the idea," not "the formalism of mathematics."
 
-允许符号：`= ≠ → ← + - × ÷ < > ⊃ ⊂ ⊥ ∧ ∨` + 中文 + ASCII。禁 LaTeX、禁复杂运算式。
+Allowed symbols: `= ≠ → ← + - × ÷ < > ⊃ ⊂ ⊥ ∧ ∨` + natural language + ASCII. No LaTeX, no complex expressions.
 
-四种常见模式：
+Four common patterns:
 
-| 模式 | 例 | 适用 |
+| Pattern | Example | Fits |
 |------|-----|------|
-| *等式* | `通才 = 协调员；专才 = 干活的` | 给概念分配角色 |
-| *对比* | `旧: 大模型 = 全栈；新: 大模型 = 协调员` | 翻转默认框架 |
-| *流向* | `数据 → token → 答案 = 损失 + 浪费` | 揭露管道损耗 |
-| *递进* | `调用 → 接口 → 双语热线` | 追到根因 |
+| *Equation* | `generalist = coordinator; specialist = the one doing the work` | Assigning roles to concepts |
+| *Contrast* | `old: big model = does everything; new: big model = coordinator` | Flipping the default frame |
+| *Flow* | `data → tokens → answer = loss + waste` | Exposing pipeline loss |
+| *Escalation* | `call → interface → bilingual hotline` | Tracing to the root cause |
 
-也可以是简短公式或 ASCII 小图（只用基础字符，禁 Unicode 绘图符）：
-
-```
-深 = 1 个 agent × 100 步 > 100 个 agent × 1 步
-```
-
-或：
+Can also be a short formula or a small ASCII diagram (basic characters only, no Unicode drawing symbols):
 
 ```
-广: ── ── ── ── (浅尝)
-深: |
-    v (钻透)
+depth = 1 agent × 100 steps > 100 agents × 1 step
 ```
 
-形式化的检验：把它单独抽出来给一个没读 A 的人看，他能不能 get 出大致意思？能 → 合格。需要解释 → 重写。
+Or:
 
-### 论证步的硬要求
+```
+breadth: ── ── ── ── (shallow taste)
+depth:   |
+         v (drill through)
+```
 
-每条短句只走一步推理。前一步必须打开后一步的口子。
+Test for the formalization: pull it out on its own and show it to someone who hasn't read the A — can they get the gist? Yes → it passes. Needs explanation → rewrite it.
+
+### The Reasoning Steps' Hard Requirement
+
+Each short sentence takes exactly one step of reasoning. The previous step must open the door to the next.
 
 - ✓
-  - 100 个 agent 各想 1 步，期望命中率 ≈ 1/50
-  - 1 个 agent 想 100 步，每步前一次的输出做下一次的输入
-  - 同样的 token 总量，命中率不一样
+  - 100 agents each think for 1 step; expected hit rate ≈ 1/50
+  - 1 agent thinks for 100 steps, each step's output feeding the next
+  - Same total token budget, different hit rate
 
-- ✗ 「在多 agent 协同的情景下，并发数量的增加并不必然带来质量的提升，因为质量与思考深度密切相关，而思考深度需要时间序列上的迭代……」
+- ✗ "In multi-agent collaboration scenarios, an increase in concurrency doesn't necessarily bring an improvement in quality, because quality is closely tied to depth of thought, and depth of thought requires iteration over a time sequence..."
 
-  （一段话堆一起 = 没拆开 = 不可追溯）
+  (a whole paragraph lumped together = not broken apart = untraceable)
 
-### 边界的硬要求
+### The Boundary's Hard Requirement
 
-诚实度测试。每个结论都有它不成立的地方。把它说出来。
+A test of honesty. Every conclusion has somewhere it doesn't hold. Say it.
 
-- ✓ 「前提是任务目标稳定可被反复验证。开放式探索任务（比如『写一首诗』）不一定要走深度路线。」
-- ✓ 「对小模型不成立——小模型迭代收益递减很快。」
-- ✗ 「（不写）」 —— 让 A 看着像真理，实则脆弱
-- ✗ 「未来工作可以探索更多维度。」 —— 公关辞令，不是边界
+- ✓ "This assumes the task goal is stable and repeatedly verifiable. Open-ended exploratory tasks (like 'write a poem') don't necessarily need the depth route."
+- ✓ "Doesn't hold for small models — small models hit diminishing returns from iteration very quickly."
+- ✗ "(not written)" — makes the A look like an absolute truth when it's actually fragile
+- ✗ "Future work could explore more dimensions." — PR-speak, not a boundary
 
-边界 ≠ 缺点。边界是「条件」，缺点是「评价」。我们写边界。
+Boundary ≠ shortcoming. Boundary is a "condition," a shortcoming is a "judgment." We write boundaries.
 
-## Q-A 链的拓扑
+## The Topology of the Q-A Chain
 
-不是列表，是路径。设计时先画一张草图：
+Not a list — a path. Sketch it out first when designing:
 
 ```
-Q1 ─┬─→ Q2 (在 Q1 答案上深入)
-    └─→ Q3 (Q1 引出的对比)
-Q2 ──→ Q4 (Q2 边界提示的)
-Q4 ──→ Q5 (收口反问)
+Q1 ─┬─→ Q2 (goes deeper on Q1's answer)
+    └─→ Q3 (the contrast Q1 raises)
+Q2 ──→ Q4 (what Q2's boundary hints at)
+Q4 ──→ Q5 (closing counter-question)
 ```
 
-读者从 Q1 走到 Q5，相当于复刻了作者的推理路径。
+The reader walking from Q1 to Q5 is, in effect, reproducing the author's reasoning path.
 
-*乱排 = FAQ。有依赖 = 推理路径*。
+*Random order = FAQ. Dependency = reasoning path.*
 
-## 数量节制
+## Restraint on Quantity
 
-5-10 个 Q 是甜区。
+5-10 Q's is the sweet spot.
 
-- < 5：覆盖不全，读者觉得没吃饱
-- > 10：读者疲劳，张力散掉
-- 7 ± 2 是最舒服的——能装下作者的核心论证，又不啰嗦
+- < 5: incomplete coverage, the reader feels undersatisfied
+- > 10: reader fatigue, the tension dissipates
+- 7 ± 2 is most comfortable — enough to hold the author's core argument without dragging on
 
-如果原材料思想密度大（比如一本书一篇深论文），不要硬塞——分主题做多份 Q-A，每份 5-10 Q。
+If the source material is dense with ideas (a book, a dense paper), don't force it into one set — split by theme into multiple Q-A sets, each with 5-10 Q's.
 
-## 自检清单
+## Self-Check List
 
-写完整篇后，逐条过：
+After finishing the whole piece, go through this one by one:
 
-- [ ] 每个 Q 都能抗住「能不能一句定义打发」
-- [ ] 每个 A 严格四段（结论 / 形式化 / 步骤 / 边界）
-- [ ] 结论句脱离上下文还能被抄走
-- [ ] 形式化一行可视——单独抽出来给没读 A 的人也能 get
-- [ ] 论证步每条只走一步推理
-- [ ] 边界写的是「不成立条件」，不是「未来工作」
-- [ ] Q 链有方向感（删一个后续会塌）
-- [ ] Q 类型混合至少三类
-- [ ] 没有「什么是 X」型 Q
-- [ ] Q 句 ≤ 20 字
-- [ ] 总数 5-10 Q
-- [ ] 中文母语，无学术腔
+- [ ] Every Q can withstand "could this be waved away with one definition"
+- [ ] Every A is strictly four parts (conclusion / formalization / steps / boundary)
+- [ ] The conclusion sentence is still quotable out of context
+- [ ] The formalization is visualizable in one line — someone who hasn't read the A can still get it
+- [ ] Every reasoning step takes exactly one step
+- [ ] The boundary states "conditions under which it doesn't hold," not "future work"
+- [ ] The Q chain has a sense of direction (removing one Q would collapse what follows)
+- [ ] The Q types mix at least three kinds
+- [ ] No "what is X"-type Q's
+- [ ] Every Q sentence ≤ 20 words
+- [ ] Total of 5-10 Q's
+- [ ] Written in the reader's native language, no academic tone
 
-任何一条不过 → 回去改。
+Fail any of these → go back and fix it.
+</content>

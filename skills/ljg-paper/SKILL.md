@@ -3,275 +3,275 @@ name: ljg-paper
 description: "Paper reader for non-academics, especially large-model and AI papers. Use when the user shares an arxiv link, paper URL, PDF, local paper file, paper title, or asks in Chinese/English to read, explain, analyze, or understand a research paper. The skill ignores academic completeness and translates the paper into a world-model update: what common belief it argues against, what new claim it makes, why the claim is somewhat credible, how to change one's judgment about large models, where the claim breaks, and what the reader can do with it. NOT FOR reproducing experiments, exhaustive method summaries, formal peer review, benchmark tables, or literature surveys."
 ---
 
-# ljg-paper: 把论文翻译成世界模型更新
+# ljg-paper: Translating a paper into a world-model update
 
-这不是论文精读器，也不是审稿器。它只做一件事：把一篇大模型相关论文，翻译成一个非专业人士能带走的判断。
+This isn't a close-reading tool, nor a peer-review tool. It does one thing only: translate a paper about large models into a judgment a non-specialist can walk away with.
 
-读者不需要知道完整实验、数据细节、公式推导、模型结构图。读者要知道：这篇论文让我对大模型的哪条看法改了一点，改得有多稳，不能拿去误用到哪里。
+The reader doesn't need to know the full experiments, data details, formula derivations, or model architecture diagrams. The reader needs to know: which of my views about large models did this paper shift, by how much, and where should I be careful not to misapply it.
 
 ## Workflow Routing
 
-| 输入 | 做法 |
+| Input | Approach |
 |------|------|
-| arxiv / PDF / paper URL / 本地论文 | 读论文，只抓能回答六个问题的信息 |
-| 只有论文标题 | 先找到论文，再按同一框架读 |
-| 用户说「讲论文」「读论文」「paper」「分析这篇」 | 默认生成 org 笔记并保存 |
-| 用户只要口头解释 | 不写文件，按同一六节口头讲 |
+| arxiv / PDF / paper URL / local paper | Read the paper, extracting only the information needed to answer the six questions |
+| Only a paper title | Find the paper first, then read it using the same framework |
+| User says "explain this paper," "read this paper," "paper," "analyze this one" | By default, generate an org note and save it |
+| User just wants a verbal explanation | Don't write a file, explain verbally using the same six sections |
 
 ## Gotchas
 
-- 不要把「非专业人士」误解成「加很多类比」。类比只在能改变理解时用；装饰性类比会拖慢读者。
-- 不要复述论文结构。Abstract / Introduction / Method / Experiments 的顺序不是读者的理解顺序。
-- 不要强制讲方法。方法只在它解释了「新想法为什么可能成立」时出现。
-- 不要强制讲数字。数字只在它会改变可信度判断时出现；最多挑 1-2 个关键数字。
-- 不要做博导审稿。这里判断「我该信几分」，不判断「该不该接收」。
-- 不要把论文包装成趋势预言。能推出就推，推不出就说推不出。
-- 如果论文主要是工程增量，没有清晰思想，就直说「这篇的思想含量有限」。
+- Don't mistake "non-specialist" for "add lots of analogies." Use analogies only when they change understanding; decorative analogies slow readers down.
+- Don't recount the paper's structure. The order of Abstract / Introduction / Method / Experiments is not the reader's order of understanding.
+- Don't force a discussion of the method. The method should appear only when it explains why the new idea might hold.
+- Don't force numbers in. Numbers should appear only when they change a credibility judgment; pick at most 1-2 key numbers.
+- Don't act like a PhD advisor doing peer review. Here we judge "how much should I believe this," not "should this be accepted."
+- Don't dress the paper up as a trend prophecy. Extrapolate if it's warranted, say you can't if it isn't.
+- If the paper is mainly an engineering increment with no clear idea, say so directly: "this paper's idea content is limited."
 
-## 读完要留下什么
+## What the reader should walk away with
 
-读者半年后只需要能复述五句话：
+Six months later, the reader only needs to be able to recite five sentences:
 
-1. 以前大家容易怎么想。
-2. 这篇论文说那个想法哪里不对。
-3. 它给了什么新判断。
-4. 我为什么可以暂时信一点。
-5. 以后我看大模型、Agent、训练、评测或产品时，要多问哪一个问题。
+1. What people used to easily assume.
+2. What this paper says is wrong about that assumption.
+3. What new judgment it offers.
+4. Why I can believe it a little, for now.
+5. Going forward, when I look at large models, agents, training, evaluation, or products, which question should I ask more?
 
-这五句比「方法叫什么」「实验在哪个数据集上」更重要。
+These five sentences matter more than "what's the method called" or "which dataset was it tested on."
 
-## 核心读法
+## Core reading approach
 
-先把论文当成一份思想证词，而不是一份技术说明书。
+First treat the paper as a piece of intellectual testimony, not a technical manual.
 
-每篇论文都问六个问题，最后输出也按这六节走：
+Ask six questions of every paper, and structure the output along these same six sections:
 
-1. *速读*：这篇到底说了什么。
-2. *它在反对什么*：论文要推翻、修正或动摇的旧看法是什么。
-3. *它的新想法*：作者真正押注的判断是什么。
-4. *为什么可以信一点*：作者拿什么现象或验证让这个判断变得可信一点。
-5. *我该怎么更新世界模型*：以后看大模型时，判断规则要怎么改。
-6. *边界*：这个判断在哪些地方不能用，或者还不该信得太满。
+1. *Quick take*: what does this paper actually say.
+2. *What it's arguing against*: what old view does the paper aim to overturn, revise, or shake.
+3. *Its new idea*: what judgment is the author really betting on.
+4. *Why it's somewhat credible*: what phenomenon or verification makes the author's judgment a bit more credible.
+5. *How I should update my world model*: going forward, how should my rule for judging large models change.
+6. *Boundaries*: where this judgment doesn't apply, or shouldn't be trusted too fully yet.
 
-如果第 2 节和第 3 节写不出来，说明还没读懂。不要用方法名、框架名、benchmark 名字糊过去。
+If you can't write section 2 and section 3, it means you haven't understood the paper yet. Don't paper over this with method names, framework names, or benchmark names.
 
-## 信息抽取
+## Information extraction
 
-拿到论文后，只抽这些信息：
+Once you have the paper, extract only this:
 
-- 标题、作者、来源、年份。
-- 摘要和引言里作者想解决的核心误解。
-- 方法部分里足以解释新想法的最小机制。
-- 结果部分里最能改变可信度的证据。
-- 局限性、失败案例、适用条件。
-- 论文没有明说但能从论证里看出的边界。
+- Title, authors, source, year.
+- The core misconception the author wants to address, from the abstract and introduction.
+- The minimal mechanism in the method section sufficient to explain the new idea.
+- The evidence in the results section that most changes credibility.
+- Limitations, failure cases, applicable conditions.
+- Boundaries the paper doesn't state explicitly but can be inferred from the argument.
 
-不抽这些，除非它们直接影响新判断：
+Don't extract the following, unless they directly affect the new judgment:
 
-- 完整实验设置。
-- 数据集细节。
-- 所有 baseline。
-- 全量指标表。
-- 公式推导。
-- 相关工作综述。
-- 实现参数。
+- Full experimental setup.
+- Dataset details.
+- All baselines.
+- Full metrics tables.
+- Formula derivations.
+- Related-work surveys.
+- Implementation parameters.
 
-## 六节写法
+## How to write the six sections
 
-### 1. 速读
+### 1. Quick take
 
-放在最前，但最后写。
+Place it at the front, but write it last.
 
-用三行让读者决定要不要读全文：
+Use three lines to let the reader decide whether to read the whole thing:
 
-- *一句话*：谁原来怎么想；这篇说应该怎么改。
-- *最值得记住*：只能带走一个判断，带走哪一个。
-- *先别误会*：这篇没有证明什么，或者不能推出什么。
+- *One sentence*: what people used to think; what this paper says should change.
+- *Most worth remembering*: if the reader can only take away one judgment, which one.
+- *Don't misread this yet*: what this paper does NOT prove, or what can't be inferred from it.
 
-速读不是摘要。摘要讲论文做了什么；速读讲读者的脑子要改哪里。
+The quick take is not a summary. A summary describes what the paper did; the quick take describes what needs to change in the reader's head.
 
-### 2. 它在反对什么
+### 2. What it's arguing against
 
-先找旧看法。旧看法可以来自领域共识、产品直觉、研究习惯，也可以是普通人容易犯的误解。
+First find the old view. The old view can come from field consensus, product intuition, research habits, or a misconception ordinary people commonly hold.
 
-写法：
+Phrasing:
 
-- 「我们容易以为……」
-- 「很多做法默认……」
-- 「看到大模型失败时，人们常把原因归到……」
+- "We tend to assume..."
+- "Many practices default to assuming..."
+- "When people see a large model fail, they commonly attribute it to..."
 
-然后说论文为什么觉得这个旧看法不够好。
+Then explain why the paper thinks this old view isn't good enough.
 
-这里不要急着介绍作者方法。读者必须先知道「旧地图哪里画错了」，才会关心新地图。
+Don't rush to introduce the author's method here. The reader must first know "where the old map is drawn wrong" before caring about the new map.
 
-### 3. 它的新想法
+### 3. Its new idea
 
-把作者真正押注的判断写成一句人话。
+Write the judgment the author is really betting on as a plain, human sentence.
 
-好句子长这样：
+Good sentences look like this:
 
-- 「模型不是不会反思，是训练没有让它在错处停下来。」
-- 「Agent 失败不一定是模型笨，而是系统没有分工、记忆和交接。」
-- 「长推理不一定代表更会想，也可能只是不会收尾。」
-- 「评测看见的不是能力本身，而是题目、提示和评分方式共同造出来的影子。」
+- "The model isn't incapable of reflecting — training just never let it pause at the wrong spots."
+- "Agent failure isn't necessarily the model being dumb — it's the system lacking division of labor, memory, and handoff."
+- "Long reasoning doesn't necessarily mean thinking better — it might just mean not knowing how to stop."
+- "What the evaluation sees isn't the capability itself, but a shadow jointly cast by the question, the prompt, and the scoring method."
 
-坏句子长这样：
+Bad sentences look like this:
 
-- 「本文提出了一个新框架。」
-- 「作者设计了一种新的训练方法。」
-- 「实验表明该方法优于 baseline。」
+- "This paper proposes a new framework."
+- "The authors designed a new training method."
+- "Experiments show the method outperforms baselines."
 
-这一节可以简单交代方法，但只讲到读者能理解新判断为止。不要展开完整技术流程。
+This section can touch on the method simply, but only as far as needed for the reader to understand the new judgment. Don't unfold the full technical pipeline.
 
-### 4. 为什么可以信一点
+### 4. Why it's somewhat credible
 
-这里不是审稿。只回答：这篇论文让这个新判断比原来更可信了吗？
+This isn't peer review. Just answer: does this paper make the new judgment more credible than before?
 
-按三层写：
+Write it in three layers:
 
-1. *它看见了什么*：作者抓到的现象、失败模式或反常结果。
-2. *它怎么确认了一下*：最小验证是什么，别展开实验流水账。
-3. *我信到几分*：强 / 中 / 弱，并说理由。
+1. *What it saw*: the phenomenon, failure mode, or anomalous result the author caught.
+2. *How it confirmed it a bit*: what the minimal verification was — don't unfold the full experimental log.
+3. *How much I believe it*: strong / medium / weak, with reasons.
 
-可信度判断要克制：
+Be disciplined about credibility judgments:
 
-- 强：多个模型、任务或设置下都能看到同一模式，且有合理反例控制。
-- 中：现象清楚，但范围窄、模型少、任务偏人工，或者证据主要支持方向感。
-- 弱：更像提示性观察、工程技巧、单点结果，值得记住但不能当规律。
+- Strong: the same pattern shows up across multiple models, tasks, or settings, with reasonable counterexample controls.
+- Medium: the phenomenon is clear, but the scope is narrow, few models, tasks feel contrived, or the evidence mainly supports a directional sense.
+- Weak: more like a suggestive observation, an engineering trick, or a single-point result — worth remembering but not yet a rule.
 
-数字只在会改变判断时写。写数字时必须翻成人话：这说明差距大、差距小、只在某条件下成立，还是只是看起来漂亮。
+Write numbers only when they change a judgment. When writing a number, translate it into plain language: does it mean a large gap, a small gap, something that only holds under a certain condition, or something that merely looks impressive.
 
-### 5. 我该怎么更新世界模型
+### 5. How I should update my world model
 
-这是全文的重心。
+This is the heart of the whole piece.
 
-把论文转成一条以后能用的判断规则。句式尽量是：
+Turn the paper into a usable judgment rule going forward. The sentence pattern should be:
 
-- 「以后看到 X，我先不急着判断 Y，而会先问 Z。」
-- 「以后评估一个 Agent，我不只问模型多强，还要问它有没有……」
-- 「以后看到某个 benchmark 提升，我会先看它有没有换掉……」
-- 「以后设计自己的系统时，可以把……当成一个可控变量。」
+- "Next time I see X, I won't rush to judge Y — I'll ask Z first."
+- "Next time I evaluate an agent, I won't just ask how strong the model is — I'll also ask whether it has..."
+- "Next time I see a benchmark score improve, I'll first check whether it swapped out..."
+- "Next time I design my own system, I can treat ... as a controllable variable."
 
-这节不要停在「这让我们重新思考」。要说清楚具体更新哪条看法。
+Don't stop at "this makes us rethink things." State clearly which specific view is being updated.
 
-优先把论文放进这些大模型母题之一：
+Prioritize placing the paper into one of these large-model master themes:
 
-- *能力边界*：模型到底会什么、不会什么，失败从哪里来。
-- *训练机制*：什么训练信号让能力长出来，什么信号把能力锁住。
-- *推理方式*：模型是在写中想、先想再写，还是被迫把想法摊在 token 上。
-- *Agent 组织*：失败来自个体智能，还是来自记忆、分工、监督、权限、回滚。
-- *评测幻觉*：benchmark 测到的是能力，还是题目和评分方式制造的投影。
-- *产品启发*：这个判断会改变什么工具、界面、流程或自动化系统。
+- *Capability boundaries*: what a model actually can and can't do, where failures come from.
+- *Training mechanism*: what training signal grows a capability, what signal locks a capability in place.
+- *Reasoning mode*: does the model think while writing, think before writing, or is it forced to lay its thoughts out on tokens.
+- *Agent organization*: do failures come from individual intelligence, or from memory, division of labor, oversight, permissions, rollback.
+- *Evaluation illusion*: does the benchmark measure capability, or a projection created by the question and the scoring method.
+- *Product implications*: what tool, interface, workflow, or automation system does this judgment change.
 
-### 6. 边界
+### 6. Boundaries
 
-每篇都必须写边界。边界不是挑刺，是防止读者把论文用过头。
+Every piece must state the boundaries. Boundaries aren't nitpicking — they're there to keep the reader from overusing the paper.
 
-至少回答三项：
+Answer at least three things:
 
-- 它在哪些模型、任务、规模、场景里才可能成立。
-- 它没有证明什么。
-- 普通读者最容易把它误读成什么。
+- Which models, tasks, scales, or scenarios it might hold in.
+- What it does NOT prove.
+- What ordinary readers are most likely to misread it as.
 
-如果论文给了失败案例，就用失败案例。没有失败案例，就从论证条件里推边界。
+If the paper gives failure cases, use them. If not, infer the boundaries from the argument's conditions.
 
-边界写得越清楚，读者越能真正拥有这个想法。
+The clearer the boundaries are written, the more the reader truly owns the idea.
 
-## 输出格式
+## Output format
 
-生成 org-mode 笔记时，章节名固定：
+When generating an org-mode note, the section names are fixed:
 
-1. `* 速读`
-2. `* 它在反对什么`
-3. `* 它的新想法`
-4. `* 为什么可以信一点`
-5. `* 我该怎么更新世界模型`
-6. `* 边界`
+1. `* Quick take`
+2. `* What it's arguing against`
+3. `* Its new idea`
+4. `* Why it's somewhat credible`
+5. `* How I should update my world model`
+6. `* Boundaries`
 
-Org 语法：
+Org syntax:
 
-- 加粗用 `*bold*` 单星号，禁止 `**bold**`。
-- 标题层级从 `*` 开始，不跳级。
-- 图表可用纯 ASCII；不要为了好看画复杂图。
-- 主文不放 LaTeX 公式。必要时翻成自然语言。
+- Bold uses `*bold*` single asterisk; `**bold**` is forbidden.
+- Heading levels start from `*`, don't skip levels.
+- Diagrams can use plain ASCII; don't draw complex diagrams just to look nice.
+- No LaTeX formulas in the main text. Translate into natural language when necessary.
 
-结构以 `references/template.org` 为准。不要参考 `~/Documents/notes/` 里的旧论文笔记结构，旧文件可能来自过期模板。
+Structure follows `references/template.org`. Don't reference old paper notes in `~/Documents/notes/` for structure — old files may come from an outdated template.
 
-## 文件规范
+## File conventions
 
-写入 `~/Documents/notes/`。
+Write to `~/Documents/notes/`.
 
-文件名：
+Filename:
 
-- 时间戳：`date +%Y%m%dT%H%M%S`
-- 可读时间：`date "+%Y-%m-%d %a %H:%M"`
-- 格式：`{时间戳}--paper-{简短标题}__paper.org`
-- 简短标题用方法名、核心概念或论文关键词，方便检索。
+- Timestamp: `date +%Y%m%dT%H%M%S`
+- Human-readable time: `date "+%Y-%m-%d %a %H:%M"`
+- Format: `{timestamp}--paper-{short title}__paper.org`
+- The short title uses the method name, core concept, or paper keywords, for easy searching.
 
-文件头：
+File header:
 
 ```org
-#+title:      {一句中文，写出这篇论文带来的判断更新}
-#+subtitle:   {论文原始标题；必要时先加一句中文解释，再接英文原标题}
+#+title:      {One sentence stating the judgment update this paper brings, in the same language as the input}
+#+subtitle:   {The paper's original title; if needed, add a sentence of explanation first, then the original title}
 #+date:       [{YYYY-MM-DD Day HH:MM}]
 #+filetags:   :paper:
 #+identifier: {YYYYMMDDTHHMMSS}
-#+source:     {URL 或来源描述}
-#+authors:    {作者列表}
-#+venue:      {发表场所/年份}
+#+source:     {URL or source description}
+#+authors:    {author list}
+#+venue:      {venue/year}
 ```
 
 ### title
 
-title 不是论文题目翻译，也不是方法名。title 要说出读者能带走的判断。
+The title is not a translation of the paper's title, nor a method name. The title should state the judgment the reader can walk away with.
 
-规则：
+Rules:
 
-- 6-18 个中文字符为宜。
-- 不夹英文术语，除非是 GPT、Claude 这类产品名。
-- 用动词或判断做骨架。
-- 不写「基于」「面向」「一种」「框架」「方法」。
-- 如果凝练后别人猜不出方向，用中文 subtitle 兜底。
+- Aim for a concise sentence (roughly 6-18 characters if written in Chinese).
+- Don't mix in English terms, except product names like GPT or Claude.
+- Use a verb or a judgment as the skeleton.
+- Don't write "based on," "toward," "a kind of," "framework," "method."
+- If the condensed version leaves others unable to guess the direction, fall back on a subtitle to anchor it.
 
-例子：
+Examples:
 
-| 论文里的意思 | 不要这样写 | 可以这样写 |
+| What the paper actually means | Don't write it like this | Write it like this |
 |--------------|------------|------------|
-| 长推理可能是在浪费 token | 长推理中的 token 效率研究 | 会想，也要会停 |
-| Agent 失败来自组织问题 | 多智能体协作框架分析 | 聪明不等于会协作 |
-| 奖励会锁住已会路径 | 强化学习对探索能力的影响 | 学会，反成枷锁 |
-| 评测会制造能力假象 | 大模型 benchmark 偏差研究 | 分数不是能力本身 |
+| Long reasoning might be wasting tokens | Token efficiency in long-chain reasoning | Thinking well also means knowing when to stop |
+| Agent failure comes from organizational problems | An analysis of multi-agent collaboration frameworks | Being smart doesn't mean being able to collaborate |
+| Reward locks in already-known paths | The effect of reinforcement learning on exploration | Learning something can become a cage |
+| Evaluation creates an illusion of capability | A study of large-model benchmark bias | The score isn't the capability itself |
 
-## 写作红线
+## Writing red lines
 
-- 不写「本文提出」。写「他们想证明」「他们发现」「他们在反对」。
-- 不用学术腔开头。第一段就进入旧看法和新判断。
-- 不堆术语。术语首次出现时先说人话，再括号给原词。
-- 不把实验方法当主线。方法是证据服务员，不是主角。
-- 不为了完整而写完整。读者不想复现论文。
-- 不把一篇弱论文讲成大思想。信心弱就写弱。
-- 不把工程技巧硬拔高成哲学洞见。
-- 不写空泛启发，如「未来值得进一步探索」。
+- Don't write "this paper proposes." Write "they set out to prove," "they found," "they're arguing against."
+- Don't open with academic-register language. Get into the old view and the new judgment in the first paragraph.
+- Don't pile on jargon. The first time a term appears, explain it in plain language, then give the original term in parentheses.
+- Don't treat the experimental method as the main thread. The method is evidence's attendant, not the protagonist.
+- Don't write for completeness's sake. Readers don't want to reproduce the paper.
+- Don't talk up a weak paper into a big idea. If confidence is weak, write it as weak.
+- Don't force-elevate an engineering trick into a philosophical insight.
+- Don't write empty takeaways like "worth further exploration in the future."
 
-## 自查
+## Self-check
 
-写完后逐条检查：
+After writing, check item by item:
 
-- 六节都能回答一个清楚问题。
-- 第 2 节和第 3 节没有被方法名糊住。
-- 第 4 节给出强 / 中 / 弱可信度。
-- 第 5 节形成一条以后能用的判断规则。
-- 第 6 节明确说了不能推出什么。
-- 全文没有完整复述实验流程。
-- 数字不超过必要范围，且都翻成了意义。
-- title 说的是判断更新，不是论文方法。
-- 半年后只读「速读」也能想起这篇为什么值得存。
+- All six sections answer one clear question each.
+- Sections 2 and 3 aren't papered over with method names.
+- Section 4 gives a strong / medium / weak credibility rating.
+- Section 5 forms a usable judgment rule going forward.
+- Section 6 clearly states what can't be inferred.
+- The full text doesn't fully recount the experimental procedure.
+- Numbers stay within necessary bounds, and all are translated into meaning.
+- The title states the judgment update, not the paper's method.
+- Reading only the "Quick take" six months later still brings back why this paper was worth keeping.
 
-## 完成
+## Completion
 
-读 `references/template.org`，按模板写入 `~/Documents/notes/`，再读回文件确认：
+Read `references/template.org`, write into `~/Documents/notes/` following the template, then read the file back to confirm:
 
-- frontmatter 完整。
-- 六个章节名正确。
-- 没有旧模板章节：问题、翻译、核心概念、洞见、博导审稿、检验、启发。
-- 没有主文 LaTeX 公式。
+- Frontmatter is complete.
+- The six section names are correct.
+- No old template sections remain: Questions, Translation, Core Concepts, Insights, PhD-advisor peer review, Verification, Implications.
+- No LaTeX formulas in the main text.

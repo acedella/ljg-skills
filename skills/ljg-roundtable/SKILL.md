@@ -1,133 +1,138 @@
 ---
 name: ljg-roundtable
 description: >-
-  一个议题，一场圆桌：主持人请来 3-5 位真实人物，定义开场，逐轮交锋，
-  每轮收一张 ASCII 结构图，用户用指令控节奏（可/止/深入此节/引入新人物），
-  散场后全文存入 org 笔记。Use when user says "圆桌讨论", "圆桌",
-  "roundtable", "辩论", or wants to explore a topic through
+  One topic, one roundtable (圆桌讨论): the moderator invites 3-5 real
+  historical/contemporary figures, opens with a definition, runs
+  round after round of exchange, and closes each round with an ASCII
+  structure diagram. The user controls the pace with commands
+  (continue/stop/go deeper here/introduce new figure), and the full
+  transcript is saved to an org note when it wraps up. Use when user
+  says "圆桌讨论" (roundtable discussion), "圆桌" (roundtable),
+  "roundtable", "辩论" (debate), or wants to explore a topic through
   multi-perspective structured debate.
 ---
 
 ## Usage
 
 <example>
-User: 圆桌讨论 人工智能是否拥有真正的创造力？
-Assistant: [主持人开场，请出人物，从定义谈起]
+User: Roundtable discussion — does artificial intelligence have real creativity?
+Assistant: [Moderator opens, invites the figures, starts from the definition]
 </example>
 
 <example>
-User: 圆桌 自由意志是否存在？
-Assistant: [就自由意志展开圆桌]
+User: Roundtable — does free will exist?
+Assistant: [Runs a roundtable on free will]
 </example>
 
 ## Instructions
 
-先读 `references/original-prompt.org`，这套框架的原始设计在里面，主持人的性格和整个流程都从它来。
+First read `references/original-prompt.org` — this framework's original design is in there; the moderator's personality and the whole flow come from it.
 
-### 一、定议题
+### 1. Set the topic
 
-用户给了议题直接用。只说「圆桌讨论」没带议题，先问一句。
+If the user gave a topic, use it directly. If they only said "roundtable discussion" with no topic, ask first.
 
-### 二、请人
+### 2. Invite the figures
 
-按议题挑 3-5 位真实人物，历史的当代的都行，不要虚构。每位给四样：
+Pick 3-5 real figures suited to the topic — historical or contemporary, either is fine, don't invent anyone. Give four things for each:
 
-- 姓名
+- Name
 - MBTI
-- 立场，一句话
-- 为什么请他：他看这个议题的角度，别人给不了
+- Stance, in one sentence
+- Why invite them: the angle they bring on this topic that nobody else can
 
-挑人看三条：
+Three criteria for picking figures:
 
-- 几个人的立场要能互相较劲，光分正方反方两队不够
-- 优先挑在这个题上写过经典、说过名言的人
-- 至少一位行外人
+- Their stances need to genuinely clash with each other — just splitting into a pro side and a con side isn't enough
+- Prioritize people who've written something canonical or said something famous on this exact topic
+- At least one outsider to the field
 
-### 三、开场
+### 3. Opening
 
-主持人开场，亮出人物名单和请他们来的理由，然后抛出定义问题：
+The moderator opens, reveals the lineup and the reasons for inviting each person, then throws out the defining question:
 
-> 「开谈之前，先把『议题核心概念』说清楚：它指什么？哪些要素少不了？」
+> "Before we start, let's nail down the core concept of the topic: what does it refer to? What elements can't be left out?"
 
-每人依次就定义发言。发言格式全场统一：
-
-```
-【人物名】【行动标签】：发言内容
-
-**简言之**：一句话总结
-```
-
-行动标签六种：`陈述`、`质疑`、`补充`、`反驳`、`修正`、`综合`。
-
-### 四、讨论循环
-
-每轮三步。
-
-**发言。** 谁说话看讨论走势定，不排班。每段发言必须接着前面的话说，质疑、补充、反驳都行，不许自说自话。说完照例收一句 **简言之**。
-
-**综述。** 一轮说完，主持人做三件事：
-
-- 点出本轮核心争议点。挑最深的那一个，别求全。
-- 画一张 ASCII 图：2x2 矩阵、光谱轴、因果环、层级树，哪种贴合本轮结构用哪种。图画的是讨论的结构：立场怎么分布、因果怎么绕、正负反馈环在哪。别拿图复述内容。
-- 从争议点里引出下一层问题。
-
-**等指令。** 综述后亮菜单：
+Each person speaks in turn on the definition. The speech format is uniform across the whole session:
 
 ```
-【主持】：(指令: 可 / 止 / 深入此节 / 引入新人物)
+[Name] [Action tag]: speech content
+
+**In short**: one-sentence summary
 ```
 
-- `可`：接受下一层问题，继续
-- `止`：收场，进入总结
-- `深入此节`：不推进，围着当前争议点再挖
-- `引入新人物`：用户点名一位新人物，主持人介绍后请他先就当前话题表态
+Six action tags: `Statement (陈述)`, `Question (质疑)`, `Addition (补充)`, `Rebuttal (反驳)`, `Revision (修正)`, `Synthesis (综合)`.
 
-### 五、收场
+### 4. Discussion loop
 
-用户下了 `止`：
+Three steps each round.
 
-- 主持人做全局总结
-- 画一张完整的知识网络 ASCII 图：这场讨论的关键概念、各家立场、争议点，彼此怎么连
-- 列出开放问题：讨论里冒出来、但没谈透的方向
+**Speaking.** Who speaks is decided by the flow of the discussion, no fixed rotation. Every statement must follow on from what came before — questioning, adding to, or rebutting it — no talking past each other. Each statement ends with the usual **In short** line.
 
-### 六、存档
+**Summary.** Once a round is done, the moderator does three things:
 
-讨论全文写进 org 文件，一字不差。发言、ASCII 图、综述，全部原文照录，不摘要，不压缩，不改写。
+- Names the round's core point of contention. Pick the deepest one, don't try to cover everything.
+- Draws an ASCII diagram: a 2x2 matrix, a spectrum axis, a causal loop, a hierarchy tree — whichever fits this round's structure. The diagram maps the structure of the discussion: how stances are distributed, how the causality loops around, where the feedback loops are. Don't use the diagram to just restate content.
+- Draws out the next-level question from the point of contention.
 
-1. `date +%Y%m%dT%H%M%S` 取时间戳
-2. 写入 `~/Documents/notes/{timestamp}--圆桌-{议题关键词}__roundtable.org`
-3. 文件结构：
+**Waiting for a command.** After the summary, show the menu:
+
+```
+[Moderator]: (Command: Continue (可) / Stop (止) / Go deeper here (深入此节) / Introduce new figure (引入新人物))
+```
+
+- `Continue (可)`: accept the next-level question, move on
+- `Stop (止)`: wrap up, move to the closing summary
+- `Go deeper here (深入此节)`: don't advance, keep digging around the current point of contention
+- `Introduce new figure (引入新人物)`: the user names a new figure, the moderator introduces them and asks them to weigh in on the current topic first
+
+### 5. Closing
+
+Once the user issues `Stop (止)`:
+
+- The moderator gives an overall summary
+- Draws one complete knowledge-network ASCII diagram: the key concepts of the discussion, everyone's stances, the points of contention, and how they connect
+- Lists the open questions: directions that came up in the discussion but weren't fully explored
+
+### 6. Archiving
+
+The full discussion transcript goes into an org file, word for word. Speeches, ASCII diagrams, summaries — all recorded verbatim, not summarized, not compressed, not rewritten.
+
+1. Get a timestamp with `date +%Y%m%dT%H%M%S`
+2. Write to `~/Documents/notes/{timestamp}--roundtable-{topic keywords}__roundtable.org`
+3. File structure:
 
    ```org
-   #+title: 圆桌：{议题}
-   #+date: [{日期}]
+   #+title: Roundtable: {topic}
+   #+date: [{date}]
    #+filetags: :roundtable:
-   * 议题与参会者
-   [人物名单：姓名、MBTI、立场、入选理由]
-   * 开场：定义
-   [主持人开场词 + 每人的定义发言]
-   * 各轮讨论记录
-   ** 第 N 轮：{引导问题}
-   *** 发言记录
-   [本轮全部发言原文，含行动标签和简言之]
-   *** 主持人综述
-   [争议点 + ASCII 图 + 下一层问题]
-   * 知识网络（全局）
-   [全局总结 + 知识网络图]
-   * 开放问题
-   [没谈完的方向]
+   * Topic and participants
+   [Lineup: name, MBTI, stance, reason for inclusion]
+   * Opening: definition
+   [Moderator's opening remarks + each person's opening definition]
+   * Round-by-round record
+   ** Round N: {guiding question}
+   *** Speech record
+   [All speeches from this round, verbatim, with action tags and In-short lines]
+   *** Moderator's summary
+   [Point of contention + ASCII diagram + next-level question]
+   * Knowledge network (overall)
+   [Overall summary + knowledge-network diagram]
+   * Open questions
+   [Directions left unresolved]
    ```
 
-4. 写完把文件路径报给用户。
+4. Once done, report the file path to the user.
 
-### 主持人怎么当
+### How the moderator should act
 
-- 不站队。
-- 每轮只追一个争议点，追到底，别摊大饼。
-- 要交锋。参会者说得客气、绕开分歧，主持人要点破，把分歧摆回桌面。表面共识等于没讨论。
-- 综述时把各方的底牌摊开：站在什么假设上，前提是什么，推理链在哪里分岔。光复述谁说了什么，不够。
+- Don't take sides.
+- Chase only one point of contention per round, chase it to the bottom, don't spread thin.
+- Push for real clashes. If participants are being polite and dodging disagreement, the moderator should call it out and put the disagreement back on the table. Surface agreement is the same as no discussion at all.
+- When summarizing, lay each side's hidden cards on the table: what assumptions they're standing on, what their premises are, where the reasoning chains fork. Just restating who said what isn't enough.
 
-### 参会者怎么说
+### How participants should speak
 
-- 忠于本人真实的思想体系，说这个人真会说的话，引他写过的书、说过的名言。
-- 泛泛而谈的正确废话不要。质疑就指出对方哪个前提站不住，补充就把论证往前推一步。
+- Stay faithful to the person's real system of thought — say what this person would actually say, cite books they've written, quotes they've actually said.
+- No generic, safe-sounding truisms. If questioning, point out exactly which premise of the other side doesn't hold up; if adding on, push the argument one step further.
+</content>

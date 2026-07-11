@@ -1,116 +1,116 @@
-# 模具：长图（-l / 默认）
+# Mold: long card (-l / default)
 
-## 步骤 1：读取模板
+## Step 1: Read the template
 
 Read `assets/long_template.html`
 
-## 步骤 2：内容预处理
+## Step 2: Content preprocessing
 
-- 识别标题行（`#`/`##`/`###` 开头，或独立短行）
-- 识别引用块（`>` 开头）
-- 识别加粗（`**text**`）
-- 识别金句：独立成段、通常 < 25 字、一句顶一段的短句，用 `.highlight` 渲染
-- 按空行分割为段落列表
-- 不做切分：所有内容放在一张卡内
+- Identify heading lines (starting with `#`/`##`/`###`, or a standalone short line)
+- Identify quote blocks (starting with `>`)
+- Identify bold text (`**text**`)
+- Identify memorable lines: standalone paragraphs, usually < 25 characters, a short sentence that carries as much weight as a full paragraph — render with `.highlight`
+- Split into a list of paragraphs on blank lines
+- No splitting across cards: all content goes on a single card
 
-## 步骤 2.5：色调感知
+## Step 2.5: Tone sensing
 
-按内容气质选一组背景底色 + 强调色，让卡片和内容合拍：
+Based on the content's mood, choose a background color + accent color pairing so the card matches the content:
 
-| 内容气质 | `{{BG_COLOR}}` | `{{ACCENT_COLOR}}` | 触发信号 |
+| Content mood | `{{BG_COLOR}}` | `{{ACCENT_COLOR}}` | Trigger signal |
 |----------|---------------|-------------------|----------|
-| 思辨/哲学 | `#FAF8F4` | `#7C6853` | 认知、思维、本质、意义、哲学 |
-| 技术/工程 | `#F5F7FA` | `#3D5A80` | 架构、模型、算法、系统、代码 |
-| 文学/叙事 | `#FBF9F1` | `#6B4E3D` | 故事、人物、写作、文字、诗 |
-| 科学/研究 | `#F4F8F6` | `#2D6A4F` | 实验、数据、发现、论文、研究 |
-| 默认 | `#FAFAF8` | `#4A4A4A` | 无法归类时 |
+| Reflective/philosophical | `#FAF8F4` | `#7C6853` | Cognition, thinking, essence, meaning, philosophy |
+| Technical/engineering | `#F5F7FA` | `#3D5A80` | Architecture, models, algorithms, systems, code |
+| Literary/narrative | `#FBF9F1` | `#6B4E3D` | Stories, characters, writing, prose, poetry |
+| Scientific/research | `#F4F8F6` | `#2D6A4F` | Experiments, data, discovery, papers, research |
+| Default | `#FAFAF8` | `#4A4A4A` | When nothing else fits |
 
-判断办法：扫内容里的高频关键词和主题，挑最贴的一组。拿不准就用默认，配错了不如不配。
+How to decide: scan the content for high-frequency keywords and themes, pick the closest-matching pair. When unsure, use the default — a wrong-fit pairing is worse than none.
 
-## 步骤 3：格式化为 HTML
+## Step 3: Format as HTML
 
-基础元素：
+Basic elements:
 
-- 普通段落 → `<p>文本</p>`
-- 章节标题（##/### 级别） → `<h2>标题</h2>`
-- 引用 → `<blockquote><p>引用</p></blockquote>`
-- 加粗 → `<strong>文本</strong>`
-- 列表 → `<ul><li>...</li></ul>`
+- Regular paragraph → `<p>text</p>`
+- Section heading (##/### level) → `<h2>heading</h2>`
+- Quote → `<blockquote><p>quote</p></blockquote>`
+- Bold → `<strong>text</strong>`
+- List → `<ul><li>...</li></ul>`
 
-金句（独立成段、点到要害的短句，视觉上要跳出来）：
-
-```html
-<p class="highlight">金句文本</p>
-```
-
-判断标准：独立成段、< 25 字、说的是要害。用 `.highlight`，不用 `<p><strong>`。
-
-重点提示（绿底高亮，用于关键问句/提示）：
+Memorable line (a standalone, incisive short sentence that should visually pop):
 
 ```html
-<p class="prompt">重点提示文本</p>
+<p class="highlight">memorable line text</p>
 ```
 
-判断标准：要让读者停下来、用力看的"提示性"内容。典型场景：
+Criteria: standalone paragraph, < 25 characters, states the crux of the matter. Use `.highlight`, not `<p><strong>`.
 
-- Q&A 中的 Question（Answer 用普通段落）
-- 关键追问（"那为什么 X 不是 Y？"）
-- 阅读引导（"读到这里，请先停下想一想"）
-- 叫读者动手做某件事的句子
-
-视觉上是淡绿底色 + 深绿左边线，和 `.highlight`（左边线+大字号）分工：
-
-- `.highlight` = 作者下的金句结论
-- `.prompt` = 抛给读者的问题/提示
-
-一张卡内 `.prompt` 不超过 5 处，高亮多了就不亮了。
-
-首字下沉（第一个正文段落）：
-
-第一个普通段落（非 `.subtitle`、`.highlight`、`.item`）加 `dropcap` 类：
+Emphasis callout (green-background highlight, for key questions/prompts):
 
 ```html
-<p class="dropcap">段落正文...</p>
+<p class="prompt">emphasis callout text</p>
 ```
 
-只用在首个正文段落，经典编辑排版的开篇样式。
+Criteria: "prompting" content meant to make the reader pause and look closely. Typical scenarios:
 
-条目组（有标题+正文的并列条目）：
+- The Question in a Q&A (the Answer stays a regular paragraph)
+- A pointed follow-up question ("So then why isn't X Y?")
+- A reading cue ("At this point, stop and think for a moment")
+- A sentence directing the reader to go do something
+
+Visually: a pale green background + dark green left border, distinct from `.highlight` (left border + large font size):
+
+- `.highlight` = the author's own memorable conclusion
+- `.prompt` = a question/prompt thrown to the reader
+
+No more than 5 `.prompt` blocks per card — too many and the highlighting stops standing out.
+
+Drop cap (first body paragraph):
+
+Add the `dropcap` class to the first regular paragraph (not `.subtitle`, `.highlight`, or `.item`):
+
+```html
+<p class="dropcap">first paragraph text...</p>
+```
+
+Use only on the first body paragraph — a classic editorial opening style.
+
+Item groups (parallel items with a label + body):
 
 ```html
 <div class="item">
-  <p class="label">条目标题</p>
-  <p>条目正文</p>
+  <p class="label">Item label</p>
+  <p>Item body text</p>
 </div>
 ```
 
-副标题标签：
+Subtitle tag:
 
 ```html
-<p class="subtitle">标签文字</p>
+<p class="subtitle">tag text</p>
 ```
 
-分割线（章节之间）：
+Divider (between sections):
 
 ```html
 <div class="divider"></div>
 ```
 
-## 步骤 4：渲染模板
+## Step 4: Render the template
 
-替换模板变量：
+Replace the template variables:
 
-| 变量 | 规则 |
+| Variable | Rule |
 |------|------|
-| `{{BG_COLOR}}` | 步骤 2.5 定的背景底色 |
-| `{{ACCENT_COLOR}}` | 步骤 2.5 定的强调色 |
-| `{{TITLE_BLOCK}}` | 有标题：`<div class="title-area"><h1>标题</h1></div>`；无标题：空字符串 |
-| `{{BODY_HTML}}` | 步骤 3 生成的全部 HTML |
-| `{{SOURCE_LINE}}` | 内容来源（可选）：`<span class="info-source">来源文字</span>`，无来源时空字符串 |
+| `{{BG_COLOR}}` | The background color chosen in step 2.5 |
+| `{{ACCENT_COLOR}}` | The accent color chosen in step 2.5 |
+| `{{TITLE_BLOCK}}` | If there's a title: `<div class="title-area"><h1>title</h1></div>`; if not, empty string |
+| `{{BODY_HTML}}` | All the HTML generated in step 3 |
+| `{{SOURCE_LINE}}` | Content source (optional): `<span class="info-source">source text</span>`, empty string if no source |
 
-写入：`/tmp/ljg_cast_long_{name}.html`
+Write to: `/tmp/ljg_cast_long_{name}.html`
 
-## 步骤 5：截图
+## Step 5: Screenshot
 
 ```bash
 node assets/capture.js /tmp/ljg_cast_long_{name}.html ~/Downloads/{name}.png 1080 800 fullpage

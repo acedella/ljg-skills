@@ -1,79 +1,79 @@
-# 模具：漫画（-c）
+# Mold: comic (-c)
 
-用日式黑白漫画的视觉语言讲故事。拿分格节奏、黑白对比、集中线和留白制造戏剧性，不只是给排版加个漫画边框。颜色几乎不用，最多一个网点灰。劲儿全在墨色浓淡和构图的松紧上。
+Tell the story in the visual language of Japanese black-and-white manga. Use panel rhythm, black-and-white contrast, focus lines, and negative space to create drama — this is more than just slapping a comic-style border on a layout. Color is almost never used, at most one gray screentone. All the punch comes from ink density and how tight or loose the composition is.
 
-## 步骤 1：读取模板
+## Step 1: Read the template
 
 Read `assets/comic_template.html`
 
-模板提供：
+The template provides:
 
-- 字体加载（Noto Serif SC + DM Sans）
-- CSS 变量（`--bg`, `--ink`, `--ink-mid`, `--ink-light`, `--white`, `--accent`, `--tone`）
-- SVG 滤镜：`#inkgrain`（墨迹纹理）、`#halftone`（网点）、`#roughen`（毛边）
-- `.colophon` 署名栏
-- `{{CUSTOM_CSS}}` 和 `{{CONTENT_HTML}}` 插槽
+- Font loading (Noto Serif SC + DM Sans)
+- CSS variables (`--bg`, `--ink`, `--ink-mid`, `--ink-light`, `--white`, `--accent`, `--tone`)
+- SVG filters: `#inkgrain` (ink texture), `#halftone` (screentone), `#roughen` (rough edges)
+- `.colophon` signature block
+- `{{CUSTOM_CSS}}` and `{{CONTENT_HTML}}` slots
 
-## 步骤 2：理解内容，选择风格
+## Step 2: Understand the content, choose a style
 
-### 2.1 提取叙事要素
+### 2.1 Extract narrative elements
 
-从内容中提取：
+Extract from the content:
 
-- 核心冲突/张力：这段内容里什么和什么在对抗？
-- 3-5 个关键时刻：能变成"格子"的场景或概念
-- 情绪弧线：从什么状态到什么状态？
-- 视觉锚点：最有画面感的那个概念
+- Core conflict/tension: what's fighting what in this piece?
+- 3-5 key moments: scenes or concepts that can become "panels"
+- Emotional arc: from what state to what state?
+- Visual anchor: the single most vivid, image-rich concept
 
-### 2.2 确定卡片数量与叙事弧
+### 2.2 Determine card count and narrative arc
 
-默认 4 张一组，走一条完整叙事弧：破题 → 真凶/反转 → 拆穿/解法 → 收束。短文也走 4 卡弧，弧不缩水；超长文（> 3000 字 / 6+ 节）可扩到 5 张保完整，宁多一张，不丢核心观点。用户明确只要一张时才铸单张。
+Default to a set of 4 cards, running one complete narrative arc: setup → the real culprit/twist → exposure/solution → close. Even short pieces run the full 4-card arc — don't shrink the arc. For very long pieces (> 3000 words / 6+ sections), it can extend to 5 cards to preserve completeness — better one extra card than losing the core argument. Only cast a single card when the user explicitly asks for just one.
 
-原则：
+Principles:
 
-- 每张卡片自成一格：独立标题、独立分格、独立叙事段落，别拿长内容硬切充数
-- 系列编号：右上角标注 `01/N` ~ `N/N`
-- 首卡破题，末卡收束；末卡角落落 `終` 小标记（黑底白字，别喧宾夺主；落在黑底格上时改白底黑字，防隐形）
-- digest/新闻摘要类同样走 4 卡弧：抓一条悖论主线当骨架，杂讯滤掉别贪全
+- Each card stands on its own: its own title, its own panel layout, its own narrative paragraph — don't just hard-chop a long piece to pad out the count
+- Series numbering: top-right corner marked `01/N` through `N/N`
+- The first card sets up, the last card closes; the last card carries a small `終` (The End) mark in the corner (black background, white text — keep it understated; if it lands on a black panel, flip it to white background, black text, to avoid it disappearing)
+- Digest/news-summary content also runs the 4-card arc: pick one paradox as the throughline skeleton and filter out the noise rather than trying to cover everything
 
-### 2.3 提取原文配图
+### 2.3 Extract images from the source
 
-原文带图时（WebFetch 返回 markdown 里的 `![](url)` 或 HTML `<img>`）：
+If the source content has images (a WebFetch markdown result with `![](url)`, or HTML `<img>`):
 
-- 收集所有图片 URL
-- 判断哪些和核心观点相关（logo、广告、装饰图忽略）
-- 相关图片在步骤 4 嵌入分格
+- Collect all image URLs
+- Judge which ones are relevant to the core argument (ignore logos, ads, decorative images)
+- Embed relevant images into panels in step 4
 
-### 2.4 选择漫画风格
+### 2.4 Choose a manga style
 
-| 风格 | 视觉特征 | 触发信号 | CSS 变量覆盖 |
+| Style | Visual signature | Trigger signal | CSS variable override |
 |------|---------|---------|-------------|
-| 大友克洋 — 精密废墟 | 极细线条密集排列、机械/建筑细节、灰阶丰富、透视精确 | 技术/系统/架构/复杂机制、信息密度高 | `--tone: #D0D0D0` |
-| 井上雄彦 — 水墨留白 | 大面积留白、墨色浓淡渐变、笔触可见、极简构图 | 哲学/沉思/美学/人文、需要呼吸感 | `--tone: #E8E0D8` |
-| 三浦建太郎 — 暗黑压迫 | 大面积纯黑、极高对比、密集纹理、压迫感强 | 冲突/困境/黑暗面/挣扎、情绪强烈 | `--bg: #F0F0F0; --tone: #C0C0C0` |
-| 松本大洋 — 生猛粗线 | 粗细不均的线条、不规则构图、能量感、看似粗糙实则精确 | 运动/能量/创意/突破、有冲击力 | `--tone: #E0E0E0` |
-| 谷口治郎 — 静谧精描 | 建筑级精细线条、克制表情、银盐照片般的灰阶、安静 | 日常/观察/细节/安静的力量 | `--tone: #E5E5E5` |
+| Otomo Katsuhiro — precision ruins | Extremely fine, densely packed lines, mechanical/architectural detail, rich grayscale, precise perspective | Technical/systems/architecture/complex mechanisms, high information density | `--tone: #D0D0D0` |
+| Inoue Takehiko — ink-wash negative space | Large areas of whitespace, ink-density gradients, visible brushwork, minimalist composition | Philosophical/contemplative/aesthetic/humanistic, needs room to breathe | `--tone: #E8E0D8` |
+| Miura Kentaro — dark oppression | Large areas of solid black, extreme contrast, dense texture, heavy oppressive feel | Conflict/hardship/dark side/struggle, intense emotion | `--bg: #F0F0F0; --tone: #C0C0C0` |
+| Matsumoto Taiyo — raw thick lines | Lines of uneven thickness, irregular composition, kinetic energy, looks rough but is actually precise | Movement/energy/creativity/breakthrough, has impact | `--tone: #E0E0E0` |
+| Taniguchi Jiro — quiet precision | Architectural-grade fine lines, restrained expressions, silver-gelatin-photo-like grayscale, quiet | Everyday life/observation/detail/quiet strength | `--tone: #E5E5E5` |
 
-选择原则：
+Selection principle:
 
-- 按内容气质择优，参考表中触发信号；气质分不出高下时，用井上雄彦兜底（最通用的黑白美学）
-- 定风格前先查最近几次铸卡用过哪些风格（近期产出、会话记忆），避开紧邻那一次，让相邻两篇视觉反差最大；五种轮过一轮后允许复用，仍避最近
-- 字面最像的未必最合适，气质错位有时反而出彩（机制密集的技术文配谷口的沉默克制，冲击大过顺理成章的大友）
-- 一次并发铸多篇时，风格在开工前一次性统一分派好，不让各 agent 自选，防撞
-- 系列一致性：同一篇文章、同一本书出的多张卡，全文通读一遍，定一个风格从头用到尾。按单个概念逐张换风格会破坏阅读连续感
+- Choose based on the content's mood, referencing the trigger signals above; when the mood is ambiguous, default to Inoue Takehiko (the most versatile black-and-white aesthetic)
+- The most literal match isn't always the best fit — a mismatched mood can sometimes land better (dense technical/mechanistic content paired with Taniguchi's quiet restraint can hit harder than the "obvious" choice of Otomo)
+- Before settling on a style, check which styles were used in the last few casts (recent output, session memory) and avoid whichever was used immediately prior, so adjacent pieces contrast as much as possible; once all five have been cycled through, reuse is allowed, but still avoid the most recent
+- When casting multiple pieces concurrently, assign styles up front before work begins rather than letting each agent choose on its own, to avoid collisions
+- Series consistency: for multiple cards from the same article or book, read the whole thing through once and settle on one style to use start to finish. Switching styles concept-by-concept breaks the reading flow
 
-## 步骤 3：设计画面
+## Step 3: Design the visuals
 
-### 3.1 漫画视觉元素工具箱
+### 3.1 Manga visual element toolbox
 
-所有元素用 CSS + SVG 实现。黑白为主，灰色网点为辅，不用彩色。
+Build all elements with CSS + SVG. Black and white dominate, gray screentone is secondary, no color.
 
-#### 分格系统（Panel Layout）
+#### Panel layout system
 
-漫画的核心是分格。用 CSS Grid 实现不规则分格：
+The core of manga is paneling. Use CSS Grid to build irregular panels:
 
 ```css
-/* 基础分格 */
+/* Basic panel */
 .panel {
   border: 3px solid var(--ink);
   background: var(--white);
@@ -82,22 +82,22 @@ Read `assets/comic_template.html`
   padding: 28px 32px;
 }
 
-/* 出血格（内容冲破边框） */
+/* Bleed panel (content breaks through the border) */
 .panel-bleed {
   border: none;
   margin: -3px;
   z-index: 2;
 }
 
-/* 斜切分格 */
+/* Slanted panel */
 .panel-slanted {
   clip-path: polygon(0 0, 100% 8%, 100% 100%, 0 92%);
 }
 ```
 
-#### 集中线（Focus Lines）
+#### Focus lines
 
-把关键概念顶到读者眼前：
+Push a key concept right up to the reader's eye:
 
 ```css
 .focus-lines {
@@ -116,9 +116,9 @@ Read `assets/comic_template.html`
 }
 ```
 
-#### 速度线（Speed Lines）
+#### Speed lines
 
-表现动态、变化、冲击：
+For expressing motion, change, or impact:
 
 ```css
 .speed-lines {
@@ -133,7 +133,7 @@ Read `assets/comic_template.html`
 }
 ```
 
-#### 对话泡 / 思想泡
+#### Speech bubbles / thought bubbles
 
 ```css
 .speech-bubble {
@@ -153,7 +153,7 @@ Read `assets/comic_template.html`
   border-top-color: var(--ink);
 }
 
-/* 思想泡（圆形尾巴） */
+/* Thought bubble (round tail) */
 .thought-bubble {
   border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
 }
@@ -165,7 +165,7 @@ Read `assets/comic_template.html`
   bottom: -20px;
 }
 
-/* 吼叫泡（锯齿边缘） */
+/* Shout bubble (jagged edge) */
 .shout-bubble {
   clip-path: polygon(
     0% 20%, 5% 0%, 15% 15%, 25% 0%, 35% 10%,
@@ -181,9 +181,9 @@ Read `assets/comic_template.html`
 }
 ```
 
-#### 网点灰（Screentone）
+#### Screentone
 
-漫画中灰色不是灰色，是网点：
+Gray in manga isn't gray, it's a dot pattern:
 
 ```css
 .screentone {
@@ -192,7 +192,7 @@ Read `assets/comic_template.html`
   opacity: 0.15;
 }
 
-/* 渐变网点 */
+/* Fading screentone */
 .screentone-gradient {
   background-image: radial-gradient(circle, var(--ink) 1px, transparent 1px);
   background-size: 5px 5px;
@@ -202,9 +202,9 @@ Read `assets/comic_template.html`
 }
 ```
 
-#### 拟声词 / 效果字（Onomatopoeia）
+#### Onomatopoeia / sound effects
 
-大号倾斜的效果字，漫画的灵魂：
+Big, tilted sound-effect lettering — the soul of manga:
 
 ```css
 .sfx {
@@ -217,9 +217,9 @@ Read `assets/comic_template.html`
 }
 ```
 
-#### 墨色浓淡（Ink Wash）
+#### Ink wash
 
-井上雄彦路线的核心，用 CSS gradient 模拟水墨：
+The core of the Inoue Takehiko line — simulate ink wash with a CSS gradient:
 
 ```css
 .ink-wash {
@@ -233,162 +233,173 @@ Read `assets/comic_template.html`
 }
 ```
 
-### 3.2 排版原则
+### 3.2 Typography principles
 
-漫画排版另有一套规矩：
+Manga has its own set of typesetting rules:
 
-- 文字竖排可选：日式漫画原本竖排。关键文字可用 `writing-mode: vertical-rl` 制造漫画感
-- 字号对比极端：标题 120px+、正文 32px、旁注 20px，比例 ≥ 6:1
-- 粗体 = 重音：漫画里加粗是"说话声音变大了"
-- 留白 = 沉默：大面积空白是刻意的停顿，不是没画完
-- 黑色块 = 重压：纯黑区域制造压迫感和戏剧性
-- 断字预折行：窄格、对话泡、金句里的文字，写 HTML 时手动 `<br>` 预折行，别赌浏览器自动换行。写之前按（列内宽 − padding − border）÷ 字号实算每行字数上限，窄列文案按上限写；full-width 的长句反而让它自由换行更稳
+- Vertical text is optional: Japanese manga was originally set vertically. Key text can use `writing-mode: vertical-rl` to create a manga feel
+- Extreme size contrast: title 120px+, body 32px, side notes 20px, ratio ≥ 6:1
+- Bold = emphasis: in manga, bold means "the voice got louder"
+- Whitespace = silence: large blank areas are deliberate pauses, not unfinished drawing
+- Black blocks = pressure: pure black regions create oppression and drama
+- Pre-break long text: for narrow panels, speech bubbles, and memorable lines, manually insert `<br>` to pre-wrap the text when writing HTML — don't gamble on browser auto-wrap. Before writing, calculate the max characters per line from (column inner width − padding − border) ÷ font size, and write narrow-column copy to that limit; full-width long sentences are more stable left to wrap naturally
 
-### 3.3 分格构图（按风格）
+### 3.3 Panel composition (by style)
 
-#### 大友克洋 — 精密废墟
+#### Otomo Katsuhiro — precision ruins
 ```
 +------------------+--------+
-|                  |  细节   |
-|   全景大格       |  小格   |
-|   (技术架构图)   +--------+
-|                  |  数据   |
-+--------+---------+  小格   |
-| 文字格 | 文字格  |        |
+|                  | detail |
+|  wide establishing|  panel |
+|  panel (tech      +--------+
+|  architecture)    | data   |
++--------+---------+  panel  |
+| text   | text    |        |
+| panel  | panel   |        |
 +--------+---------+--------+
 ```
-特征：格子方正、线条精密、信息密度高
+Signature: squared panels, precise linework, high information density
 
-#### 井上雄彦 — 水墨留白
+#### Inoue Takehiko — ink-wash negative space
 ```
 +-------------------------+
 |                         |
-|    大面积留白            |
-|         核心概念         |
-|    (墨色渐变背景)        |
+|   large area of         |
+|      whitespace         |
+|      core concept       |
+|   (ink-gradient bg)     |
 |                         |
 +------------+------------+
-|  窄长格    |   窄长格    |
-|  观点 A    |   观点 B    |
+|  narrow    |   narrow    |
+|  panel     |   panel     |
+|  point A   |   point B   |
 +------------+------------+
 ```
-特征：大量留白、格子少、每格信息少但重
+Signature: heavy whitespace, few panels, each panel carries little but heavy information
 
-#### 三浦建太郎 — 暗黑压迫
+#### Miura Kentaro — dark oppression
 ```
 +--+--------------------+--+
-|黑|                    |黑|
-|边|   核心冲突大格      |边|
-|  |   (大量纯黑+白字)  |  |
+|bl|                    |bl|
+|ck|  core conflict      |ck|
+|  |  wide panel         |  |
+|bo|  (heavy black +     |bo|
+|rd|   white text)       |rd|
+|er|                    |er|
 +--+---------+----------+--+
-|   密集格   |  密集格   |
-|   (网点灰) |  (纯黑白) |
+|   dense    |   dense    |
+|   panel    |   panel    |
+|  (gray     |  (solid    |
+|  screentone)|  b/w)     |
 +------------+-----------+
 ```
-特征：大面积纯黑、白字反转、压迫感
+Signature: large areas of solid black, white-on-black inversion, oppressive feel
 
-#### 松本大洋 — 生猛粗线
+#### Matsumoto Taiyo — raw thick lines
 ```
   +-------+
-  | 歪斜格 \
- /          +--------+
-+   核心概念          |
-|   (大号粗字)        |
+  | tilted \
+ /  panel   +--------+
++   core concept      |
+|   (big bold text)   |
 +-----+       +------+
-      |  不规则 |
-      |  小格   |
+      | irregular|
+      |  small    |
+      |  panel    |
       +---------+
 ```
-特征：格子歪斜、边框粗细不均、充满动能
+Signature: tilted panels, uneven border thickness, full of kinetic energy
 
-#### 谷口治郎 — 静谧精描
+#### Taniguchi Jiro — quiet precision
 ```
 +-------------------------+
-|   精细场景描写格         |
-|   (长横格，电影宽银幕)   |
+|   finely-drawn scene     |
+|   panel (wide letterbox, |
+|    cinematic)            |
 +------------+------------+
 |            |            |
-| 正方格     | 正方格     |
-| 细节 A     | 细节 B     |
+| square     | square     |
+| panel      | panel      |
+| detail A   | detail B   |
 |            |            |
 +------------+------------+
-|   底部叙事格             |
+|   bottom narrative panel |
 +-------------------------+
 ```
-特征：规整格子、宽银幕横格、安静均匀
+Signature: regular panels, wide letterbox strips, quiet and even
 
-### 3.4 原文配图处理
+### 3.4 Handling images from the source
 
-步骤 2.3 收集到相关配图时：
+When step 2.3 collected relevant images:
 
-- 优先用原图：`<img>` 直接引原文图片 URL，放进漫画分格
-- 图片当格子使：原图独占一格，加 3px 边框，融入分格系统
-- 黑白调性：`filter: grayscale(100%) contrast(1.2);` 保持漫画黑白感。原图本身是黑白/线条风格时可保留原色
-- 图片 CSS：`width: 100%; height: auto; object-fit: cover; display: block;`
-- 图片不可用（404 / CORS）就跳过，不用占位图顶替
+- Prefer the original images: reference the original image URL directly with `<img>`, placed into a manga panel
+- Treat the image as a panel: give the original image its own panel, add a 3px border, integrate it into the panel system
+- Keep it black-and-white in tone: `filter: grayscale(100%) contrast(1.2);` preserves the manga's black-and-white feel. If the original image is already black-and-white/line-art, its original color may be kept
+- Image CSS: `width: 100%; height: auto; object-fit: cover; display: block;`
+- If an image is unavailable (404 / CORS), skip it — don't substitute a placeholder image
 
-## 步骤 4：写 CSS + HTML
+## Step 4: Write the CSS + HTML
 
-所有 CSS 写入 `{{CUSTOM_CSS}}`，所有 HTML 写入 `{{CONTENT_HTML}}`。
+Write all CSS into `{{CUSTOM_CSS}}`, all HTML into `{{CONTENT_HTML}}`.
 
-CSS 从零写，class 名反映内容，不用通用名。
+Write CSS from scratch, with class names reflecting the content, not generic names.
 
-核心约束：
+Core constraints:
 
-- 配色限于黑(`--ink`)、白(`--white/--bg`)、灰(`--tone`)三值，偶尔用 `--ink-mid`
-- 要强调就用纯黑反白（白字黑底），不用彩色
-- 边框统一 2.5-3px，模拟笔触
-- 至少一个格子"出血"（内容冲破常规边距），漫画感靠它
+- Palette limited to three values — black (`--ink`), white (`--white/--bg`), gray (`--tone`) — with occasional use of `--ink-mid`
+- For emphasis, use a solid black-on-white inversion (white text on black), not color
+- Borders uniformly 2.5-3px, to simulate a pen stroke
+- At least one panel should "bleed" (content breaks through the normal margin) — this is where the manga feel comes from
 
-替换变量：
+Variable substitution:
 
-| 变量 | 内容 |
+| Variable | Content |
 |------|------|
-| `{{CUSTOM_CSS}}` | 全部 CSS（包括 :root 覆盖） |
-| `{{CONTENT_HTML}}` | 全部 HTML |
-| `{{SOURCE_LINE}}` | 内容来源（可选）：`<span class="info-source">来源文字</span>`，无来源时空字符串 |
+| `{{CUSTOM_CSS}}` | All CSS (including `:root` overrides) |
+| `{{CONTENT_HTML}}` | All HTML |
+| `{{SOURCE_LINE}}` | Content source (optional): `<span class="info-source">source text</span>`, empty string if no source |
 
-写入：
+Write to:
 
-- 单张：`/tmp/ljg_cast_comic_{name}.html`
-- 多张：`/tmp/ljg_cast_comic_{name}_{N}.html`（N = 01, 02, ...）
+- Single card: `/tmp/ljg_cast_comic_{name}.html`
+- Multiple cards: `/tmp/ljg_cast_comic_{name}_{N}.html` (N = 01, 02, ...)
 
-## 步骤 5：自检与验收
+## Step 5: Self-check and acceptance
 
-生成 HTML 后：
+After generating the HTML:
 
-- [ ] 一眼看上去像漫画页面吗？像"加了边框的普通排版"就重做
-- [ ] 至少 3 个分格？漫画没有分格就不是漫画
-- [ ] 黑白对比强烈？有纯黑区域？
-- [ ] 至少 1 个漫画特有元素（集中线/速度线/对话泡/效果字/网点灰）？
-- [ ] 格子大小有对比？（一个大格 + 几个小格，不是全部等大）
-- [ ] 避开了彩色？灰色只用网点灰 `--tone`
-- [ ] 正文字号 ≥ 32px？标题 ≥ 72px？
-- [ ] 有一个格子让人第一眼被吸进去？
-- [ ] 避开了等分、对称、均匀间距？
-- [ ] 末卡 `終` 标记在，且没落在黑底上隐形？
+- [ ] Does it look like a manga page at a glance? If it looks like "regular layout with a border added," redo it
+- [ ] At least 3 panels? Manga without panels isn't manga
+- [ ] Strong black-and-white contrast? Areas of solid black present?
+- [ ] At least 1 manga-specific element (focus lines / speed lines / speech bubble / sound effect / screentone)?
+- [ ] Contrast in panel size? (one big panel + several small ones, not all equal size)
+- [ ] Avoided color? Gray only used as screentone `--tone`
+- [ ] Body text ≥ 32px? Titles ≥ 72px?
+- [ ] Is there one panel that grabs the eye first?
+- [ ] Avoided equal division, symmetry, and even spacing?
+- [ ] Is the `終` (The End) mark on the last card present, and not invisible against a black background?
 
-截图之后，逐张验收：
+After the screenshot, verify each card:
 
-- 打开 PNG 亲眼看：分格结构、SVG 图意对不对（画"罗盘"别画成钟）、文字有无溢出
-- 怀疑渲染图里文字有错时，一律 grep HTML 源核对——别拿渲染图 OCR 下判断，小字看错是常事；渲染图只用来判分格/图意/溢出/灰阶
-- 修改重渲后，核对 PNG mtime ≥ HTML mtime，防交付旧图
-- rg 扫 HTML 里全部颜色声明：应全为灰阶或统一近中性纸调，无彩色 hue、无 `#000000`
+- Open the PNG and check with your own eyes: is the panel structure correct, do the SVG images make sense (draw a "compass" not something that looks like a clock), any text overflow?
+- If you suspect text errors in the rendered image, always grep the HTML source to verify — don't judge from OCR-reading the rendered image; small text is easy to misread. Use the rendered image only to check panel layout / image meaning / overflow / grayscale
+- After any edit and re-render, confirm the PNG mtime ≥ the HTML mtime, to avoid delivering a stale image
+- rg-scan the HTML for all color declarations: everything should be grayscale or a uniform near-neutral paper tone, no color hues, no `#000000`
 
-## 步骤 6：截图
+## Step 6: Screenshot
 
-单张：
+Single card:
 ```bash
 node assets/capture.js /tmp/ljg_cast_comic_{name}.html ~/Downloads/{name}.png 1080 800 fullpage
 ```
 
-多张：逐张截图，文件名带序号
+Multiple cards: screenshot each one, filenames carry the sequence number
 ```bash
 node assets/capture.js /tmp/ljg_cast_comic_{name}_01.html ~/Downloads/{name}_01.png 1080 800 fullpage
 node assets/capture.js /tmp/ljg_cast_comic_{name}_02.html ~/Downloads/{name}_02.png 1080 800 fullpage
-# ... 逐张执行
+# ... one per card
 ```
 
-## 步骤 7：交付
+## Step 7: Delivery
 
-报告文件路径、卡数、所选风格及理由。末尾附一句「照」：把这篇内容接到四轴世界观（进化论/博弈论/控制论/脑神经科学）中的一根轴上，一句话点透同构处。选轴避开最近一次用过的那根；接不上就不硬凑。
+Report the file paths, the card count, the chosen style, and the reasoning. Append one closing line, a "reflection": connect this piece to one axis of the four-axis worldview (evolution / game theory / cybernetics / neuroscience), landing the isomorphism in a single sentence. Avoid whichever axis was used most recently; if it doesn't fit naturally, don't force it.

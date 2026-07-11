@@ -1,102 +1,102 @@
 # ljg-skills
 
-我的 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 自定义技能集。
+My custom skill set for [Claude Code](https://docs.anthropic.com/en/docs/claude-code).
 
-## 安装
+## Installation
 
-使用 [skills CLI](https://github.com/vercel-labs/skills)（基于 `npx`）一行安装：
+Install in one line using the [skills CLI](https://github.com/vercel-labs/skills) (based on `npx`):
 
 ```bash
-# 安装全部技能（全局，org-mode 格式）
+# Install all skills (global, org-mode format)
 npx skills add lijigang/ljg-skills -g --all
 
-# 安装全部技能（Markdown 格式，适用于 Obsidian / VSCode / Notion 等）
+# Install all skills (Markdown format, for Obsidian / VSCode / Notion etc.)
 npx skills add lijigang/ljg-skills#md -g --all
 
-# 安装单个技能
+# Install a single skill
 npx skills add lijigang/ljg-skills -g --skill ljg-card
 
-# 安装单个技能（Markdown 格式）
+# Install a single skill (Markdown format)
 npx skills add lijigang/ljg-skills#md -g --skill ljg-card
 
-# 安装多个指定技能
+# Install multiple specified skills
 npx skills add lijigang/ljg-skills -g --skill ljg-card --skill ljg-learn
 
-# 查看仓库中有哪些技能
+# List which skills are in the repo
 npx skills add lijigang/ljg-skills -l
 ```
 
-**参数说明：**
+**Flag descriptions:**
 
-| 参数 | 作用 |
+| Flag | Effect |
 |------|------|
-| `-g` | 全局安装到 `~/.claude/skills/`（推荐）。不加则装到当前项目 `.claude/skills/` |
-| `--skill <name>` | 指定安装某个技能，可重复使用 |
-| `--all` | 安装仓库内全部技能 |
-| `#md` | 从 `md` branch 安装 Markdown 格式版本（默认为 org-mode） |
-| `-l` | 仅列出可用技能，不安装 |
+| `-g` | Install globally to `~/.claude/skills/` (recommended). Without it, installs to the current project's `.claude/skills/` |
+| `--skill <name>` | Install a specific skill; can be used repeatedly |
+| `--all` | Install all skills in the repo |
+| `#md` | Install the Markdown-format version from the `md` branch (org-mode is the default) |
+| `-l` | Only list available skills, don't install |
 
-### ljg-card 依赖
+### ljg-card Dependencies
 
-`ljg-card` 依赖 Playwright 截图，安装后需额外执行：
+`ljg-card` depends on Playwright for screenshots; after installing, run additionally:
 
 ```bash
 cd ~/.claude/skills/ljg-card && npm install && npx playwright install chromium
 ```
 
-### 替代方式：git clone
+### Alternative: git clone
 
 ```bash
-# org-mode 版本
+# org-mode version
 git clone https://github.com/lijigang/ljg-skills.git ~/.claude/plugins/ljg-skills
 
-# Markdown 版本
+# Markdown version
 git clone -b md https://github.com/lijigang/ljg-skills.git ~/.claude/plugins/ljg-skills
 ```
 
-## 技能
+## Skills
 
-| 技能 | 说明 |
+| Skill | Description |
 |------|------|
-| **ljg-blind** | 盲区扫描 — 读取指定日期的 AI 对话，找出结构性思维盲区，并用微信读书章节精准补上 |
-| **ljg-card** | 内容铸卡 — 将内容转为 PNG 视觉卡片（长图 `-l`、信息图 `-i`、多卡 `-m`、视觉笔记 `-v`、漫画 `-c`、白板 `-w`、大字 `-b`） |
-| **ljg-learn** | 概念解剖 — 从八个方向切开一个概念（历史、辩证、现象、语言、形式、存在、美感、元反思），压成一句顿悟 |
-| **ljg-paper** | 论文阅读 — 为非学术人士提取论文核心想法，重理解不重批判 |
-| **ljg-paper-river** | 论文溯源 — 倒读法，递归挖前序论文（最多5层）+ 最新进展，从源头讲述问题演化史 |
-| **ljg-book** | 拆书 — 落在一道等式 f(x) 上：作者站在哪个问题前（x）/ 他这副取景框是什么（f，中心一问：猜想造出的新框，还是仓库捡的现成框）/ 透过框照出的画面与落点（f(x)）；收尾一张 ASCII 参考系图把各副 f 钉进同一张图，再走两步把框推到书外做可证伪的预测 |
-| **ljg-library** | 取景框借书卡 — 一本书 → 一幅「取景框」意向画面 → 一张收藏卡（PNG）：真实封面 / 作者 / 书目 + 费曼式讲透画面；图解用 AI 生图、继刚作固定主角（从墨像参考生成），吉田诚治式绘本感风格（绘本感异世界日常、暖光斜射、治愈又精致） |
-| **ljg-map** | 生态地形图卡 — 一个行业 → 一张可俯瞰的生态地形（PNG，AI 生图，默认 `-a` 动森 / 可选 `-c` cyber）：价值像河流过地貌，标出瓶颈（收窄的隘口/水坝）与价值捕获点（利润沉淀的宝藏堆），继刚作测量员俯瞰；配三个关键指标 base rate + 三个大问题 |
-| **ljg-qa** | 信息提问机 — 把文章/论文/书的核心观点抽成 Q-A 链，Q 切要害，A 四段（结论 / 形式化 / 步骤 / 边界） |
-| **ljg-plain** | 白话引擎 — 把任何内容改写到聪明的十二岁小孩也能懂 |
-| **ljg-rank** | 降秩引擎 — 给一个领域，找出背后不可再少的独立生成器 |
-| **ljg-constraint** | 约束引擎 — 给一个领域/专业/角色，找出框住它的那几条约束（硬/软/自设三层），揪出被当成硬约束的假墙、指出哪条能重新定义 |
-| **ljg-think** | 追本之箭 — 给一个观点或现象，纵向深钻到不可再分的本质 |
-| **ljg-word** | 单词精通 — 深度拆解一个英语单词的核心语义和顿悟时刻 |
-| **ljg-writes** | 写作引擎 — 像手术刀剖开一个观点，一层层剥到底。1000-1500 字 |
-| **ljg-invest** | 投资分析 — 核心判断项目是否是一台「秩序创造机器」 |
-| **ljg-read** | 伴读 — 陪你读任何文本，英文三层翻译（信达雅）+ 结构标注 + 深度提问 + 跨领域旁逸 |
-| **ljg-relationship** | 关系分析 — 五层结构诊断 + 精神分析，通过对话引导帮用户"看见"关系真实结构 |
-| **ljg-roundtable** | 圆桌讨论 — 一个议题一场圆桌：真实人物逐轮交锋，每轮收一张 ASCII 结构图，散场全文存档 |
-| **ljg-travel** | 旅行研究 — 输入城市名，生成深度文化研究文档（org-mode）+ 便携卡片（PNG） |
-| **ljg-skill-map** | 技能地图 — 扫描所有已安装技能，渲染可视化总览 |
-| **ljg-present** | 演讲铸造器 — 默认高桥流（一页一关键词、奶白底墨字）；`-s` 标语流（VACAT/BIG STUDIOS 风：黑红双色块、ultra-bold、完整断言句撑屏）|
-| **ljg-push** | 推送引擎 — 把本地 `~/.claude/skills/ljg-*` 一键同步到 github repo（master + md 双分支）|
+| **ljg-blind** | Blind spot scan — reads AI conversations from a specified date, identifies structural thinking blind spots, and fills them precisely using WeChat Reading (微信读书) chapters |
+| **ljg-card** | Content-to-card casting — turns content into PNG visual cards (long image `-l`, infograph `-i`, multi-card `-m`, visual notes `-v`, comic `-c`, whiteboard `-w`, big text `-b`) |
+| **ljg-learn** | Concept anatomy — cuts a concept open from eight directions (history, dialectics, phenomenology, linguistics, formalization, existentialism, aesthetics, meta-reflection), compressed into a single epiphany |
+| **ljg-paper** | Paper reading — extracts a paper's core idea for non-academic readers, prioritizing understanding over critique |
+| **ljg-paper-river** | Paper genealogy — reverse-reading method, recursively digs into prior papers (up to 5 levels) + latest developments, telling the evolution of the problem from its source |
+| **ljg-book** | Book breakdown — lands on one equation f(x): what question is the author standing in front of (x) / what is this viewfinder (取景框) of his (f, the central question: a new frame conjured up, or a ready-made frame picked off the shelf) / the picture and conclusion illuminated through the frame (f(x)); ends with an ASCII reference-frame diagram pinning each f into the same picture, then pushes the frame two steps beyond the book to make falsifiable predictions |
+| **ljg-library** | Viewfinder library card — one book → one "viewfinder" (取景框) image → one collectible card (PNG): real cover / author / bibliography + a Feynman-style explanation of the image; illustration is AI-generated, with Jigang (继刚) as the fixed protagonist (generated from an ink-portrait reference), in the picture-book style of Seiji Yoshida (吉田诚治) — an otherworldly-everyday picture-book feel, warm slanting light, healing yet refined |
+| **ljg-map** | Ecosystem terrain map card — one industry → one bird's-eye ecosystem terrain (PNG, AI-generated, default `-a` Animal Crossing style / optional `-c` cyber): value flows like a river across the terrain, marking bottlenecks (narrowing passes/dams) and value-capture points (treasure piles where profit settles), with Jigang (继刚) as the surveyor looking down; paired with three key base-rate metrics + three big questions |
+| **ljg-qa** | Information question machine — extracts the core arguments of an article/paper/book into a Q-A chain, with each Q cutting to the heart of the matter and each A in four parts (conclusion / formalization / steps / boundaries) |
+| **ljg-plain** | Plain-language engine — rewrites any content so a smart twelve-year-old can understand it |
+| **ljg-rank** | Rank-reduction engine — given a domain, finds the irreducible set of independent generators behind it |
+| **ljg-constraint** | Constraint engine — given a domain/profession/role, finds the few constraints that box it in (three layers: hard/soft/self-imposed), calls out false walls mistaken for hard constraints, and points out which ones can be redefined |
+| **ljg-think** | Root-tracing arrow (追本之箭) — given an opinion or phenomenon, drills vertically down to its irreducible essence |
+| **ljg-word** | Word mastery — deeply deconstructs the core semantics and epiphany moment of an English word |
+| **ljg-writes** | Writing engine — dissects an idea like a scalpel, peeling layer after layer to the bottom. 1000-1500 words |
+| **ljg-invest** | Investment analysis — the core judgment is whether a project is an "order-creating machine" (秩序创造机器) |
+| **ljg-read** | Reading companion — accompanies you through any text, with three-layer English translation (faithfulness/fluency/elegance, 信达雅) + structural annotation + deep questioning + cross-domain digressions |
+| **ljg-relationship** | Relationship analysis — five-layer structural diagnosis + psychoanalysis, guiding the user through dialogue to help them "see" the true structure of a relationship |
+| **ljg-roundtable** | Roundtable discussion — one topic, one roundtable: real figures clash round by round, each round wraps with an ASCII structure diagram, and the full transcript is archived when it adjourns |
+| **ljg-travel** | Travel research — input a city name, generates an in-depth cultural research document (org-mode) + a portable card (PNG) |
+| **ljg-skill-map** | Skill map — scans all installed skills and renders a visual overview |
+| **ljg-present** | Presentation forge — default is Takahashi-style (高桥流) (one keyword per slide, ink text on a cream-white background); `-s` slogan style (VACAT/BIG STUDIOS style: black-and-red color blocks, ultra-bold, full assertive sentences filling the screen)|
+| **ljg-push** | Push engine — syncs local `~/.claude/skills/ljg-*` to the GitHub repo in one click (master + md branches)|
 
 
-## 工作流
+## Workflows
 
-工作流将多个技能串联为一个命令。
+Workflows chain multiple skills together into a single command.
 
-| 工作流 | 技能链 | 说明 |
+| Workflow | Skill Chain | Description |
 |--------|--------|------|
-| **ljg-paper-flow** | ljg-paper → ljg-library | 读论文 + 铸取景框借书卡一气呵成 |
-| **ljg-word-flow** | ljg-word → ljg-card -i | 单词深度分析 + 信息图卡片一气呵成 |
+| **ljg-paper-flow** | ljg-paper → ljg-library | Reads the paper + casts a viewfinder library card, all in one go |
+| **ljg-word-flow** | ljg-word → ljg-card -i | Deep word analysis + infograph card, all in one go |
 
-## 输出格式
+## Output Formats
 
-技能提供两种输出格式，通过不同 branch 安装，功能完全相同：
+Skills are available in two output formats, installed via different branches, with identical functionality:
 
-| Branch | 格式 | 适用场景 |
+| Branch | Format | Use Case |
 |--------|------|----------|
-| `master`（默认） | Org-mode（`.org`） | Emacs / Denote 用户 |
-| `md` | Markdown（`.md`） | Obsidian / VSCode / Notion 等 Markdown 生态用户 |
+| `master` (default) | Org-mode (`.org`) | Emacs / Denote users |
+| `md` | Markdown (`.md`) | Users in the Markdown ecosystem such as Obsidian / VSCode / Notion |

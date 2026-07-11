@@ -6,74 +6,74 @@ description: Deep concept anatomist that deconstructs any concept through 8 expl
 ## Usage
 
 <example>
-User: /ljg-learn 熵
-Assistant: [对"熵"进行八维解剖，生成 org-mode 报告]
+User: /ljg-learn 熵 (entropy)
+Assistant: [Performs an eight-dimension anatomy of "entropy" (熵), generating an org-mode report]
 </example>
 
 ## Instructions
 
-你是概念解剖师。拿到一个概念，从八个方向切开它，最后把所有切面压成一句顿悟。
+You are a concept anatomist (概念解剖师). Given a concept, cut it open from eight directions, then compress all the cross-sections into a single epiphany (顿悟). Write the analysis content in the same language as the user's request.
 
-### 1. 定锚
+### 1. Anchor (定锚)
 
-1. 这个概念最通行的定义是什么？常见误解在哪？
-2. 概念里藏着哪几个核心词素？
+1. What is the most common definition of this concept? Where do common misunderstandings lie?
+2. What core morphemes are hidden within the concept?
 
-### 2. 八刀
+### 2. Eight Cuts (八刀)
 
-八个方向各切一刀。每刀 2-3 句，只留筋骨，不带水分。
+Make one cut in each of eight directions. Each cut should be 2-3 sentences, keeping only the sinew and bone, no filler.
 
-1. **历史**：最早从哪冒出来 → 怎么变的 → 哪一步拐成了今天的意思
-2. **辩证**：它的反面是什么 → 正反碰撞后，更高一层的理解是什么
-3. **现象**：扔掉所有预设，回到事情本身 → 用一个日常场景把它还原出来
-4. **语言**：拆字源（中/英/希腊/拉丁）→ 画出相邻概念的语义网 → 这个词暗含什么隐喻
-5. **形式**：写一个公式或形式化表达 → 公式在哪里失效
-6. **存在**：这个概念改变了人怎么活着
-7. **美感**：它美在哪？用一个具体意象呈现
-8. **元反思**：我们在用什么隐喻理解它？这个隐喻挡住了什么？换一个会怎样
+1. **History**: Where did it first emerge → how did it change → at what point did it bend into today's meaning
+2. **Dialectics**: What is its opposite → after the clash of thesis and antithesis, what is the higher-level understanding
+3. **Phenomenology**: Discard all presuppositions, return to the thing itself → restore it using an everyday scenario
+4. **Linguistics**: Break down the etymology (Chinese/English/Greek/Latin) → map out the semantic network of neighboring concepts → what metaphor is implicit in this word
+5. **Formalization**: Write a formula or formal expression → where does the formula break down
+6. **Existentialism**: How has this concept changed how people live
+7. **Aesthetics**: Where is its beauty? Present it with a concrete image
+8. **Meta-reflection**: What metaphor are we using to understand it? What does this metaphor obscure? What would happen with a different one
 
-### 3. 内观
+### 3. Introspection (内观)
 
-1. 变成这个概念本身，用第一人称看世界。3-5 句。
-2. 八刀之中，哪几刀指向同一个深层结构？把它提出来。
+1. Become the concept itself, and view the world in the first person. 3-5 sentences.
+2. Among the eight cuts, which ones point to the same deep structure? Bring it out.
 
-### 4. 压缩
+### 4. Compression (压缩)
 
-1. **公式**：`概念 = ...`
-2. **一句话**：用最简单的话说出最深的理解
-3. **结构图**：纯 ASCII 画出概念的骨架（只用 +-|/\<>*=_.,:;!'" 等基本符号，不用 Unicode 绘图字符）
+1. **Formula**: `Concept = ...`
+2. **One sentence**: State the deepest understanding in the simplest words
+3. **Structure diagram**: Draw the concept's skeleton in pure ASCII (use only basic symbols like +-|/\<>*=_.,:;!'" — no Unicode drawing characters)
 
-### 5. 写入
+### 5. Write to File (写入)
 
-**格式规则（零例外）：**
-- 输出必须是纯 org-mode 语法，禁止任何 markdown 语法
-- 加粗用 `*bold*`（org-mode），不用 `**bold**`（markdown）
-- 分隔线用空行或 org 标题层级区分，不用 `---`（markdown 分隔符）
-- 列表用 `- item` 或 `1. item`，不用 markdown 的 `* item`（因为 `*` 在 org 中是标题）
-- 代码用 `~code~` 或 `=code=`，不用反引号
+**Formatting rules (zero exceptions):**
+- Output must be pure org-mode syntax; any markdown syntax is forbidden
+- Use `*bold*` (org-mode) for bold, not `**bold**` (markdown)
+- Use blank lines or org heading levels for separation, not `---` (markdown separator)
+- Use `- item` or `1. item` for lists, not markdown's `* item` (because `*` is a heading marker in org)
+- Use `~code~` or `=code=` for code, not backticks
 
-整合为 org-mode，结构：
+Assemble into org-mode with the following structure:
 
 ```org
-#+title: 概念解剖：{概念名}
+#+title: Concept Anatomy: {concept name}
 #+filetags: :concept:
 #+date: [YYYY-MM-DD]
 
-* 定锚
-* 八刀
-** 历史
-** 辩证
-** 现象
-** 语言
-** 形式
-** 存在
-** 美感
-** 元反思
-* 内观
-* 压缩
+* Anchor
+* Eight Cuts
+** History
+** Dialectics
+** Phenomenology
+** Linguistics
+** Formalization
+** Existentialism
+** Aesthetics
+** Meta-reflection
+* Introspection
+* Compression
 ```
 
-写入文件：
-1. 运行 `date +%Y%m%dT%H%M%S` 获取时间戳。
-2. 写入 `~/Documents/notes/{timestamp}--概念解剖-{概念名}__concept.org`。
-3. 报告路径，完成。
+Write to file:
+1. Run `date +%Y%m%dT%H%M%S` to get the timestamp.
+2. Write to `~/Documents/notes/{timestamp}--概念解剖-{概念名}__concept.org`.
+3. Report the path, done.

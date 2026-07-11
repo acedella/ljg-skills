@@ -1,226 +1,226 @@
 ---
 name: ljg-book
-description: 拆一本书，只抓读者真正能带走的东西：作者针对什么问题，提出了什么新见解（概念、方法、框架或一句话），以后遇到这个问题该怎么用它。Use when user says 拆书, 分析这本书, 这本书在讲什么, 压缩一本书, book, or gives a book title for structural analysis. NOT FOR chapter summaries, papers, single-idea deep dives, or field ranking.
+description: Break down a book to extract only what the reader can truly take away — what problem the author is addressing, what new insight they offer (a concept, method, framework, or a single sentence), and how to use it the next time this problem comes up. Use when user says '拆书' (break down a book), '分析这本书' (analyze this book), '这本书在讲什么' (what is this book about), '压缩一本书' (compress a book), 'book', or gives a book title for structural analysis. NOT FOR chapter summaries, papers, single-idea deep dives, or field ranking.
 user_invocable: true
 ---
 
-# ljg-book: 拆书
+# ljg-book: Book Breakdown (拆书)
 
-输入一本书，输出一个能带走的东西。
+Input a book, output one thing the reader can take away.
 
-不要写读后感。不要写章节摘要。不要写审稿报告。
+Don't write a reading-response essay. Don't write a chapter summary. Don't write a review report.
 
-这份 skill 只问四件事：
+This skill asks only four questions:
 
-1. 作者在答什么问题？
-2. 他给了什么新见解？
-3. 我以后遇到这个问题，怎么用它？
-4. 它不能用在哪里？
+1. What problem is the author answering?
+2. What new insight did they offer?
+3. How do I use it the next time I run into this problem?
+4. Where can it NOT be used?
 
-宁可少，但要能吸收。别为了全面，把主线写散。
+Better to have less, as long as it can be absorbed. Don't scatter the main thread for the sake of coverage.
 
-## 核心目标
+## Core goal
 
-读者半年后只需要记住三句话：
+Six months later, the reader only needs to remember three sentences:
 
-- 这本书处理的问题是：……
-- 作者给的新东西是：……
-- 我以后可以这样用：……
+- The problem this book addresses is: ...
+- The new thing the author offers is: ...
+- Here's how I can use it going forward: ...
 
-如果这三句话写不出来，说明还没拆到位。
+If you can't write these three sentences, the breakdown isn't done yet.
 
-## 先看材料
+## Check the material first
 
-只给书名时，先查：
+If only given a book title, look up first:
 
-- 作者、出版社页、目录、导言或样章。
-- 作者访谈或可靠书评。
-- 这个问题之前的常见答案。
+- The author, the publisher's page, the table of contents, the introduction or a sample chapter.
+- Author interviews or reliable reviews.
+- The common prior answers to this problem.
 
-给了 PDF、正文或样章时，先读原文。除非用户禁止联网，仍要轻查一下基线，别只信作者自己树的靶子。
+If given a PDF, the full text, or a sample chapter, read the original first. Unless the user forbids going online, still do a light check on the baseline — don't just trust the strawman the author sets up.
 
-材料不够就降级：
+If material is insufficient, downgrade accordingly:
 
-- 有全文或足够书内材料：可以完整拆。
-- 只有目录、导言、访谈、书评：写「初拆」，少下定论。
-- 资料很薄：写「假设版」，不装读过。
+- Full text or enough in-book material: do a complete breakdown.
+- Only table of contents, introduction, interviews, reviews: write a "first-pass breakdown," go light on conclusions.
+- Very thin material: write a "hypothesis version," don't pretend to have read it.
 
-材料等级不要放在开头抢戏。放到末尾「资料校准」里。
+Don't put the material tier up front to steal the show. Put it at the end, in "Material calibration."
 
-## 正文结构
+## Body structure
 
-文件头之后、第一个标题之前，先放三行：
+After the file header and before the first heading, put three lines:
 
 ```org
-- *问题*：作者在答什么问题
-- *新见解*：概念 / 方法 / 框架 / 一句话，四选一
-- *用法*：以后遇到这个问题，我该怎么用它
+- *Problem*: what problem the author is answering
+- *New insight*: concept / method / framework / one sentence — pick one
+- *Usage*: how I should use it next time I encounter this problem
 ```
 
-正文 3 到 5 节。标题从这本书里长出来，不用固定模板。推荐顺序：
+The body has 3 to 5 sections. Headings should grow out of the book itself — don't force a fixed template. Recommended order:
 
-1. 问题：作者到底在处理什么麻烦。
-2. 新见解：他给出的新东西是什么。
-3. 用法：这个东西以后怎么用。
-4. 边界：哪里不能乱用。
-5. 资料校准：证据从哪里来。
+1. Problem: what trouble the author is actually dealing with.
+2. New insight: what new thing they offer.
+3. Usage: how to use this thing going forward.
+4. Boundaries: where it can't be used carelessly.
+5. Material calibration: where the evidence comes from.
 
-图、参考系、流派地图都不是必选。只有它能让「问题 -> 新见解 -> 用法」更清楚时才画。画了也要短。
+Diagrams, reference frames, and school-of-thought maps are not required. Only draw one if it makes "problem -> new insight -> usage" clearer. Even then, keep it short.
 
-## 1. 找问题
+## 1. Find the problem
 
-问题不是话题。
+A problem is not a topic.
 
-「科技与未来」是话题。「科技演化有没有自己的方向」才是问题。
+"Technology and the future" is a topic. "Does the evolution of technology have a direction of its own" is a problem.
 
-找问题时问：
+When finding the problem, ask:
 
-- 作者为什么要写这本书？
-- 他觉得大家原来哪里想错了？
-- 读者翻开书前，多半怎么想？
-- 这本书如果只回答一个问题，那句话是什么？
+- Why did the author write this book?
+- What does he think people originally got wrong?
+- What does the reader most likely think before opening the book?
+- If this book could only answer one question, what would that sentence be?
 
-写法要具体。拿去描述同领域另一本书也成立，就太泛。
+The phrasing must be specific. If it would also hold for describing another book in the same field, it's too generic.
 
-## 2. 找新见解
+## 2. Find the new insight
 
-新见解只挑一个主件，不要堆。
+Pick only one main item for the new insight — don't pile several on.
 
-它可以是：
+It can be:
 
-- *概念*：作者铸的词，或重新命名的东西。
-- *方法*：一组做法、检查顺序、训练动作。
-- *框架*：看问题的一副眼镜。
-- *一句话*：全书最能站住的判断。
+- A *concept*: a term the author coined, or something re-named.
+- A *method*: a set of practices, a checklist order, training moves.
+- A *framework*: a pair of glasses for looking at the problem.
+- A *single sentence*: the most defensible judgment in the whole book.
 
-用书里的词。必须出现 1-3 个这本书自己的术语、清单或区分。没有这些词，你拆的是领域，不是这本书。
+Use the book's own words. 1-3 terms, checklists, or distinctions unique to this book must show up. Without these words, you're breaking down the field, not the book.
 
-不要急着判作者是不是原创。更要紧的是：这个东西让我以后怎么看、怎么做。
+Don't rush to judge whether the author is original. What matters more is: how does this thing change how I see or act going forward?
 
-可以顺手写一句来源：
+You can add a one-line note on provenance:
 
-- 这是作者新造的。
-- 这是借来的，但用到新地方。
-- 这是旧框架，作者把它变成了一套动作。
-- 证据不够，来源不强判。
+- This is newly coined by the author.
+- This is borrowed, but applied to a new place.
+- This is an old framework the author turned into a set of moves.
+- Evidence is insufficient, don't strongly judge provenance.
 
-但来源判断只是一句，不要变成主菜。
+But the provenance judgment is just one line — don't let it become the main course.
 
-## 3. 写用法
+## 3. Write the usage
 
-这是最重要的一节。
+This is the most important section.
 
-把新见解翻成一个可执行动作：
+Translate the new insight into an executable action:
 
-- 以后遇到什么问题时用它？
-- 先问哪一个问题？
-- 看哪一个信号？
-- 做哪一个动作？
-- 避免哪一种误用？
+- When facing what problem should I use it?
+- Which question do I ask first?
+- Which signal do I watch for?
+- Which action do I take?
+- Which misuse should I avoid?
 
-写成这样的句子：
+Write it as a sentence like:
 
-「以后遇到 X，不要先 Y；先用作者的 Z，看 A，再决定 B。」
+"Next time I run into X, don't jump to Y first; use the author's Z, look at A, then decide B."
 
-用法必须能离开这本书。不能只说「我们要更有耐心」「要系统思考」这种软话。
+The usage must be able to stand apart from the book. It can't just be soft phrases like "we should be more patient" or "think systemically."
 
-## 4. 写边界
+## 4. Write the boundaries
 
-每个好见解都有代价。边界写短，但不能省。
+Every good insight has a cost. Keep the boundaries section short, but don't skip it.
 
-问：
+Ask:
 
-- 什么情况下它会误导人？
-- 它会漏掉什么？
-- 它默认了什么条件？
-- 如果照它做，可能付什么代价？
+- Under what circumstances would it mislead people?
+- What does it miss?
+- What conditions does it assume?
+- If you follow it, what cost might you pay?
 
-边界不是挑刺。边界是防止把一本书当万能钥匙。
+Boundaries aren't nitpicking. Boundaries are what stops a book from being treated as a master key.
 
-## 5. 资料校准
+## 5. Material calibration
 
-末尾放短短一节即可。3 到 6 条。
+Put a short section at the end. 3 to 6 items.
 
-每条说明材料类型和链接：
+Each item states the material type and link:
 
-- 书内证据：全文、样章、目录、导言。
-- 作者材料：访谈、演讲、作者主页、出版方介绍。
-- 外部基线：前人流派、争论、批评。
-- 现实材料：用于验证用法或边界的案例。
+- In-book evidence: full text, sample chapter, table of contents, introduction.
+- Author material: interviews, talks, author's homepage, publisher's intro.
+- External baseline: prior schools of thought, debates, critiques.
+- Real-world material: cases used to verify usage or boundaries.
 
-资料校准服务主线，不要压过正文。
+Material calibration serves the main thread — don't let it overshadow the body.
 
-## 输出
+## Output
 
-写入：
+Write to:
 
-`~/Documents/notes/{时间戳}--拆书-{书名}__book.org`
+`~/Documents/notes/{timestamp}--book-breakdown-{book title}__book.org`
 
-时间戳：
+Timestamp:
 
 - `date +%Y%m%dT%H%M%S`
 - `date "+%Y-%m-%d %a %H:%M"`
 
-文件头：
+File header:
 
 ```org
-#+TITLE: 拆书：《{书名}》
-#+SUBTITLE: {作者} | {一句话核心观点}
+#+TITLE: Book Breakdown: 《{book title}》
+#+SUBTITLE: {author} | {one-sentence core view}
 #+DATE: [{YYYY-MM-DD Day HH:MM}]
-#+FILETAGS: :book:{领域}:
+#+FILETAGS: :book:{field}:
 #+IDENTIFIER: {YYYYMMDDTHHMMSS}
 ```
 
-正文控制在能读完、能带走的长度。默认 3 到 5 节。用户没要求深拆时，不要写百科。
+Keep the body at a length that's readable and takeable-away — 3 to 5 sections by default. When the user hasn't asked for a deep breakdown, don't write an encyclopedia.
 
-## 文风
+## Voice
 
-简洁，直白，像人说话。
+Plain and direct, like someone talking.
 
-不要夸作者。不要贬作者。不要替作者辩护。
+Don't flatter the author. Don't disparage the author. Don't defend the author.
 
-少用：
+Use less:
 
-- 作者认为
-- 作者论证
-- 第 N 章指出
-- 在这个意义上
-- 通过某某视角
-- 提供了一种可能性
+- "the author believes"
+- "the author argues"
+- "chapter N points out"
+- "in this sense"
+- "through the lens of"
+- "offers one possibility"
 
-多写：
+Write more:
 
-- 他把 X 改成 Y。
-- 他给了一个检查顺序。
-- 这东西以后可以这样用。
-- 这里会误伤。
+- "He changed X into Y."
+- "He gave a checklist order."
+- "This can be used like this from now on."
+- "This is where it backfires."
 
-禁用这些旧口头禅：
+Banned old catchphrases:
 
-- 骨架抽出来
-- 精神内核就在你手里
-- 走两步
-- delta
-- 钉死
-- 这一刀
-- 锋利
-- 砸实
-- 带走的那一件
+- "pull out the skeleton"
+- "the spirit is in your hands"
+- "take two steps"
+- "delta"
+- "nail it down"
+- "this cut"
+- "sharp"
+- "solidly land"
+- "the one thing to take away"
 
-每段读一遍。卡住就整句重写。不要靠形容词制造力量。
+Read each paragraph once. If it snags, rewrite the whole sentence. Don't rely on adjectives to manufacture force.
 
-## 交稿前自查
+## Pre-delivery self-check
 
-交付前只查这八条：
+Before delivery, check only these eight items:
 
-1. 开头三行是不是一眼能懂？
-2. 问题是不是具体，不是话题？
-3. 新见解是不是只挑了一个主件？
-4. 书里自己的词有没有出现？
-5. 用法是不是能离开这本书？
-6. 边界是不是说清了代价？
-7. 资料有没有支撑关键判断？
-8. 有没有为了全面写散主线？
+1. Are the opening three lines understandable at a glance?
+2. Is the problem specific, not a topic?
+3. Does the new insight pick only one main item?
+4. Do the book's own terms show up?
+5. Can the usage stand apart from the book?
+6. Are the boundaries clear about the cost?
+7. Does the material support the key judgments?
+8. Did the writing scatter the main thread for the sake of coverage?
 
-最后问自己一句：读者读完能不能把一个东西吸收进来？
-
+Finally ask yourself: can the reader absorb one thing after finishing?
+</content>

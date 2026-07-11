@@ -1,244 +1,245 @@
 ---
 name: ljg-constraint
-description: 给一个领域、专业、角色、产品或争论找出真正框住它的几条约束，判明它们属于世界/规则/解释（硬/软/自设），看这组约束如何定义身份、补全问题、框出解空间并解释实际行为；尤其用于区分目标相同但约束不同导致的方案分歧，识别被误当硬事实的旧解释。USE WHEN 用户说 '约束', '找约束', '这个领域的约束是什么', '本质约束', '什么框住了它', '硬约束还是自设约束', '边界在哪', '这行为什么这么做', 'constraint', '/ljg-constraint', or gives any domain/profession/role/product/debate and wants its defining constraints and solution space mapped. NOT FOR 往下挖生成器（用 ljg-rank，找的是生成力不是边界）、纵向深钻一个观点到底（用 ljg-think）、拆一本书（用 ljg-book）、一个概念解剖（用 ljg-learn）。
+description: Find the handful of constraints that truly frame a domain, profession, role, product, or debate; determine whether they belong to the world/rules/interpretation layer (hard/soft/self-imposed); see how this set of constraints defines identity, completes the problem, frames the solution space, and explains actual behavior — especially useful for distinguishing solution disagreements caused by the same goal but different constraints, and for identifying old interpretations mistaken for hard facts. USE WHEN user says '约束' (constraint), '找约束' (find the constraints), '这个领域的约束是什么' (what are the constraints of this domain), '本质约束' (essential/defining constraint), '什么框住了它' (what frames it), '硬约束还是自设约束' (hard constraint or self-imposed constraint), '边界在哪' (where is the boundary), '这行为什么这么做' (why does it behave this way), 'constraint', '/ljg-constraint', or gives any domain/profession/role/product/debate and wants its defining constraints and solution space mapped. NOT FOR digging downward for generators (use ljg-rank — that finds generative force, not boundaries), vertically drilling one viewpoint to the bottom (use ljg-think), breaking down a book (use ljg-book), or dissecting a single concept (use ljg-learn).
 user_invocable: true
 ---
 
-# 约束引擎
+# Constraint Engine
 
-输入一个领域、一门专业、一个角色，找出框住它的那几条约束，看清这组约束框出的解空间——以及这个解空间怎么解释它的种种行为。
+Input a domain, a profession, a role — find the handful of constraints that frame it, see the solution space that this set of constraints frames out — and how that solution space explains its various behaviors.
 
 ## Workflow Routing
 
 | Trigger | Workflow |
 |---|---|
-| 给领域、专业、角色、产品找本质约束 | 执行本文工序，写成一篇中文散文分析，保存为 org 文件 |
-| 分析一场方案争论为什么说不清 | 先找各方默认约束，再说明他们其实是不是同一道题 |
-| 判断某条边界是真硬约束还是旧解释 | 走三层硬度和真伪定性，不急着给突破方案 |
+| Find the essential constraints of a domain, profession, role, or product | Run this document's procedure, write it as a prose analysis (respond in the same language as the user's input), save as an org file |
+| Analyze why a solution debate can't be settled | First find each side's default constraints, then explain whether they're actually the same problem |
+| Judge whether a given boundary is a true hard constraint or an old interpretation | Go through the three-tier hardness and authenticity assessment; don't rush to a breakthrough plan |
 
 ## Gotchas
 
-- 不要把约束写成普通困难、缺点或建议。约束必须能改变解空间；拿掉它，允许的行为会变。
-- 不要只盯目标。同一目标在不同约束下不是同一道题；先补全题面，再谈解法。
-- 不要把共识、习惯、行业话术顺手归进硬约束。硬约束要经得起"违背它是否立刻崩"这一问。
-- 不要急着写"如何突破约束"。先把当前约束的真实硬度、身份边界和行为解释力写准，松动只在结尾点一句。
-- 不要把身份约束和策略约束混在一起。拿掉之后还成其为自己的，不是身份约束。
+- Don't write a constraint as an ordinary difficulty, drawback, or piece of advice. A constraint must be able to change the solution space; remove it and the allowed behaviors change.
+- Don't fixate only on the goal. The same goal under different constraints is not the same problem; complete the problem statement first, then discuss solutions.
+- Don't casually lump consensus, habit, or industry jargon into hard constraints. A hard constraint must survive the question "does violating it cause immediate collapse?"
+- Don't rush to write "how to break the constraint." First get the current constraint's real hardness, identity boundary, and explanatory power right; only touch on loosening it in a single closing line.
+- Don't mix identity constraints with strategic constraints. If the thing is still itself after removing a constraint, it's not an identity constraint.
 
 ## Examples
 
-**Example 1: 分析一个角色**
+**Example 1: Analyzing a role**
 ```
-User: "投资经理的约束是什么？"
--> 找出资金期限、LP 信任、信息不对称、上行/下行分配等约束
--> 说明这些约束如何逼出追热点、重共识、怕错过等行为
--> 写入 notes 里的 org 文件
-```
-
-**Example 2: 分析一场争论**
-```
-User: "为什么产品和增长总吵架？"
--> 先拆出双方默认约束：不能打扰用户 vs 必须提高转化
--> 说明目标看似都是做好产品，其实题面不同
--> 再解释各自方案为什么在各自约束里是理性的
+User: "What are the constraints on an investment manager?"
+-> Find constraints like fund duration, LP trust, information asymmetry, upside/downside allocation
+-> Explain how these constraints force behaviors like chasing hype, favoring consensus, fearing missing out
+-> Write to an org file in notes
 ```
 
-**Example 3: 判断旧解释**
+**Example 2: Analyzing a debate**
 ```
-User: "这个行业必须重销售吗？"
--> 先问这是世界约束、规则约束，还是行业解释
--> 查有没有别的时代、地区、玩家已经活着跨过去
--> 若跨过去仍成立，把它降级为软约束或自设约束
+User: "Why do product and growth teams always fight?"
+-> First separate out each side's default constraints: must not disturb the user vs. must improve conversion
+-> Explain that although both goals look like "make a good product," they're actually different problems
+-> Then explain why each side's plan is rational within its own constraints
 ```
 
-## 约束是什么
+**Example 3: Judging an old interpretation**
+```
+User: "Does this industry have to be sales-driven?"
+-> First ask whether this is a world constraint, a rule constraint, or an industry interpretation
+-> Check whether any era, region, or player has already crossed this line and survived
+-> If crossing it still holds up, downgrade it to a soft constraint or a self-imposed constraint
+```
 
-日常语感里，约束是负面的——束缚、不自由、不能做什么。这个引擎不这么看。
+## What a constraint is
 
-没有约束的东西没有形状。水没有约束时无形，给它一个杯子才有了形状；一道题没有约束条件时无解，给它约束，解才从无穷里浮出来。约束不是在减少可能性，是从无穷里生出特定性。没有约束等于什么都可以，等于什么都不是；有了约束，等于只有这些可以，等于这个东西是它自己。
+In everyday language, a constraint is negative — a restriction, a lack of freedom, something you can't do. This engine doesn't see it that way.
 
-问题也一样。一个问题不是只由目标构成，也由约束构成。大家都说"做一个产品"，但一个人默认不能增加复杂度，另一个人默认必须追求增长，他们其实已经不在同一道题里。目标相同，约束不同，解空间就不同；解空间不同，方法之争就常常只是错位。
+A thing without constraints has no shape. Water without constraints is formless; give it a cup and it takes shape. A problem with no constraints has no solution; give it constraints and the solution surfaces out of infinity. Constraints don't reduce possibility — they generate specificity out of infinity. No constraints means anything is possible, which means it isn't anything in particular. With constraints, only these things are possible, which means the thing is itself.
 
-所以一个事物的约束条件，就是它的身份。**约束是把无限可能坍缩成"这一个"的那组方程。** 而这组方程一旦写全，它框出的解空间就出来了——这个角色能做什么、不能做什么、最优的选择落在哪里，全被这几条约束夹定。找约束的真正回报不在清单本身，在这个解空间：**它能把这个角色的实际行为一个个解释回来。**
+The same is true of problems. A problem isn't made of a goal alone — it's also made of constraints. Everyone says "build a product," but if one person defaults to "must not add complexity" and another defaults to "must pursue growth," they're already not in the same problem. Same goal, different constraints, different solution space; different solution space means the argument over methods is often just a mismatch.
 
-**这引擎首先是描述，不是改造。** 核心问的是"当前的本质约束是什么、框出什么解空间、解释了什么行为"。"怎么办更好、哪条能松动"是第二位的事，排在后面，而且不许反过来影响前面的诊断——一急着找出口，就会看不清墙。
+So the constraints of a thing ARE its identity. **Constraints are the set of equations that collapse infinite possibility into "this one thing."** And once that set of equations is written out fully, the solution space it frames emerges — what this role can and can't do, where the optimal choice falls, all pinned down by these few constraints. The real payoff of finding constraints isn't the list itself, it's this solution space: **it can explain the role's actual behaviors back, one by one.**
 
-**和降秩分清一句话**：降秩往下挖，找的是把现象生出来的那几根生成力（"什么在撑着它"）；约束往边上摸，找的是框住它的那几条边界，看这几条边界把它夹进一个什么样的解空间（"什么把它框成这个形状、逼出这些行为"）。一个找底，一个找边。
+**This engine is first and foremost descriptive, not transformative.** The core question is "what are the current essential constraints, what solution space do they frame, what behavior do they explain." "What should be done better, which constraint can loosen" is secondary, comes after, and must not feed back to bias the diagnosis — rush to find the exit and you stop seeing the wall clearly.
 
-## 三层硬度：这条约束是哪一层的
+**A one-line distinction from rank-reduction (降秩)**: rank-reduction digs downward, looking for the handful of generative forces that produce the phenomenon ("what's holding it up"); constraint-finding reaches sideways, looking for the boundaries that frame it, seeing what solution space these boundaries squeeze it into ("what shapes it into this form, what forces out these behaviors"). One finds the floor, the other finds the edges.
 
-约束不是一种东西，它们有硬度之分，权重不一样。分清硬度，是准确描述约束的第一步。
+## Three tiers of hardness: which layer is this constraint in
 
-**硬约束（世界层 / 物理层）**——不可违背，试图违背则系统崩溃。人会死（时间），光速不可超越，公司现金流断了就没了。这层没有商量。它不是惩罚你，是系统直接停。
+Constraints aren't one kind of thing — they have different hardness, different weight. Sorting out hardness is the first step to accurately describing a constraint.
 
-**软约束（规则层）**——可以违背，但有代价。法律、牌照、合同、行规。违背了系统不会物理崩溃，但会有人罚你、市场会惩罚你。这层是价码问题，不是可能性问题。
+**Hard constraint (world layer / physical layer)** — cannot be violated; attempting to violate it causes system collapse. People die (time), the speed of light cannot be exceeded, a company with no cash flow is gone. No negotiation at this layer. It doesn't punish you — the system simply stops.
 
-**自设约束（解释层 / 认知层）**——你以为存在，其实可以重新定义的。"我不擅长这个"，"这行就得这么干"，"别人会怎么看"。这层住在脑子里，不住在世界上。
+**Soft constraint (rule layer)** — can be violated, but at a cost. Laws, licenses, contracts, industry rules. Violating them doesn't cause physical system collapse, but someone will fine you, the market will punish you. This layer is a matter of price, not possibility.
 
-不能违背的，要承认；可以违背的，要算代价；可以重写的，就不该称为命运。**大部分困境不是被硬约束卡住的，是被自设约束困住的——把解释层的东西当成了世界层的。** 一个领域里最贵的错误，永远是有人把一道粉笔线当成了石墙，绕着走了几十年。给约束定准硬度，就是在描述它真实的分量：它到底夹得死不死。
+**Self-imposed constraint (interpretation layer / cognitive layer)** — something you assume exists, but which can actually be redefined. "I'm not good at this," "that's just how this industry works," "what will others think." This layer lives in your head, not in the world.
 
-## 怎么找：工序
+Things that truly cannot be violated must be acknowledged; things that can be violated must have their cost calculated; things that can be rewritten should not be called fate. **Most predicaments aren't blocked by hard constraints — they're trapped by self-imposed constraints, mistaking something from the interpretation layer for something from the world layer.** The most expensive mistake in any domain is always someone treating a chalk line as a stone wall and walking around it for decades. Getting the hardness of a constraint right is describing its real weight — whether it truly locks things down or not.
 
-判据是事后才能验的，找约束的力气全在过程里。七步，心里走完，不写进文章。
+## How to find them: the procedure
 
-**1. 铺约束候选。** 对着这个领域/角色，多问几句，尽量把边摸全：
+The criteria can only be verified after the fact — all the effort of finding constraints is in the process. Seven steps, walk through them mentally, don't write them into the piece.
 
-- 这个问题的目标是什么？哪些约束和目标一起构成了这道题？
-- 如果换掉一条约束，题目会不会变成另一道题？
-- 这场争论里，各方默认的约束一样吗？
-- 哪条被大家当成背景底色的东西，也许只是旧解释？
-- 什么是不能做的？什么是必须做的？什么是逃不掉的？
-- **报酬和后果对结果对称吗——赚了归谁，亏了谁扛？** 激励的非对称是一条最容易漏、又最能解释行为的约束：谁若只拿上行、不担下行，他的最优选择就会往别人扛不起的方向偏。
-- **谁看不清谁——信息卡在谁那头？** 信息不对称也是硬约束，它往往决定这个角色到底在优化什么（看得见的信号，还是看不见的真实）。
-- **这里的钟走多快，一件事兑现要多久？** 时间尺度是约束，考核的钟和兑现的钟不一样，行为就被前者拽走。
+**1. Lay out candidate constraints.** Facing this domain/role, keep asking, try to cover all the edges:
 
-把答出来的十几条全铺出来，光铺，不评判。这一步必然杂，真墙假墙混在一起。
+- What's the goal of this problem? Which constraints, together with the goal, make up this problem?
+- If you swapped out one constraint, would the problem become a different problem?
+- In this debate, do all sides default to the same constraints?
+- Which thing that everyone treats as background scenery might just be an old interpretation?
+- What can't be done? What must be done? What is inescapable?
+- **Are payoff and consequence symmetric with the outcome — who gets the gains, who bears the losses?** Asymmetric incentives are one of the easiest constraints to miss and one of the most explanatory of behavior: if someone captures only the upside and bears none of the downside, their optimal choice will skew toward directions others can't afford.
+- **Who can't see clearly, who's information is stuck where?** Information asymmetry is also a hard constraint — it often determines what this role is actually optimizing for (the visible signal, or the invisible truth).
+- **How fast does the clock run here, how long does it take for something to pay off?** Time scale is a constraint — the clock of evaluation and the clock of payoff are different, and behavior gets dragged along by the former.
 
-**2. 分层归位。** 每条候选定位到硬/软/自设。判别问句：违背它，是系统物理崩溃（硬），还是有人罚你、要付代价（软），还是其实什么也不会发生、只是没人试过（自设）？归位时故意多疑一点——凡是被顺手归进"硬约束"的，都先打个问号，这一层最容易混进冒充的。
+Lay out all dozen-plus answers, just lay them out, don't judge yet. This step is necessarily messy — real walls and fake walls mixed together.
 
-**3. 真伪定性。** 对每一条被当成硬约束的，追一句：谁规定的？违背它，真的物理上崩溃吗，还是只是没人试过、被罚过、或者习惯了？再加一道历史闸：别的地方、别的时代，有没有人已经跨过去了？跨过去了还活着，它就不是硬约束，是被错当成硬约束的软约束或自设约束。**注意这一步是在更准确地描述这条约束的真实硬度，不是在指路"去把它撬了"。** 它顺带解释了一件事：为什么总有少数玩家能不按常规打——因为他们看破了那是粉笔线。定性到此为止，怎么撬是后面第二位的事。
+**2. Sort into tiers.** Place every candidate into hard/soft/self-imposed. Diagnostic question: does violating it cause physical system collapse (hard), or does someone fine you / make you pay a cost (soft), or does nothing actually happen — nobody has just tried it (self-imposed)? Be deliberately suspicious when sorting — anything casually placed into "hard constraint" gets a question mark first; this tier is the easiest to sneak an impostor into.
 
-**4. 找约束错配。** 若输入里有争论、方案比较、路线分歧，先别急着判谁对。把各方默认的约束分开写出来：一个人默认"不能增加复杂度"，另一个人默认"必须追求增长"；一个人默认"不能打扰用户"，另一个人默认"必须提高转化"。他们以为在争方案，其实在争题面。目标相同、约束不同，解空间就不同。
+**3. Test authenticity.** For every item treated as a hard constraint, follow up: who decided this? Does violating it really cause physical collapse, or has nobody just tried, or been punished, or gotten used to it? Add a historical check: has anyone elsewhere, in another era, already crossed this line? If they crossed it and survived, it isn't a hard constraint — it's a soft constraint or self-imposed constraint mistaken for a hard one. **Note that this step is about describing this constraint's real hardness more accurately, not about pointing the way to "go pry it open."** It incidentally explains one thing: why a small number of players can always break the usual rules — because they saw through the chalk line. Authenticity-testing stops here; how to pry it open is secondary, comes later.
 
-**5. 找矛盾对。** 真正难的问题不是有约束，是几条约束互相打架，同时满足的解空间可能被夹成空的。把互斥的约束对挑出来，看解空间被挤到哪里、是不是空集。解空间为空的地方，往往正是这个角色表现出别扭、拧巴、看着不理性行为的根源——不是他蠢，是那里本来就无解，他只能扭曲着取舍。
+**4. Find constraint mismatches.** If the input contains a debate, a comparison of solutions, or a fork in approach, don't rush to judge who's right. Write out each side's default constraints separately: one person defaults to "must not add complexity," another defaults to "must pursue growth"; one defaults to "must not disturb the user," another defaults to "must improve conversion." They think they're arguing about solutions, but they're actually arguing about the problem statement. Same goal, different constraints, different solution space.
 
-**6. 找身份约束。** 在所有约束里问一句：哪一条拿掉，这个东西就不再是它自己了？这是身份约束——领域的定义性边界。餐馆拿掉"当面把食物交到人手里"就成了别的东西，医生拿掉"不伤害"就不是医生了。身份约束往往在硬约束层，但不总是；有时候一条软约束才是那个领域真正的身份。
+**5. Find contradictory pairs.** The truly hard problems aren't about having constraints — they're about several constraints fighting each other, squeezing the simultaneously-satisfiable solution space into possibly nothing. Pick out mutually exclusive constraint pairs, see where the solution space gets squeezed to, whether it becomes an empty set. Where the solution space is empty is often exactly the root of the role's awkward, tangled, seemingly irrational behavior — not that they're stupid, but that there's genuinely no solution there, and they can only twist their way through a trade-off.
 
-**7. 两把透镜收口。**
-   - **f 论**：约束就是 f 的定义域。这个角色的 f 能处理哪些 x、不能处理哪些 x，就是它的约束。看它被定义域框在哪、哪些 x 落在了它够不着的地方——那些够不着的区域，常常就是它行为里的盲区和缺口。
-   - **进化论**：约束就是选择压。一个物种面对的环境约束决定它长成什么形态——没有沙漠的干旱，骆驼不会有驼峰。看这个角色被哪几股选择压塑造成今天这个样子；这个环境奖励什么表现型、淘汰什么表现型，行为的大方向就定了。
+**6. Find the identity constraint.** Among all the constraints, ask: which one, if removed, makes this thing no longer itself? This is the identity constraint — the domain's defining boundary. Remove "hand the food directly to the person" from a restaurant and it becomes something else; remove "do no harm" from a doctor and it's not a doctor anymore. Identity constraints are often in the hard-constraint layer, but not always; sometimes a soft constraint is actually the domain's true identity.
 
-七步走透，几条约束才立得住。工序心里走完，别写进文章——读者看不到你怎么摸的边，但感觉得到底下是摸到实处的。
+**7. Close with two lenses.**
+   - **The f-theory lens**: constraints are the domain of definition of f. Which x's can this role's f handle, which can't it handle — that's its constraints. See where its domain of definition frames it, which x's fall outside its reach — those unreachable regions are often the blind spots and gaps in its behavior.
+   - **The evolution lens**: constraints are selection pressure. The environmental constraints a species faces determine what shape it grows into — without desert drought, the camel wouldn't have a hump. See which selection pressures shaped this role into what it is today; what phenotype this environment rewards and what it eliminates determines the broad direction of its behavior.
 
-## 从约束到解空间到行为
+Only after walking through all seven steps do the constraints stand up firmly. Walk the procedure mentally, don't write it into the piece — the reader can't see how you found the edges, but can feel that the ground underneath was actually touched.
 
-约束找齐了，别停在清单上。约束的解释力，全在它框出的那个解空间里。这一段是这引擎的脊椎，四步落地。
+## From constraints to solution space to behavior
 
-**补全题面。** 先把目标和约束放在一起。不要只写"它想做什么"，还要写"它必须在什么条件下做"。题面一补全，很多争论会自动消失：原来不是解法不同，是题本来不同。
+Once the constraints are all found, don't stop at the list. All the explanatory power of a constraint lives in the solution space it frames. This section is the spine of the engine, four steps to land it.
 
-**列出约束组。** 把几条约束、每条的硬度、哪条是身份约束、哪些在互相咬，摆清楚。这是方程组。
+**Complete the problem statement.** First put the goal and the constraints together. Don't just write "what it wants to do," also write "under what conditions it must do it." Once the problem statement is complete, many debates dissolve on their own: it wasn't different solutions, it was a different problem all along.
 
-**框出解空间。** 这组约束一叠加，允许的行为就被夹到一个很窄的范围里：什么可行、什么被排除、最优的那个落在哪里。约束和解是同一件事的两面——把约束写全，解空间的形状自己就浮出来了。
+**List the constraint set.** Lay out clearly the several constraints, each one's hardness, which one is the identity constraint, which ones are fighting each other. This is the system of equations.
 
-**解释实际操作。** 这是收口，也是这引擎最值钱的地方：解空间里那个理性的最优行为，应该正好就是这个角色在现实里反复做的那些事。一条条对——他为什么这么做、为什么不那么做、为什么整个行业都往一个方向挤。约束找准了，这些"怪行为"会一个个从解空间里自动长出来，不必再假设谁蠢谁坏。
+**Frame the solution space.** Once this set of constraints is stacked together, the allowed behaviors get squeezed into a very narrow range: what's feasible, what's excluded, where the optimum falls. Constraints and solutions are two sides of the same thing — write the constraints out in full and the shape of the solution space emerges on its own.
 
-读者读完拿到的是一副解释器：原来这个角色的种种行为，不是性格、不是道德，是这几条约束把他夹在这个解空间里的必然。
+**Explain the actual operation.** This is the close, and the most valuable part of the engine: the rational optimal behavior in the solution space should line up exactly with the things this role actually, repeatedly does in reality. Match them one by one — why he does this, why not that, why the whole industry crowds in one direction. Once the constraints are correctly found, these "weird behaviors" grow out of the solution space automatically, no need to assume anyone is stupid or bad.
 
-## 心内判据
+What the reader gets in the end is an explanatory device: the various behaviors of this role aren't personality, aren't morality — they're the necessary result of these few constraints squeezing it into this solution space.
 
-工序走完，这几条事后再过一遍闸，同样不写给人看。
+## Internal checklist
 
-1. **解释力（主判据）**——解空间里的理性最优行为，对不对得上现实中观察到的实际操作？对得上，约束才算找准；对不上，说明少了一条、或某条归错了硬度，回工序接着挖。这道闸对应降秩里的"反生成"——约束若不能把行为一个个生回来，就是没找到位。
-2. **题面完整**——有没有把"目标 + 约束"一起写出来？如果只写目标，读者拿不到真正的问题。
-3. **错配可见**——若原题是一场争论，有没有说明各方默认约束哪里不同？如果没有，文章容易滑回方案评判。
-4. **完备性**——几条约束合起来，能不能框出这个角色的整个解空间？把一个典型情境往里一摆，落点对不对？
-5. **分层准**——每条真的归对了世界/规则/解释？重点复查"硬约束"那一格，那里最容易混进冒充的。
-6. **真伪敢判**——被当成硬的，有没有敢定性成软/自设的？（这是描述其真实硬度，不是给解法）
-7. **身份唯一**——那条身份约束，拿掉之后角色是不是真的散架、变成别的东西？拿掉了还是它自己，说明找的不是身份约束。
+Once the procedure is done, run through these criteria one more time internally — again, don't write them for the reader.
 
-过不了一条，回工序接着走。最要命的是第一条：解释力对不上，别的都白搭。
+1. **Explanatory power (primary criterion)** — does the rational optimal behavior in the solution space match the actual operations observed in reality? If it matches, the constraints are correctly found; if not, one is missing, or one is mis-sorted in hardness — go back to the procedure and keep digging. This check corresponds to "reverse generation" in rank-reduction — if the constraints can't generate the behaviors back one by one, they haven't been correctly found.
+2. **Problem statement completeness** — has "goal + constraints" been written out together? If only the goal is written, the reader doesn't get the real problem.
+3. **Mismatch visibility** — if the original topic is a debate, has it been explained where each side's default constraints differ? If not, the piece easily slides back into judging solutions.
+4. **Completeness** — do the constraints together frame the role's entire solution space? Place a typical scenario into it — does it land correctly?
+5. **Tier accuracy** — is each item really correctly sorted into world/rule/interpretation? Recheck the "hard constraint" bucket especially — that's where impostors most easily sneak in.
+6. **Willingness to test authenticity** — for things treated as hard, has it been dared to classify some as soft/self-imposed? (This is describing their real hardness, not offering a solution)
+7. **Identity uniqueness** — does the role genuinely fall apart, become something else, once that identity constraint is removed? If it's still itself after removal, that's not the identity constraint.
 
-## 松动哪条（第二位，不参与诊断）
+If any item fails, go back to the procedure. The most fatal is the first: if explanatory power doesn't match, nothing else matters.
 
-找约束的核心是描述当前的本质——是什么、框出什么解空间、解释什么行为。"怎么办更好"是另一件事，排在后面，而且不许反过来影响前面的诊断。**急着找出口，就会看不清墙**——这是这引擎最容易犯的病，务必压住。
+## Which one to loosen (secondary, doesn't participate in diagnosis)
 
-诊断做完，可以附一句：这组约束里哪条其实能动。约束互斥、解空间被夹成空的时候，出路无非三条——放松一条、重定义一条、或者升维找一个当前视角看不见的解。真伪定性时判成"软/自设"的那条，就是能撬的地方。点到为止，一两句带过，绝不喧宾夺主。
+The core of finding constraints is describing the current essence — what it is, what solution space it frames, what behavior it explains. "What to do better" is a separate matter, comes after, and must not feed back to bias the earlier diagnosis. **Rush to find the exit and you stop seeing the wall clearly** — this is the easiest mistake for this engine to make; it must be suppressed.
 
-创新常常就在这里发生：不是在旧约束里更努力，而是发现某条人人当作世界边界的东西，其实只是旧解释。"人不能飞"改写成"人不能只靠肉身飞"，问题就变了，解空间也变了。文末若要写松动，就写这种重定义：哪条不是命运，只是旧题面的残留。
+Once the diagnosis is done, you can add one line: which constraint in this set can actually move. When constraints are mutually exclusive and the solution space is squeezed to empty, there are only three ways out — loosen one, redefine one, or go up a dimension to find a solution invisible from the current viewpoint. The one classified as "soft/self-imposed" during authenticity testing is the one that can be pried open. Touch on it briefly, one or two lines, never let it upstage the main analysis.
 
-## 中文母语化 · 反坍缩闸
+Innovation often happens exactly here — not working harder within the old constraints, but discovering that something everyone treats as a world-boundary is actually just an old interpretation. Rewrite "humans can't fly" into "humans can't fly on muscle power alone," and the problem changes, and so does the solution space. If loosening is mentioned at the end, write this kind of redefinition: which constraint isn't fate, just a leftover from the old problem statement.
 
-下笔前，默念三遍：**「一个没读过英文的中国人，会这么说话吗？」** 每写完一段再念一遍。答"不会"——别改词，整段推倒重想。
+## Native-voice check · anti-collapse gate (respond in the language the user wrote in)
 
-最容易踩的英语化毛病（踩到就重写整段，不是抠字眼）：
+Before writing, silently repeat three times: **"Would a native speaker who has never read translated-from-English prose talk like this?"** Repeat it after finishing each paragraph. If the answer is "no" — don't just swap words, tear down and rethink the whole paragraph.
 
-| 英语化 | 中文母语 |
+If the output language is Chinese, the most common anglicized habits to avoid are (if you hit one, rewrite the whole paragraph, don't just nitpick words):
+
+| Anglicized Chinese | Native Chinese |
 |---|---|
-| 它建立在一个假设上 | 它底下垫着一个假设 |
-| 这一约束定义了 X | 这条约束把 X 框成了现在的样子 |
-| 这意味着... | 也就是说... / 这就是为什么... |
-| 在...的过程中 | ...的时候 |
-| 对...而言 | 对...来说 |
-| 进行 + 名词 | 换成动词 |
-| 名词化抽象（"约束性"、"边界化"） | 换成具体的动词或物件 |
+| 它建立在一个假设上 ("it is built on an assumption") | 它底下垫着一个假设 ("there's an assumption sitting underneath it") |
+| 这一约束定义了 X ("this constraint defines X") | 这条约束把 X 框成了现在的样子 ("this constraint shapes X into what it currently is") |
+| 这意味着... ("this means that...") | 也就是说... / 这就是为什么... ("in other words... / this is why...") |
+| 在...的过程中 ("in the process of...") | ...的时候 ("when...") |
+| 对...而言 ("for...") | 对...来说 ("when it comes to...") |
+| 进行 + noun ("conduct/perform + noun") | switch to a verb |
+| nominalized abstraction (e.g. "约束性", "边界化") | switch to a concrete verb or object |
 
-要改的不是词，是想事情的取景框——从英语句式切到中文白话作者的笔调（汪曾祺、王小波、阿城、李娟那一路）。写完默念出声，听耳朵卡不卡。卡的地方整段重写，不是修补。
+What needs changing isn't the words — it's the frame you use to think about things — shift away from English sentence patterns toward the tone of a native prose writer (in Chinese, think of writers like Wang Zengqi/汪曾祺, Wang Xiaobo/王小波, A Cheng/阿城, Li Juan/李娟). Read the finished piece out loud, listen for where it snags. Rewrite the snagging part as a whole paragraph, not a patch.
 
-另有一条：这是分析文，不是刀光文。别用"这一刀""再狠一层""锋利""钉死"这类元修辞去装力度。约束的力度靠把边界摸准、把行为解释透，不靠形容自己下手多重。
+One more thing: this is an analytical piece, not a piece about wielding a blade. Don't use meta-rhetoric like "this cut," "one level sharper," "sharp," "nail it down" to fake intensity. The force of a constraint comes from getting the boundary right and explaining the behavior thoroughly, not from describing how hard you're hitting.
 
-## 怎么写
+## How to write it
 
-一气呵成的散文，带读者走一段路——从"这个角色到处是规矩、有些行为还挺古怪"走到"原来就这几条约束把他夹在这么窄的解空间里，那些怪行为全是必然"。不分章节，不加小标题，让推理自己往前推。
+One continuous piece of prose, taking the reader on a journey — from "this role is full of rules everywhere, and some behaviors are quite odd" to "it turns out these few constraints squeeze it into such a narrow solution space, and those odd behaviors are all inevitable." No chapters, no subheadings, let the reasoning push itself forward.
 
-三条要求：
+Three requirements:
 
-- **一口气读完**——不熟这个领域的人也停不下来
-- **记得住**——读完能转身用一句话跟朋友说清楚：这角色被什么框着，因此只能怎么做
-- **有落差**——从"处处是墙、行为难解"到"几条约束一摆、行为自动长出来"，这个反差就是约束分析的美感
+- **Readable in one sitting** — even someone unfamiliar with the domain can't put it down
+- **Memorable** — after reading, can turn around and explain it to a friend in one sentence: what frames this role, and therefore what it can only do
+- **Has a drop** — from "walls everywhere, behavior hard to explain" to "lay out a few constraints and the behavior grows out automatically" — this contrast is the aesthetic of constraint analysis
 
-结构顺着脊椎走：先补全题面（目标加约束），再把约束组和硬度讲透（是什么），再框出解空间（能做什么、被夹在哪），最后落到解释力（这几条约束怎么把角色的实际操作一个个逼出来）——这一段是重心，写足。若写争论，要让读者看见双方从一开始就站在不同约束里。末尾至多一句松动，点到即止，不展开。
+Structure follows the spine: first complete the problem statement (goal plus constraints), then get the constraint set and hardness fully explained (what it is), then frame the solution space (what's possible, where it's squeezed), then land on explanatory power (how these constraints force out the role's actual operations one by one) — this section is the center of gravity, write it fully. If writing about a debate, let the reader see that both sides stood in different constraints from the very start. At most one line about loosening at the end, touched on, not expanded.
 
-## 文末配一张 ASCII 结构图——形式跟着骨架走
+## Attach an ASCII structure diagram at the end — form follows the skeleton
 
-光说"这几条约束"不够，要把它们和行为的关系画出来。下笔前先问：这组约束和它逼出的行为，是什么形状？答完再选画法。
+Just saying "these few constraints" isn't enough — draw out their relationship to behavior. Before drawing, ask: what shape is this constraint set and the behavior it forces out? Answer that, then pick the drawing style.
 
-**硬约束：只用纯 ASCII 字符。** 禁用任何 Unicode 符号（箭头 → ← ↑ ↓、方框 ┌─┐└┘│、圆点 • ● 等）。允许：字母、数字、汉字、空格，以及 `- = | + * / \ < > ^ v [ ] ( ) { } . , : ; _ #`。箭头用 `->` `<-` `^` `v`，边框用 `+ - |`。
+**Hard constraint: pure ASCII characters only.** No Unicode symbols allowed (arrows → ← ↑ ↓, boxes ┌─┐└┘│, dots • ● etc.). Allowed: letters, numbers, spaces, and `- = | + * / \ < > ^ v [ ] ( ) { } . , : ; _ #`. Use `->` `<-` `^` `v` for arrows, `+ - |` for borders.
 
-三种常用形态，挑跟工序摸出来的关系最贴的一种。图眼是解释力——让读者一眼看见行为怎么被约束夹出来。
+Three common forms — pick whichever fits the relationship found during the procedure. The point of the diagram is explanatory power — let the reader see at a glance how behavior gets squeezed out by constraints.
 
-### 1. 解释链图（默认）
+### 1. Explanatory chain diagram (default)
 
-适合：展示约束怎么把行为逼出来。这是这引擎的主图——约束 -> 解空间 -> 实际操作。
+Suitable for: showing how constraints force out behavior. This is the engine's main diagram — constraint -> solution space -> actual operation.
 
 ```
-题面/约束组                  解空间                实际操作 (观察到的)
------------                  ------                ------------------
-目标: ...
-[约束1: ...] (硬) --+
-[约束2: ...] (软) --+-- 夹出 -> [只有 X 可行,   -> [角色反复在做 X]
-[约束3: ...] (硬) --+          最优落在 X]         解释力: 对上了
+Problem statement/constraint set     Solution space           Actual operation (observed)
+---------------------------------    -------------            ----------------------------
+Goal: ...
+[Constraint 1: ...] (hard) --+
+[Constraint 2: ...] (soft) --+-- squeezes into -> [Only X feasible,  -> [Role repeatedly does X]
+[Constraint 3: ...] (hard) --+                     optimum at X]         Explanatory power: matches
 ```
 
-**演示要求**：左边列具体约束、各标硬度；中间是被这组约束夹出的解空间（什么可行、最优落哪）；右边是现实里真观察到的行为。一条链让读者看见行为是被约束逼出来的必然。**右边对不上左边，就是约束没找准，回去接着挖，别硬画一条对不上的链。**
+**Demonstration requirements**: left column lists specific constraints, each labeled with hardness; middle is the solution space squeezed out by this set of constraints (what's feasible, where optimum lands); right is the behavior actually observed in reality. One chain lets the reader see that the behavior is the necessary result of the constraints. **If the right side doesn't match the left, the constraints weren't correctly found — go back and keep digging, don't force a chain that doesn't line up.**
 
-### 2. 硬度嵌套图
+### 2. Hardness nesting diagram
 
-适合：展示约束按硬度分三层，看这个角色被什么夹得死、被什么只是拦一下。图眼是硬度的真实分布 + 真伪定性。
+Suitable for: showing constraints sorted into three hardness tiers, seeing what locks this role down hard versus what merely slows it. The point is the real distribution of hardness + authenticity testing.
 
 ```
 +=========================================+
-|  自设约束 (认知层, 其实是软的)            |
-|   - 某条被当成铁律、其实可重定义          |
+|  Self-imposed constraint (cognitive layer, actually soft)  |
+|   - Something treated as iron law, actually redefinable    |
 |   +-----------------------------------+ |
-|   |  软约束 (规则层, 违则受罚)          | |
-|   |   - 监管 / 合同 / 行规             | |
+|   |  Soft constraint (rule layer, violate and pay a cost)   | |
+|   |   - Regulation / contract / industry rule              | |
 |   |   +---------------------------+   | |
-|   |   |  硬约束 (物理层, 违则崩)   |   | |
-|   |   |   * 身份约束: 逃不掉那条   |   | |
-|   |   |   - 时间 / 现金流 / 物理律 |   | |
+|   |   |  Hard constraint (physical layer, violate and collapse) |   | |
+|   |   |   * Identity constraint: the inescapable one         |   | |
+|   |   |   - Time / cash flow / physical law                 |   | |
 |   |   +---------------------------+   | |
 |   +-----------------------------------+ |
 +=========================================+
 ```
 
-**演示要求**：每层填具体约束；硬约束层用 `*` 标身份约束（拿掉就散架的那条）；若真伪定性揪出一条"被当成硬、其实是软/自设"的，把它标在真实该在的那层，注一句"常被误当硬约束"。这是在描述硬度的真实分布，不是指路创新。
+**Demonstration requirements**: fill each layer with specific constraints; mark the identity constraint in the hard-constraint layer with `*` (the one that, if removed, causes collapse); if authenticity testing turned up one "treated as hard, actually soft/self-imposed," mark it in its real layer, noting "often mistaken for a hard constraint." This describes the real distribution of hardness, not a pointer toward innovation.
 
-### 3. 约束矛盾图
+### 3. Constraint contradiction diagram
 
-适合：几条约束互斥，解空间被夹成空，用来解释角色为什么表现出别扭、拧巴的行为。
+Suitable for: several constraints mutually exclusive, solution space squeezed to empty, used to explain why the role shows awkward, tangled behavior.
 
 ```
-   约束A: ...   ----+
-                    +---- 解空间 = 交集 (此处为空)
-   约束B: ...   ----+     => 角色被迫扭曲取舍: [具体的别扭行为]
-   约束C: ...   ----+
+   Constraint A: ...   ----+
+                          +---- Solution space = intersection (empty here)
+   Constraint B: ...   ----+     => Role forced into a twisted trade-off: [specific awkward behavior]
+   Constraint C: ...   ----+
 ```
 
-**演示要求**：列出互斥的约束，指明交集落在哪、是不是空集；解空间为空的地方，正是解释"角色为什么做那些看着不理性的事"的位置——把那个被迫的行为标出来。这是用矛盾解释行为，不是急着给出路。
+**Demonstration requirements**: list the mutually exclusive constraints, indicate where the intersection lands, whether it's an empty set; where the solution space is empty is exactly the location that explains "why the role does things that look irrational" — mark out that forced behavior. This uses contradiction to explain behavior, not to rush toward a way out.
 
-不设死板模板。要见骨——标出约束的名字、它的硬度、身份约束在哪、以及最要紧的：这几条约束把什么行为夹了出来。读者看图一眼，这个角色为什么这么做就入脑。
+No rigid template. What needs to show is the skeleton — name the constraints, their hardness, where the identity constraint is, and most importantly: what behavior these constraints squeeze out. One glance at the diagram and why the role behaves this way sticks in the reader's mind.
 
-## 输出
+## Output
 
-1. 获取时间戳：`date +%Y%m%dT%H%M%S` 和 `date "+%Y-%m-%d %a %H:%M"`
-2. 写入 `~/Documents/notes/{时间戳}--{领域}的约束__constraint.org`，frontmatter 见 `references/template.org`
-3. 报告文件路径给用户
+1. Get the timestamp: `date +%Y%m%dT%H%M%S` and `date "+%Y-%m-%d %a %H:%M"`
+2. Write to `~/Documents/notes/{timestamp}--constraints-of-{domain}__constraint.org`, frontmatter per `references/template.org`
+3. Report the file path to the user
+</content>

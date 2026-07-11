@@ -1,14 +1,14 @@
-# Worked 范例：AI 影视生态地形图
+# Worked Example: AI Film/Video Ecological Terrain Map
 
-一个可以照着改的完整例子。frame 只写这个行业的地形怎么布（价值之河、各环节地貌、隘口、宝藏、地名）；风格、红牌金牌、继刚测量员由 `gen_illustration.py` 内置，不用写。
+A complete example you can adapt. The frame only needs to describe how this particular industry's terrain is laid out (the river of value, each segment's landform, the pass, the treasure, the place names); style, the red/gold flags, and Jigang the surveyor are all baked into `gen_illustration.py` and don't need to be written.
 
-## 研究 → 地形
+## Research → Terrain
 
-deep research 出的结构（双头抽租）：价值链 算力→基础视频模型→工具→内容制作（创作者）→分发平台→观众；瓶颈 = 基础视频模型（产能和算力的闸，烧钱）；价值捕获 = 算力（英伟达）+ 分发平台（抖音/快手）两端；错位 = 创作者在中游创造价值却守薄田，钱被两端抽走。
+The structure deep research produced (double-headed rent extraction): value chain compute → base video model → tools → content production (creators) → distribution platform → viewers; bottleneck = the base video model (the gate on capacity and compute, burns cash); value capture = compute (Nvidia) + distribution platform (Douyin/Kuaishou), both ends; mismatch = creators create value in the midstream but hold thin soil, while the money is siphoned off by both ends.
 
-译成地形：上游算力雪山加大坝（宝藏）；中游绿谷创作者村庄加内容田（薄田）；中游上方峡谷隘口 = 瓶颈；下游平台港镇加宝藏；外海 = 观众。
+Translated into terrain: upstream compute snow mountains plus a big dam (treasure); midstream a green valley of creator-villagers with content fields (thin soil); a canyon pass just above the midstream = the bottleneck; downstream a platform harbor town with treasure; the open sea = the viewers.
 
-## mold -a（吉田诚治绘本地图，默认）
+## Mold -a (Seiji Yoshida picture-book map, default)
 
 ```bash
 python3 assets/gen_illustration.py --mold a \
@@ -16,17 +16,18 @@ python3 assets/gen_illustration.py --mold a \
   --out /tmp/ljg_map_aifilm_terrain.png
 ```
 
-出图：算力雪山和坝上金宝藏、中游创作者村庄和内容田、峡谷红牌瓶颈、平台港镇宝藏、外海观众，继刚作测量员立山头举地图俯瞰。此图实际生成并渲染验收过。
+Resulting image: compute snow mountains with a gold treasure pile on the dam, midstream creator village with content fields, red-flagged canyon bottleneck, platform harbor town with treasure, open sea of viewers, Jigang as the surveyor standing on a hilltop holding up a map, looking out. This image was actually generated and passed rendering review.
 
-## mold -c（pixel + cyber-hacker）
+## Mold -c (pixel + cyber-hacker)
 
-同一段 frame，换 `--mold c` 即出暗黑霓虹像素版（峡谷隘口变故障收窄、宝藏变发光数据堆、河变数据流）。frame 不动，风格交给 mold。
+The same frame, just swap in `--mold c`, and out comes a dark neon pixel version (the canyon pass becomes a glitch-narrowed chokepoint, the treasure becomes a glowing data pile, the river becomes a data stream). The frame doesn't change — the mold handles the style.
 
-## 复用要点
+## Key Takeaways for Reuse
 
-- 先有研究再译地形：瓶颈在哪环、价值捕获在哪环、错位还是重合，定准了再动笔。
-- 价值之河上游到下游；各环节译成山、谷、港、海。
-- 瓶颈画成收窄隘口或坝，价值捕获画成宝藏堆；错位就让宝藏远离创造它的薄田。
-- 地名 3-6 个，每个 2-5 字，用分号或顿号分隔（` / ` 会被安全钩子拦）。
-- 数字和问题不进图：base rate 数字、三大问题写进卡的文字块。
-- 生图后必 Read 验：两处标清、地名不糊、继刚认得出；不行调 frame 重生，重生前先存住当前这张。
+- Do the research before translating to terrain: pin down which segment is the bottleneck, which is value capture, and whether it's a mismatch or overlap, before drawing anything.
+- The river of value runs from upstream to downstream; translate each segment into a mountain, valley, harbor, or sea.
+- Draw the bottleneck as a narrowing pass or dam, and value capture as a treasure pile; if it's a mismatch, place the treasure far from the thin soil that created it.
+- 3-6 place names, each 2-5 characters, separated by semicolons or Chinese enumeration commas (` / ` gets blocked by the safety hook).
+- Numbers and questions don't go in the image: base-rate numbers and the three big questions go in the card's text blocks.
+- Always Read and inspect the generated image: both spots clearly marked, place names not blurry, Jigang recognizable; if not, adjust the frame and regenerate — save the current image to a different path first before regenerating.
+</content>

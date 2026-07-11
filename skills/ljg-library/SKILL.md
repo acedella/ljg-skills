@@ -1,132 +1,132 @@
 ---
 name: ljg-library
-description: "一本书 → 一幅清晰的「取景框」意向画面 → 一张 2050 图书馆借书卡（PNG）。取景框 = 作者从哪个角度看什么问题、看到了哪幅画面；卡上有真实封面、作者头像、书目信息。取景框 block 用费曼式讲解把这幅意向画面讲得通俗又准确；图解 block 用 AI 生图把这幅画面画出来，继刚是固定主角（从其墨像参考生成、认得出的他）。图解风格：吉田诚治式绘本感（异世界日常空间、暖光斜射、治愈又精致）。浅色光学玻璃卡身、强调色从封面动态提取、宽高自适应。合上书记住这幅画面，就没白读。Use when user says '取景框卡', '图书馆卡', 'library card', '书卡', '铸书卡', '一本书一句话一张卡', '/ljg-library', or provides a book name and wants it distilled into one collectible card. NOT FOR 拆书结构分析（用 ljg-book）、纯文字金句（用 ljg-card -b）、信息图（用 ljg-card -i）、视觉笔记（用 ljg-card -v）。"
+description: "One book → one clear viewfinder (取景框) mental image → one 2050 library card (PNG). Viewfinder = the angle from which the author looked at a question, and the picture they saw; the card carries the real cover, author portrait, and bibliographic info. The viewfinder block uses a Feynman-style explanation (费曼式讲解) to make this mental image both accessible and accurate; the illustration block uses AI image generation to paint that same picture, with Jigang (继刚) as the fixed protagonist (generated from his ink-portrait reference, recognizable as him). Illustration style: Seiji Yoshida (吉田诚治)-style picture-book feel (isekai everyday spaces, warm slanting light, healing yet refined). Light optical-glass card body, accent color dynamically extracted from the cover, adaptive width/height. Close the book remembering this picture, and the reading wasn't wasted. Use when user says '取景框卡' (viewfinder card), '图书馆卡' (library card), 'library card', '书卡' (book card), '铸书卡' (forge a book card), '一本书一句话一张卡' (one book, one sentence, one card), '/ljg-library', or provides a book name and wants it distilled into one collectible card. NOT FOR structural book-breakdown analysis (use ljg-book), pure text quote cards (use ljg-card -b), infographics (use ljg-card -i), or visual notes (use ljg-card -v)."
 user_invocable: true
 version: "3.3.0"
 ---
 
-# ljg-library：取景框借书卡
+# ljg-library: Viewfinder Library Card
 
-一本书铸成一张 2050 图书馆借书卡。封面、作者、书目是这张卡的身份；真正要做的事，是把这本书独创的「取景框」提炼成一幅意向画面——作者从某个角度看某个问题，看到了一幅别人没看到的画面。文字 block 把这幅画面讲透，图解 block 把它画出来。半年后瞥一眼卡，画面回来，这本书就没白读。
+One book forged into one 2050 library card. The cover, author, and bibliographic info are this card's identity; the real job is to distill the book's original viewfinder (取景框) into a mental image — the author looking at some question from a certain angle, seeing a picture that others hadn't seen. The text block explains this picture thoroughly; the illustration block paints it. Glance at the card six months later, the picture comes back, and the book wasn't read for nothing.
 
-一张卡两块活：
+One card, two jobs:
 
-- **取景框 block（文字）**：主句 `{{FRAME}}` 一句话点出这幅画面，费曼讲解 `{{EXP}}` 把它讲给聪明的外行听。`{{EXP}}` 必须走 `feynman-eli5` skill 生成，不手写。
-- **图解 block（生图）**：把同一幅画面交给 `assets/gen_illustration.py` 画出来。继刚是每张图的主角——脚本把他的墨像（`assets/ljg-portrait.png`）作 character reference 喂给模型，画出认得出的他，让他在画面里亲历那个核心动作——主动做，或被动承受。风格是吉田诚治式绘本感：异世界日常空间、暖光斜射、蜜糖琥珀木棕暖调、建筑透视扎实、植物书本器物细节堆叠、魔法工房旧书店图书馆一类治愈场所，场景内自然手写中文字，继刚是栖居其中的小身形人物。风格已写死在脚本里，frame 只写画什么。
+- **Viewfinder block (text)**: the main sentence `{{FRAME}}` names this picture in one line, and the Feynman explanation `{{EXP}}` explains it to a smart layperson. `{{EXP}}` must be generated via the `feynman-eli5` skill, not hand-written.
+- **Illustration block (image generation)**: hand the same picture to `assets/gen_illustration.py` to paint. Jigang (继刚) is the protagonist of every image — the script feeds his ink portrait (`assets/ljg-portrait.png`) as a character reference to the model, painting a recognizable him, letting him personally experience the picture's core action — whether acting or being acted upon. The style is Seiji Yoshida (吉田诚治)-style picture-book feel: isekai everyday spaces, warm slanting light, honey-amber-wood warm tones, solid architectural perspective, layered detail of plants/books/objects, healing settings like magic workshops/old bookstores/libraries, natural handwritten Chinese text within the scene, with Jigang as the small figure dwelling inside it. The style is hardcoded into the script — the frame only needs to describe what to paint.
 
-文字和图讲的必须是同一幅画面。提炼失手，这张卡就只是一张豆瓣读书卡。
+The text and the image must depict the same picture. If the distillation misses, the card is just a Douban book-review card.
 
-输出只有 PNG，不产文字笔记。
+Output is PNG only, no text notes produced.
 
-## 动手前先读两份 reference
+## Read two references before starting
 
-- `references/extraction.md` — 怎么从书里提炼意向画面、怎么写生图 frame。提炼是六步：对象、角度、旧画面、意向画面、费曼讲解、校验。继刚若已把想法想透（读完顺手铸卡是常态），直接用他的：只走校验和画图，不重新提炼。
-- `references/visual.md` — 卡身规格、配色、字体、出厂自检。
+- `references/extraction.md` — how to distill the mental image from the book, how to write the image-generation frame. Distillation is six steps: subject, angle, old picture, new picture, Feynman explanation, verification. If Jigang has already thought the idea through (forging a card right after finishing a book is the norm), use his directly: just verify and generate the image, don't re-distill.
+- `references/visual.md` — card body spec, colors, fonts, factory self-check.
 
-## 流程
+## Workflow
 
 ```
-输入：书名（或 书名 + 已想透的取景框思想）
+Input: book title (or book title + an already-thought-through viewfinder idea)
   ↓
-1. weread 取真封面 + 书目（见「素材获取」）
-2. web 抓作者头像
-3. 提封面主色 → 卡身强调色（python3 assets/extract_color.py <封面>）
-4. 提炼意向画面（用户给了→校验；没给→extraction.md 六步）
-5. {{FRAME}} 主句 + {{EXP}} 费曼讲解（走 feynman-eli5）
-6. 写 frame（英文构图：继刚在做什么、隐喻物件、信息流向、3-5 个中文标注每个 ≤5 字），生图：
+1. Get the real cover + bibliographic info from WeRead (微信读书) (see "Sourcing materials")
+2. Fetch the author's portrait from the web
+3. Extract the cover's dominant color → card accent color (python3 assets/extract_color.py <cover>)
+4. Distill the mental image (given by user → verify; not given → extraction.md six steps)
+5. {{FRAME}} main sentence + {{EXP}} Feynman explanation (via feynman-eli5)
+6. Write the frame (English composition: what Jigang is doing, metaphorical objects, information flow, 3-5 Chinese labels each ≤5 characters), generate the image:
    python3 assets/gen_illustration.py --frame "<...>" --out /tmp/ljg_lib_{slug}_sketch.png
-7. 填 assets/library_template.html 占位变量（{{SKETCH_IMG}} = file://生成图）
-8. 渲染（capture.js，fullpage）
-9. Read 成品 PNG 亲眼验，不满意调 frame 重生，然后交付
+7. Fill placeholder variables in assets/library_template.html ({{SKETCH_IMG}} = file:// of the generated image)
+8. Render (capture.js, fullpage)
+9. Read the finished PNG to verify with your own eyes; if unsatisfied, adjust the frame and regenerate, then deliver
 ```
 
-## 素材获取
+## Sourcing materials
 
-### 封面 + 书目
+### Cover + bibliographic info
 
-继刚有微信读书，先走 weread skill 的 `/store/search`（用前 Read `~/.claude/skills/weread/search.md`）：
+Jigang uses WeRead (微信读书); go through the weread skill's `/store/search` first (Read `~/.claude/skills/weread/search.md` before use):
 
 ```bash
 curl -s -X POST "https://i.weread.qq.com/api/agent/gateway" \
   -H "Authorization: Bearer $WEREAD_API_KEY" -H "Content-Type: application/json" \
-  -d '{"api_name":"/store/search","keyword":"<书名>","scope":10,"skill_version":"1.0.3"}'
+  -d '{"api_name":"/store/search","keyword":"<book title>","scope":10,"skill_version":"1.0.3"}'
 ```
 
-回包 `results[].books[].bookInfo`（每个 result 一本）里有 `title / author / translator / cover / publisher`。cover URL 默认是 `s_` 缩略图（70×100，放进卡里必糊），把 `s_` 换成 `t7_` 拿 285×411 高清：`.../cover/942/635942/t7_635942.jpg`。下载带 `-H "Referer: https://weread.qq.com/"`。
+The response's `results[].books[].bookInfo` (one book per result) contains `title / author / translator / cover / publisher`. The cover URL defaults to the `s_` thumbnail (70×100, which will be blurry once placed in the card); swap `s_` for `t7_` to get the 285×411 HD version: `.../cover/942/635942/t7_635942.jpg`. Download with `-H "Referer: https://weread.qq.com/"`.
 
-weread 搜不到时按书的类型降级：
+When WeRead has no result, fall back by book type:
 
-- 中文书 / 得到课程类图书 → 豆瓣封面，用 `l/public` 大图路径（`s/public` 小图会糊）
-- 外文学术书 → OpenLibrary：`https://openlibrary.org/search.json?q=<书名>` 拿 `cover_i`，再走 covers CDN `https://covers.openlibrary.org/b/id/<cover_i>-L.jpg`
-- 都没有 → CSS 占位书封，不阻塞
+- Chinese books / Dedao-course-type books → Douban cover, use the `l/public` large-image path (`s/public` small images will be blurry)
+- Foreign academic books → OpenLibrary: `https://openlibrary.org/search.json?q=<book title>` to get `cover_i`, then use the covers CDN `https://covers.openlibrary.org/b/id/<cover_i>-L.jpg`
+- Neither works → CSS placeholder cover, don't block
 
-### 作者头像
+### Author portrait
 
-维基百科原图最稳，Wikipedia API 直接拿 original 图 URL：
+Wikipedia's original image is the most reliable; use the Wikipedia API to get the original image URL directly:
 
 ```bash
 curl -s -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" \
-  "https://en.wikipedia.org/w/api.php?action=query&titles=<英文名>&prop=pageimages&piprop=original&format=json"
-# 拿到 .original.source 后下载（同样带 UA）：
+  "https://en.wikipedia.org/w/api.php?action=query&titles=<English name>&prop=pageimages&piprop=original&format=json"
+# After getting .original.source, download it (also with UA):
 curl -sL -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" -o /tmp/ljg_lib_{slug}_avatar.jpg "<original-url>"
 ```
 
-注意 thumb 路径（`/thumb/.../480px-xxx.jpg`）在该尺寸未缓存时会返回 HTML 错误页——用原图路径（去掉 `/thumb/` 和尺寸段），并且必须带 User-Agent，缺 UA 会被 Wikimedia 拦。
+Note: the thumb path (`/thumb/.../480px-xxx.jpg`) returns an HTML error page when that size isn't cached — use the original image path (drop `/thumb/` and the size segment), and a User-Agent is required, or Wikimedia will block the request.
 
-降级：英文维基没有 → 维基 REST summary（`/api/rest_v1/page/summary/<名字>`）→ 中文人物走百度百科 → 都没有就省略头像（模板作者行自动不显示 avatar），不阻塞。
+Fallback: no English Wikipedia entry → Wikipedia REST summary (`/api/rest_v1/page/summary/<name>`) → Chinese figures fall back to Baidu Baike → if none work, omit the portrait (the template's author line automatically hides the avatar), don't block.
 
-### 主角参考图
+### Protagonist reference image
 
-`assets/ljg-portrait.png` 是继刚的真头像抠底墨像，`gen_illustration.py` 自动把它作 character reference 喂给模型。生成的是模型按吉田诚治风格画出来的他——认得出即可，不追求像素级同一张脸。头像要更新，换这个 png 就行。
+`assets/ljg-portrait.png` is Jigang's real portrait, background-removed into an ink-style image; `gen_illustration.py` automatically feeds it as a character reference to the model. The generated result is him as painted by the model in Seiji Yoshida's style — recognizable is enough, pixel-perfect likeness isn't the goal. To update the portrait, just swap this png.
 
-### 卡身强调色
+### Card accent color
 
 ```bash
 python3 assets/extract_color.py /tmp/ljg_lib_{slug}_cover.jpg
-# 输出形如：#c43d30
+# Output looks like: #c43d30
 ```
 
-从封面提取最显著的彩色作卡身强调色，换书自动换色：红封红卡、蓝封蓝卡。两种情况要自己动手调：封面主体是大面积米灰背景时，脚本会挑出发闷的背景色，改按「鲜艳度 × 频次」重排，从真实像素里挑一个撑得住的彩色，别凭空写死；封面色很亮时压深半档，在浅色卡身上才读得清。强调色只管卡身（标签、英文行、关键词高亮、署名印），图解板的配色是生成图自带的，两边互不干扰。挑暖色（棕、橙、绿）更配那块暖调插画。
+Extract the most prominent color from the cover as the card's accent color — change the book, the color changes automatically: red cover, red card; blue cover, blue card. Two cases need manual adjustment: when the cover is mostly a large beige/gray background, the script may pick a dull background color — reorder by "vividness × frequency" instead, and pick a color from the real pixels that can carry the card, don't hardcode one out of thin air; when the cover color is very bright, darken it half a notch so it still reads clearly on the light card body. The accent color only governs the card body (tags, English line, keyword highlights, signature stamp); the illustration panel's palette comes with the generated image — the two don't interfere with each other. Pick warm colors (brown, orange, green) to better match that warm-toned illustration.
 
-## 模板变量（library_template.html）
+## Template variables (library_template.html)
 
-| 变量 | 内容 |
+| Variable | Content |
 |------|------|
-| `{{ACCENT}}` | 卡身强调色 hex（从封面提取） |
-| `{{COVER}}` | 封面的 `file://` 绝对路径 |
-| `{{AVATAR_IMG}}` | 整个头像 `<img class="avatar" src="file://…">`（无头像填空字符串） |
-| `{{TITLE}}` `{{EN}}` `{{SUBTITLE}}` | 书名中 / 英 / 副标题 |
-| `{{TAGS}}` | 3-4 个主题标签，每个 `<span class="tag">…</span>` |
-| `{{AUTHOR_CN}}` `{{AUTHOR_META}}` | 作者中文名 / 「英文名 · 出版社 年份」 |
-| `{{FRAME}}` | 意向画面主句，关键词用 `<span class="hl">…</span>` 染强调色 |
-| `{{EXP}}` | 费曼讲解（feynman-eli5 产物），关键词同样染色 |
-| `{{SKETCH_TITLE}}` | 图解板名字（英文 + 中文，如 `Ergodicity 遍历性`） |
-| `{{SKETCH_IMG}}` | 生成插画的 `file://` 绝对路径 |
+| `{{ACCENT}}` | Card accent color hex (extracted from cover) |
+| `{{COVER}}` | Absolute `file://` path of the cover |
+| `{{AVATAR_IMG}}` | Full avatar `<img class="avatar" src="file://…">` (empty string if no avatar) |
+| `{{TITLE}}` `{{EN}}` `{{SUBTITLE}}` | Chinese / English / subtitle of the book title |
+| `{{TAGS}}` | 3-4 topic tags, each `<span class="tag">…</span>` |
+| `{{AUTHOR_CN}}` `{{AUTHOR_META}}` | Author's Chinese name / "English name · publisher · year" |
+| `{{FRAME}}` | Main sentence of the mental image, keywords colored with `<span class="hl">…</span>` |
+| `{{EXP}}` | Feynman explanation (feynman-eli5 output), keywords colored the same way |
+| `{{SKETCH_TITLE}}` | Illustration panel's name (English + Chinese, e.g. `Ergodicity 遍历性`) |
+| `{{SKETCH_IMG}}` | Absolute `file://` path of the generated illustration |
 
-## 渲染
+## Rendering
 
 ```bash
 node ~/.claude/skills/ljg-card/assets/capture.js \
   /tmp/ljg_library_{name}.html ~/Downloads/{name}.png 1080 1440 fullpage
 ```
 
-复用 ljg-card 的 capture.js（playwright 装在 ljg-card/node_modules）。`fullpage` 不能省——卡片高度跟内容走，省了会留底部空白。`file://` 引用的本地封面、头像可直接渲染。
+Reuse ljg-card's capture.js (playwright is installed in ljg-card/node_modules). `fullpage` cannot be omitted — the card height follows the content, and omitting it leaves blank space at the bottom. Locally referenced covers/avatars via `file://` render directly.
 
-## 交付
+## Delivery
 
-1. Read 成品 PNG 亲眼验，图解板放大看。对照 visual.md 的出厂自检：封面加载、讲解把画面讲透、卡身色协调、继刚认得出、画面一眼读懂、中文标注无糊、图文同一幅画面、右侧无豁口、底部无留白。生图不满意就调 frame 重生。
-2. 报告文件路径，加一句意向画面的提炼说明。
+1. Read the finished PNG to verify with your own eyes, zoom in on the illustration panel. Check against visual.md's factory self-check: cover loads, the explanation thoroughly conveys the picture, card color is harmonious, Jigang is recognizable, the picture reads at a glance, Chinese labels aren't blurry, text and image depict the same picture, no gap on the right side, no blank space at the bottom. If the generated image is unsatisfactory, adjust the frame and regenerate.
+2. Report the file path, plus a sentence explaining how the mental image was distilled.
 
 ## Gotchas
 
-- **封面尺寸**：weread `s_` 是 70×100 缩略图，必糊。换 `t7_`（285×411），下载带 `Referer`。
-- **头像 thumb 陷阱**：Wikimedia `/thumb/.../NNNpx-` 未缓存返回 HTML 错误页。用原图路径，带 User-Agent。
-- **生图必看图**：同一个 frame 每次出的图都不一样，gemini 会糊中文标注、把继刚画得不像、画错动作。每次生成后必 Read 亲验，不行调 frame 重生。重生前把当前这张先存到别的路径——新的未必比旧的好，别把能用的覆盖没了。
-- **中文标注 ≤5 字**：长标注和生僻字容易糊。每个标注压到 5 字以内，机制细节让正文扛，别指望画里写清。
-- **frame 里标注用分号或顿号分隔**：` / ` 分隔中文标注会被安全钩子误判成危险命令而 BLOCK，不用斜杠。
-- **frame 要具体可画**：写清继刚亲历的动作、真实隐喻物件、信息怎么流。抽象命题画不出来——回到意向画面，把它落成可见的物和动作（见 extraction.md）。
-- **主角风格化，不追同一张脸**：从墨像参考生成，认得出即可。不做真墨像贴脸合成。
-- **两套色不串**：卡身强调色从封面提取；图解板背景是生成图自带的。
-- **/tmp 文件名带 slug**：并行铸卡时生成图、封面、头像都用唯一路径（带书 slug），共享固定名会串图。
-- **批量管线**：`gen_illustration.py` 直调 marswave gemini-3-pro，不走 listenhub 的交互门控，所以 ljg-paper-flow 批量铸卡能用。每张都要联网、花 API 额度、亲眼验一回图，比纯模板慢，批量排任务时留余地。
-- **{{FRAME}} 写的是看法怎么被改动，不是内容摘要**：句式是「原来不是 X，其实是 Y」，不写「本书讲了什么」。检验：删掉书名和作者，这句话还能独立站住，才算提炼到位。
+- **Cover size**: WeRead's `s_` is a 70×100 thumbnail, guaranteed to be blurry. Swap for `t7_` (285×411), download with `Referer`.
+- **Avatar thumb trap**: Wikimedia `/thumb/.../NNNpx-` returns an HTML error page when uncached. Use the original image path, with a User-Agent.
+- **Always check generated images**: the same frame produces a different image every time — gemini can blur the Chinese labels, paint Jigang unrecognizably, or get the action wrong. Always Read and verify after each generation; if it's not right, adjust the frame and regenerate. Before regenerating, save the current image to a different path first — the new one isn't necessarily better than the old one, don't overwrite a usable one.
+- **Chinese labels ≤5 characters**: long labels and rare characters tend to blur. Keep each label to 5 characters or fewer; let the body text carry mechanistic detail, don't expect the image to spell it out clearly.
+- **Separate labels in the frame with semicolons or Chinese enumeration commas**: separating Chinese labels with ` / ` gets misjudged by the safety hook as a dangerous command and BLOCKed — don't use slashes.
+- **The frame must be concrete and paintable**: write clearly the action Jigang is personally experiencing, the real metaphorical object, how information flows. Abstract propositions can't be painted — go back to the mental image and turn it into visible objects and actions (see extraction.md).
+- **The protagonist is stylized, not chasing the exact same face**: generated from the ink-portrait reference, recognizable is enough. This is not a literal face-swap composite from the real portrait.
+- **The two color systems don't cross**: the card-body accent color is extracted from the cover; the illustration panel's background comes with the generated image.
+- **/tmp filenames carry a slug**: when forging cards in parallel, generated images, covers, and avatars should all use unique paths (carrying the book's slug) — sharing a fixed name will mix up images.
+- **Batch pipeline**: `gen_illustration.py` calls marswave gemini-3-pro directly, bypassing listenhub's interactive gating, so ljg-paper-flow's batch card-forging can use it. Each image requires network access, spends API quota, and needs a manual visual check — slower than pure templates, leave slack when scheduling batch jobs.
+- **{{FRAME}} describes how the view was changed, not a content summary**: the sentence pattern is "it's not X, it's actually Y," not "what this book is about." Test: remove the book title and author — if the sentence still stands on its own, the distillation succeeded.

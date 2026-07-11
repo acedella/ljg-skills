@@ -5,49 +5,49 @@ user_invocable: true
 version: "1.0.1"
 ---
 
-# ljg-word-flow: 词卡
+# ljg-word-flow: Word Card (词卡)
 
-一条命令完成：解词 → 铸信息图。支持多词并行。
+One command does it all: word deconstruction → cast infograph. Supports parallel processing of multiple words.
 
-## 模式
+## Mode
 
-**强制 NATIVE 模式。** 本 workflow 是纯 skill 管道（ljg-word → ljg-card -i），不需要 Algorithm 的七步流程。直接按下方执行步骤调用 skill，不走 OBSERVE/THINK/PLAN/BUILD/EXECUTE/VERIFY/LEARN。
+**NATIVE mode is enforced.** This workflow is a pure skill pipeline (ljg-word → ljg-card -i) and does not need the Algorithm's seven-step process. Call the skills directly according to the execution steps below, without going through OBSERVE/THINK/PLAN/BUILD/EXECUTE/VERIFY/LEARN.
 
-## 参数
+## Parameters
 
-直接传入一个或多个英文单词，空格分隔。
+Pass in one or more English words directly, separated by spaces.
 
 ```
 /ljg-word-flow Obstacle
 /ljg-word-flow Serendipity Resilience Entropy
 ```
 
-## 执行
+## Execution
 
-### 1. 收集单词列表
+### 1. Collect the Word List
 
-从用户消息中提取所有英文单词。
+Extract all English words from the user's message.
 
-### 2. 处理每个单词
+### 2. Process Each Word
 
-对每个单词，串行执行两步：
+For each word, execute two steps in sequence:
 
-**步骤 A — 解词（ljg-word）：**
+**Step A — Word Deconstruction (ljg-word):**
 
-调用 Skill tool 执行 `ljg-word`，传入单词。在对话中输出 Markdown 解析结果。
+Invoke the Skill tool to run `ljg-word`, passing in the word. Output the Markdown analysis result in the conversation.
 
-**步骤 B — 铸信息图（ljg-card -i）：**
+**Step B — Cast Infograph (ljg-card -i):**
 
-以步骤 A 的解析内容为输入，调用 Skill tool 执行 `ljg-card -i`。生成 PNG 文件到 `~/Downloads/`。
+Using the analysis content from Step A as input, invoke the Skill tool to run `ljg-card -i`. Generate a PNG file to `~/Downloads/`.
 
-### 3. 多词并行
+### 3. Parallel Processing for Multiple Words
 
-多个单词时，每个单词启动一个 Agent subagent 并行处理（每个 subagent 内部 A→B 串行）。
+When there are multiple words, launch one Agent subagent per word to process in parallel (within each subagent, A→B runs sequentially).
 
-### 4. 汇总报告
+### 4. Summary Report
 
 ```
-════ 词卡完成 ═══════════════════════
+════ Word Cards Complete ═══════════════════════
 📖 {Word1}
    🖼️ ~/Downloads/{Word1}.png
 
@@ -56,8 +56,8 @@ version: "1.0.1"
 ...
 ```
 
-## 关键约束
+## Key Constraints
 
-- 先解词后铸卡，顺序不可逆
-- ljg-word 和 ljg-card -i 各自的质量标准不变
-- 信息图内容来自解词结果，不是字典释义
+- Deconstruct the word before casting the card; the order cannot be reversed
+- The quality standards for ljg-word and ljg-card -i each remain unchanged
+- The infograph content comes from the word deconstruction result, not a dictionary definition

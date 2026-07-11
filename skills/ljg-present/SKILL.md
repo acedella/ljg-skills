@@ -1,169 +1,170 @@
 ---
 name: ljg-present
-description: "演讲铸造器（Outline-Faithful）。基于 orgmode/markdown outline 层级 1:1 视觉化呈现——色块大字、ultra-bold 错位，原文不动只做美化。三档主题色 black/red/yellow（默认 black 或按 filetags 推断），可用 -r/-b/-y 显式覆盖；可用 --cyber 走黑底绿字 cyber-hacker 风。使用时用户会说：'讲这个'、'present'、'做成演讲'、'呈现一下'、'铸成演示'、'做个 slides'、'标语流'、'宣言体'、'slogan'、'manifesto'、'按 outline 美化'。输出单文件 HTML 到 ~/Downloads/。"
+description: "Presentation forge (Outline-Faithful). Renders orgmode/markdown outline hierarchy 1:1 into a visual presentation — color-block big type, ultra-bold staggered layout, the original text untouched, only beautified. Three theme colors black/red/yellow (default black, or inferred from filetags), can be explicitly overridden with -r/-b/-y; --cyber switches to a black-background green-text cyber-hacker style. Use when user says '讲这个' (present this), 'present', '做成演讲' (turn into a presentation), '呈现一下' (present/render this), '铸成演示' (forge into a deck), '做个 slides' (make some slides), '标语流' (slogan flow), '宣言体' (manifesto style), 'slogan', 'manifesto', '按 outline 美化' (beautify by outline). Outputs a single HTML file to ~/Downloads/."
 user_invocable: true
 version: "3.0.0"
 ---
 
-# ljg-present: 演讲铸造器
+# ljg-present: Presentation Forge
 
-把 outline 铸成色块——视觉化渲染器，把舞台还给讲的人。
+Forge an outline into color blocks — a visual renderer that hands the stage back to the person speaking.
 
-## 这不是什么
+## What this is NOT
 
-- **不是 manifesto 提炼器**——不抽"那句话"，不写"完整断言句"，不重组顺序
-- **不是高桥流**——不削词到单字
-- **不是 deck-style**——不是企业 PPT 那种规整版式
+- **Not a manifesto extractor** — it doesn't distill "the one line," doesn't write "complete assertive sentences," doesn't reorder content
+- **Not Takahashi-style** — it doesn't whittle text down to single words
+- **Not deck-style** — it's not the tidy layout of corporate PPT
 
-## 这是什么
+## What this IS
 
-**Outline → 视觉化渲染器**：
+**Outline → visual renderer**:
 
-- 输入 = orgmode 文件（`*` `**` 层级 + 列表 + 表格 + 强调）
-- 输出 = 视觉美化的 slogan-style HTML，**1:1 保留 outline 结构**
-- 不抽提、不重写、不浓缩——只决定**怎么把这一行/这一节渲染为页面**
+- Input = an orgmode file (`*` `**` hierarchy + lists + tables + emphasis)
+- Output = visually beautified slogan-style HTML, **preserving the outline structure 1:1**
+- No extraction, no rewriting, no condensing — it only decides **how to render this line/section as a page**
 
-视觉语言（参考审美：Felipe Franco / BIG STUDIOS 的 manifesto 美学）：
-- **整篇一个主题色**——red/black/yellow 三选一
-- **left-aligned 舞台美学**——文字左对齐，超大字号自然撑屏
-- **超大字 ultra-bold**——单字 70vmin、长句 11vmin
-- **多行错位**——按 outline 嵌套深度自动 indent 0/1/2
-- **关键词自动换色**——`*强调*` `~code~` 自动 hl
-- **章节切换打节拍**——一级标题 `*` → emphasis 封面页，其余 → theme 页
+Visual language (aesthetic reference: Felipe Franco / BIG STUDIOS manifesto aesthetic):
 
-## 核心哲学
+- **One theme color for the whole piece** — pick one of red/black/yellow
+- **Left-aligned stage aesthetic** — text left-aligned, oversized type naturally fills the screen
+- **Oversized ultra-bold type** — single characters at 70vmin, long sentences at 11vmin
+- **Multi-line staggering** — auto-indent 0/1/2 based on outline nesting depth
+- **Keywords auto-colored** — `*emphasis*` `~code~` auto-highlighted
+- **Section transitions set the beat** — level-1 headings `*` → emphasis cover pages, everything else → theme pages
 
-**Outline 是真理。Skill 是渲染器。**
+## Core philosophy
 
-不动内容是一条铁律：
-- **标题不改字**
-- **段落不改字**
-- **列表项不改字**
-- **表格不改结构**
-- **顺序不重排**
+**The outline is the truth. The skill is the renderer.**
 
-唯一允许的"动"是：**物理分页**（一段太长拆成多页），并保持视觉一致性。
+Leaving content untouched is an iron rule:
+- **Headings: not a word changed**
+- **Paragraphs: not a word changed**
+- **List items: not a word changed**
+- **Tables: structure not changed**
+- **Order: not reshuffled**
 
-## Orgmode → 页面映射规则
+The only "movement" allowed is **physical pagination** (splitting an overly long section across multiple pages), while keeping visual consistency.
 
-### 标题层级
+## Orgmode → page mapping rules
 
-| Org 元素 | 页面 |
+### Heading hierarchy
+
+| Org element | Page |
 |---|---|
-| `* 一级标题` | 独占 **emphasis** 封面页（accent 底色） |
-| `** 二级标题` | 独占 **theme** 页（大字标题独占一页） |
-| `*** 三级标题`+ | 独占 theme 页（字号降一档） |
+| `* Level-1 heading` | Gets its own **emphasis** cover page (accent background) |
+| `** Level-2 heading` | Gets its own **theme** page (large title takes a whole page) |
+| `*** Level-3 heading`+ | Gets its own theme page (one size smaller) |
 
-### 内容元素
+### Content elements
 
-| Org 元素 | 页面行为 |
+| Org element | Page behavior |
 |---|---|
-| 段落 | theme 页，按句号/换行/字数分页 |
-| `- 列表项` | theme 页，每项一行，indent 按嵌套深度（0/1/2） |
-| `1. 编号列表` | 同上，保留序号前缀 |
-| 嵌套列表 | 子项 indent +1（最多 indent=2） |
-| `\| 表格 \|` | 单页或多页，保留表格结构（首行加粗） |
-| `*强调*` | 自动 `hl: true` |
-| `~code~` 或 `=verbatim=` | 自动 `hl: true` |
-| `「」` 内的关键词 | 视觉单元（保留括号，不强制 hl） |
-| 引用 `> ...` | theme 页，indent 1 显示 |
-| 分隔符 `-----` | 独立 emphasis 休止页（无内容，纯色块） |
-| `#+begin_example` 块 | 独立 pre 页（monospace 渲染 ASCII art） |
+| Paragraph | theme page, split by period/line break/character count |
+| `- List item` | theme page, one item per line, indent by nesting depth (0/1/2) |
+| `1. Numbered list` | same as above, keeps the number prefix |
+| Nested list | child items indent +1 (max indent=2) |
+| `\| table \|` | one or more pages, preserves table structure (header row bolded) |
+| `*emphasis*` | auto `hl: true` |
+| `~code~` or `=verbatim=` | auto `hl: true` |
+| Keywords inside `「」` | visual unit (keep the brackets, hl not forced) |
+| Quote `> ...` | theme page, shown at indent 1 |
+| Divider `-----` | standalone emphasis pause page (no content, pure color block) |
+| `#+begin_example` block | standalone pre page (monospace-rendered ASCII art) |
 
-### 文件级元数据
+### File-level metadata
 
-| Org 元素 | 用途 |
+| Org element | Purpose |
 |---|---|
-| `#+title:` | → JSON `title`（浏览器 tab） |
-| `#+author:` 或 `#+date:` | → JSON `subtitle`（页脚右下） |
-| `#+filetags:` | 用于推断 theme（见下） |
-| `#+identifier:` | 忽略 |
+| `#+title:` | → JSON `title` (browser tab) |
+| `#+author:` or `#+date:` | → JSON `subtitle` (bottom-right footer) |
+| `#+filetags:` | used to infer theme (see below) |
+| `#+identifier:` | ignored |
 
-### Theme 推断
+### Theme inference
 
-**优先级**：显式参数 > filetags 推断 > 默认 black
+**Priority**: explicit argument > filetags inference > default black
 
-显式覆盖（参数）：
+Explicit override (argument):
 - `-r` / `--theme=red` → red
 - `-b` / `--theme=black` → black
 - `-y` / `--theme=yellow` → yellow
-- `--cyber` → cyber-hacker（黑底绿字 + CRT 扫描线 + HUD + 终端光标）
+- `--cyber` → cyber-hacker (black background, green text + CRT scanlines + HUD + terminal cursor)
 
-filetags 自动推断：
+Automatic filetags inference:
 
-| filetags 含 | theme | 调性 |
+| filetags contains | theme | tone |
 |---|---|---|
-| `:share:` `:talk:` `:manifesto:` `:keynote:` | `red` | 宣言、号召 |
-| `:essay:` `:think:` `:learn:` `:note:` | `black` | 沉思、论证 |
-| `:critique:` `:warn:` `:rant:` | `yellow` | 反讽、警觉 |
-| 都没有 | `black` | 默认沉思调 |
+| `:share:` `:talk:` `:manifesto:` `:keynote:` | `red` | manifesto, rallying cry |
+| `:essay:` `:think:` `:learn:` `:note:` | `black` | contemplative, argumentative |
+| `:critique:` `:warn:` `:rant:` | `yellow` | ironic, alarming |
+| none of the above | `black` | default contemplative tone |
 
-### 分页规则（内容多时）
+### Pagination rules (when content is long)
 
-**铁律：拆分后保持视觉一致性。同一逻辑块的页用同样的字号档位/底色/缩进规则。**
+**Iron rule: after splitting, keep visual consistency. Pages from the same logical block should share the same font-size tier / background / indent rules.**
 
-| 情形 | 拆法 |
+| Case | Split method |
 |---|---|
-| 段落 ≤ 30 字 | 单页 |
-| 段落 30-80 字，含多句号 | 每句一页（每页 medium 档字号） |
-| 段落 > 80 字 | 按 ~30 字一页拆，加 `⋯` 续标 |
-| 列表 ≤ 4 项 | 单页全部展示（错位 indent） |
-| 列表 5-8 项 | 拆 2 页，每页 3-4 项（保持每页项数接近） |
-| 列表 > 8 项 | 拆多页，每页 4 项 |
-| 嵌套列表（如 4 革命×4 属性）| 父项 1 页 + 每个子项独立成组（标题 1 页 + 子项 1 页） |
-| 表格 ≤ 6 行 | 单页 |
-| 表格 > 6 行 | 拆多页，每页保留表头 |
+| Paragraph ≤ 30 characters | single page |
+| Paragraph 30-80 characters, multiple periods | one sentence per page (medium tier font size per page) |
+| Paragraph > 80 characters | split roughly every 30 characters, add `⋯` continuation marker |
+| List ≤ 4 items | show all on one page (staggered indent) |
+| List 5-8 items | split into 2 pages, 3-4 items each (keep item counts close across pages) |
+| List > 8 items | split into multiple pages, 4 items each |
+| Nested list (e.g. 4 revolutions × 4 attributes) | parent item gets 1 page + each child item becomes its own group (heading page + child-item page) |
+| Table ≤ 6 rows | single page |
+| Table > 6 rows | split into multiple pages, header row repeated |
 
-**一致性检查**：拆完后扫一遍——同源拆分的页要长得像同一种东西，字号/缩进/底色都对齐。
+**Consistency check**: after splitting, scan through — pages split from the same source should look like the same kind of thing, with font size / indent / background all aligned.
 
-### 自动 emphasis（节拍）
+### Auto emphasis (beat markers)
 
-- 所有 `* 一级标题` → emphasis 封面页
-- 文件首页（标题或第一行非空文本）→ emphasis 开场页（如已是一级标题则合并）
-- 文件末页（最后一段或最后一项）→ emphasis 收束页
-- `-----` 分隔符 → emphasis 休止页
-- 其他全是 theme 页
+- All `* level-1 headings` → emphasis cover page
+- The file's first page (title or first non-empty line of text) → emphasis opening page (merge with the level-1 heading if it already is one)
+- The file's last page (last paragraph or last item) → emphasis closing page
+- `-----` divider → emphasis pause page
+- Everything else → theme pages
 
-不要为了凑节奏强行加 emphasis——一级标题就是天然的章节断点。
+Don't force in emphasis pages just to create rhythm — level-1 headings are the natural section breaks.
 
-### 自动 hl（高亮）
+### Auto hl (highlight)
 
-- org `*强调*` → `hl: true`
+- org `*emphasis*` → `hl: true`
 - org `~code~` `=verbatim=` → `hl: true`
-- emphasis 页内的 hl 自动忽略（CSS `color: inherit`）
+- hl inside emphasis pages is auto-ignored (CSS `color: inherit`)
 
-## 映射举例
+## Mapping example
 
-**输入**（org 节选）：
+**Input** (org excerpt):
 
 ```org
-#+title: 美团分享
+#+title: Meituan Talk
 #+filetags: :share:
 
 * AI
 
-** 为什么说 AI 是一次革命？
+** Why is AI a revolution?
 
-人类革命：能力让渡的层级跃迁
+Human revolution: a tier-shift in ceded capability
 
-- 「人之为人」重新定义
-- 社会组织重排
+- "What it means to be human" redefined
+- Social organization reshuffled
 ```
 
-**映射结果**：
+**Mapping result**:
 
-| # | 类型 | 内容 | 来源 |
+| # | Type | Content | Source |
 |---|---|---|---|
-| 1 | emphasis | 「AI」 | `* AI`（一级标题封面） |
-| 2 | theme | 「为什么说 AI 是一次革命？」 | `** ...` 二级标题独占页 |
-| 3 | theme | 「人类革命：能力让渡的层级跃迁」 | 段落，单句 |
-| 4 | theme | 两行错位：「『人之为人』重新定义」/「社会组织重排」 | 列表 ≤4 项一页 |
+| 1 | emphasis | "AI" | `* AI` (level-1 heading cover) |
+| 2 | theme | "Why is AI a revolution?" | `** ...` level-2 heading, own page |
+| 3 | theme | "Human revolution: a tier-shift in ceded capability" | paragraph, single sentence |
+| 4 | theme | two staggered lines: "'What it means to be human' redefined" / "Social organization reshuffled" | list ≤4 items, one page |
 
-theme 自动选 `red`（filetags `:share:`），title=`美团分享`。
+theme auto-selects `red` (filetags `:share:`), title=`Meituan Talk`.
 
-## 视觉规范
+## Visual spec
 
-### 色板（仅 4 色）
+### Palette (4 colors only)
 
 ```
 --c-black:  #1A1A1A
@@ -173,16 +174,16 @@ theme 自动选 `red`（filetags `:share:`），title=`美团分享`。
 --c-gold:   #FFE082
 ```
 
-### 主题映射（一篇只用 ≤3 色）
+### Theme mapping (use ≤3 colors per piece)
 
-| theme | 默认页 | emphasis 页 | hl 色（仅 theme 页） |
+| theme | default page | emphasis page | hl color (theme pages only) |
 |---|---|---|---|
-| **black** 沉思 | 黑底白字 | 红底白字 | 红色 #E63956 |
-| **red** 宣言 | 红底白字 | 黑底白字 | 柔金黄 #FFE082 |
-| **yellow** 反讽 | 黄底黑字 | 黑底白字 | 红色 #E63956 |
-| **cyber** 终端 | 黑底矩阵绿 | 绿底黑字 | 白色 #FFFFFF（带绿光 + CRT 扫描线 + 顶部 HUD） |
+| **black** contemplative | black bg, white text | red bg, white text | red #E63956 |
+| **red** manifesto | red bg, white text | black bg, white text | soft gold #FFE082 |
+| **yellow** ironic | yellow bg, black text | black bg, white text | red #E63956 |
+| **cyber** terminal | black bg, matrix green | green bg, black text | white #FFFFFF (with green glow + CRT scanlines + top HUD) |
 
-### 字体栈
+### Font stack
 
 ```
 "Helvetica Neue", "Arial Black", "Inter", "PingFang SC", "Heiti SC", -apple-system, sans-serif
@@ -190,17 +191,17 @@ font-weight: 900
 letter-spacing: -0.05em
 ```
 
-cyber 主题额外字体（用于 HUD/footer/pre）：
+Extra font for the cyber theme (used for HUD/footer/pre):
 
 ```
 "JetBrains Mono", "Fira Code", "IBM Plex Mono", "Source Code Pro", "Menlo", monospace
 ```
 
-### 字号自适应
+### Adaptive font size
 
-按本页"最长那一行"的字符数（CJK 字符按 1.8 计权）自动分档：
+Auto-tiered by character count of the page's "longest line" (CJK characters weighted at 1.8):
 
-| 档位 | 字符数 | 字号 |
+| Tier | Character count | Font size |
 |---|---|---|
 | single | ≤ 2  | 70vmin |
 | short  | 3-6 | 48vmin |
@@ -208,110 +209,110 @@ cyber 主题额外字体（用于 HUD/footer/pre）：
 | long   | 15-26 | 16vmin |
 | xlong  | 27+ | 10vmin |
 
-多行页自动降一档。
+Multi-line pages auto-drop one tier.
 
-### 排版
+### Typesetting
 
-- 内容区域 padding 6vmin 7vmin（贴近边缘，让大字有撑满感）
-- **lines 块水平居中 + 行内左对齐**——`align-items: center` 让 lines 块整体在屏幕水平居中（消除 16:9 右侧空白），但每一行的文字仍是 left-aligned 起始，indent 0/1/2 在块内制造错位
-- letter-spacing `-0.05em`——ultra-bold 应有的字字挤压感
-- line-height `1.05`、行间 gap `0.15em`——多行折行也有呼吸空间
-- 文字垂直方向：居中
-- 页脚：左下页码 + 右下副标题，13px monospace，opacity 0.5
+- Content area padding 6vmin 7vmin (close to the edges, so oversized type feels like it fills the frame)
+- **lines block horizontally centered + text within lines left-aligned** — `align-items: center` centers the lines block as a whole horizontally on screen (removing 16:9 right-side blank space), but each line of text still starts left-aligned, and indent 0/1/2 creates the stagger within the block
+- letter-spacing `-0.05em` — the character-crowding feel proper to ultra-bold
+- line-height `1.05`, line gap `0.15em` — multi-line wrapping still has breathing room
+- Text vertical direction: centered
+- Footer: page number bottom-left, subtitle bottom-right, 13px monospace, opacity 0.5
 
 ## JSON Schema
 
 ```jsonc
 {
-  "theme": "black|red|yellow|cyber",      // 主题色（必选，决定整篇调性）
-  "title": "演讲标题（浏览器 tab）",
-  "subtitle": "副标题/品牌（页脚右下，可选）",
+  "theme": "black|red|yellow|cyber",      // theme color (required, sets the whole piece's tone)
+  "title": "Presentation title (browser tab)",
+  "subtitle": "Subtitle/brand (bottom-right footer, optional)",
   "slides": [
-    // 默认 theme 页
+    // default theme page
     {
-      "lines": [                          // 1-N 行
+      "lines": [                          // 1-N lines
         {
-          "indent": 0,                    // 0/1/2 缩进档（按 outline 嵌套深度）
-          "align": "left|center|right",   // 可选，默认 left
-          "chunks": [                     // 行内片段
-            {"t": "句子前段"},
-            {"t": "高亮词", "hl": true},  // 仅 theme 页生效
-            {"t": "句子后段"}
+          "indent": 0,                    // 0/1/2 indent tier (by outline nesting depth)
+          "align": "left|center|right",   // optional, default left
+          "chunks": [                     // inline segments
+            {"t": "leading part of sentence"},
+            {"t": "highlighted word", "hl": true},  // only takes effect on theme pages
+            {"t": "trailing part of sentence"}
           ]
         }
       ]
     },
-    // emphasis 页（accent 底色，整页就是高亮，不允许 inline hl）
+    // emphasis page (accent background, the whole page IS the highlight, inline hl not allowed)
     { "emphasis": true, "lines": [...] },
-    // pre 页（ASCII art / 预格式化块）
+    // pre page (ASCII art / preformatted block)
     { "preTitle": "diagram_name", "pre": "...preformatted text..." }
   ]
 }
 ```
 
-**字段省略约定**：
-- 不写 `emphasis` = 默认 theme 页
-- emphasis 页内 `chunks[].hl: true` 会被忽略
-- 写 `pre` 字段则该页为 ASCII art 页（monospace 渲染）
+**Field-omission conventions**:
+- Omitting `emphasis` = default theme page
+- `chunks[].hl: true` inside an emphasis page is ignored
+- Writing a `pre` field makes that page an ASCII art page (monospace-rendered)
 
-## 调用流程
+## Invocation flow
 
-1. **获取内容**（文件 → Read / 粘贴 → 直接用 / URL → WebFetch）
-2. **解析 outline**：
-   - org：识别 `*` `**` 标题层级、`-` `1.` 列表、`|...|` 表格、`*强调*` / `~code~`、`#+begin_example` 块
-   - markdown（兼容）：`#` `##` 标题、`-` `*` 列表、`|` 表格、`**强调**`、` ``` ` 代码块
-   - 纯文本（fallback）：按空行分段，每段一页
-3. **推断 theme**：显式参数 > `#+filetags:` > 默认 black
-4. **应用映射规则**生成 slides 数组：
-   - `*` 标题 → emphasis 封面
-   - `**`+ 标题 → theme 独占页
-   - 段落 → theme 页（按分页规则）
-   - 列表 → theme 页（错位 indent + 分页规则）
-   - 表格 → theme 页（保留结构 + 分页规则）
-   - 强调 → 自动 hl
-   - example 块 → 独立 pre 页
-5. **Read** `assets/slogan_template.html`（cyber 主题需在模板基础上注入扫描线/HUD/光标 CSS）
-6. **替换占位符**：
-   - `{{TITLE}}` → 文件 `#+title:` 或显式参数
-   - `{{SUBTITLE}}` → `#+author:` `#+date:` 拼接，或留空
-   - `{{THEME}}` → 推断或显式参数（black|red|yellow|cyber）
+1. **Get the content** (file → Read / pasted → use directly / URL → WebFetch)
+2. **Parse the outline**:
+   - org: recognize `*` `**` heading hierarchy, `-` `1.` lists, `|...|` tables, `*emphasis*` / `~code~`, `#+begin_example` blocks
+   - markdown (compatible): `#` `##` headings, `-` `*` lists, `|` tables, `**emphasis**`, ` ``` ` code blocks
+   - plain text (fallback): split into paragraphs by blank lines, one page per paragraph
+3. **Infer theme**: explicit argument > `#+filetags:` > default black
+4. **Apply mapping rules** to generate the slides array:
+   - `*` heading → emphasis cover
+   - `**`+ heading → theme page of its own
+   - paragraph → theme page (per pagination rules)
+   - list → theme page (staggered indent + pagination rules)
+   - table → theme page (preserve structure + pagination rules)
+   - emphasis markup → auto hl
+   - example block → standalone pre page
+5. **Read** `assets/slogan_template.html` (the cyber theme needs scanline/HUD/cursor CSS injected on top of the template)
+6. **Replace placeholders**:
+   - `{{TITLE}}` → file `#+title:` or explicit argument
+   - `{{SUBTITLE}}` → `#+author:` `#+date:` concatenated, or left empty
+   - `{{THEME}}` → inferred or explicit argument (black|red|yellow|cyber)
    - `{{SLIDES_JSON}}` → JSON.stringify(slides)
-7. **写文件**到 `~/Downloads/{name}.html`（`{name}` 取自 `#+title:` 或文件名，去标点，≤ 20 字）
-8. **报告路径** + 翻页键 `→ ← Space F Home End`
+7. **Write the file** to `~/Downloads/{name}.html` (`{name}` taken from `#+title:` or the filename, punctuation stripped, ≤ 20 characters)
+8. **Report the path** + navigation keys `→ ← Space F Home End`
 
-## 品味准则
+## Taste guidelines
 
-- **outline 是真理**——不动字、不抽提、不重写、不重排
-- **一级标题 = emphasis 封面**——天然的章节断点，自动节拍
-- **二级标题 = 独占 theme 页**——给标题应有的重量
-- **列表错位**——靠 indent 0/1/2 体现 outline 嵌套深度
-- **`*强调*` 自动 hl**——尊重作者的标记意图
-- **拆页保持一致**——同一逻辑块的视觉处理一致（字号档位/缩进/底色）
-- **页脚保留**——页码 + 副标题不要删，那是品牌的冷气
-- **左对齐不居中**——VACAT 美学的灵魂
+- **The outline is the truth** — don't change words, don't extract, don't rewrite, don't reorder
+- **Level-1 heading = emphasis cover** — a natural section break, sets the beat automatically
+- **Level-2 heading = its own theme page** — gives the heading the weight it deserves
+- **List staggering** — indent 0/1/2 expresses the outline's nesting depth
+- **`*emphasis*` auto-hl** — respect the author's markup intent
+- **Consistent splitting** — the same logical block gets the same visual treatment (font tier / indent / background)
+- **Keep the footer** — page number + subtitle shouldn't be removed, that's the brand's cool understatement
+- **Left-aligned, not centered** — the soul of the VACAT aesthetic
 
-## 禁区
+## Off-limits
 
-- **不抽 manifesto**——不要"找钉子"，作者已经写好了 outline
-- **不写新句子**——不要"完整断言句"重组
-- **不重排顺序**——按 outline 顺序输出，作者怎么排就怎么呈现
-- **不删内容**——所有列表项/段落都要呈现，不挑挑拣拣
-- **不放图片/图标**——色块就是图（cyber 主题的 HUD/扫描线除外，那是主题的一部分）
-- **不用过渡动画**——硬切
-- **不在 emphasis 页用 inline hl**——emphasis 整页就是高亮，再 hl 就乱了
-- **不混用多个 theme**——一篇一个气质，不切换
-- **不要副标题字过大**——页脚 13px，气场不能抢主标
-- **不擅自加 emphasis**——只有一级标题、首末页、`-----` 是 emphasis，别的不要
+- **Don't extract a manifesto** — don't go "hunting for the one line," the author has already written the outline
+- **Don't write new sentences** — don't reorganize into "complete assertive sentences"
+- **Don't reorder** — output in outline order, present it exactly as the author arranged it
+- **Don't delete content** — every list item/paragraph must be shown, no cherry-picking
+- **No images/icons** — the color blocks ARE the image (except the cyber theme's HUD/scanlines, which are part of that theme)
+- **No transition animations** — hard cuts
+- **No inline hl on emphasis pages** — the whole emphasis page IS the highlight, adding hl on top would be messy
+- **Don't mix multiple themes** — one temperament per piece, no switching
+- **Don't make the subtitle too large** — footer is 13px, its presence shouldn't compete with the main title
+- **Don't add emphasis on your own initiative** — only level-1 headings, first/last pages, and `-----` are emphasis, nothing else
 
-## 中文默认
+## Output-language default
 
-默认输出中文。除非原文是英文且用户要求保留英文。
+Write the output in the same language as the input content. Only fall back to English if the source is in English and the user asks to keep it in English.
 
-## 通用交互
+## General interaction
 
-- `→` `Space` `Enter` `j` `PageDown`：下一页（含蓝牙翻页笔）
-- `←` `k` `PageUp`：上一页（含蓝牙翻页笔）
-- `Home`/`End`：跳首末
-- `f`/`F`：全屏切换
-- 触屏左右滑：翻页
-- 点击右半屏：下一页；点击左半屏：上一页
+- `→` `Space` `Enter` `j` `PageDown`: next page (works with Bluetooth clickers)
+- `←` `k` `PageUp`: previous page (works with Bluetooth clickers)
+- `Home`/`End`: jump to first/last
+- `f`/`F`: toggle fullscreen
+- Swipe left/right on touchscreen: page navigation
+- Tap right half of screen: next page; tap left half: previous page

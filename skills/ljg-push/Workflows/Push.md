@@ -1,6 +1,6 @@
 # Push Workflow
 
-一键同步 ljg-* skills 到 github repo（master + md 双分支）。
+One command to sync ljg-* skills to the github repo (master + md dual branches).
 
 ## Voice Notification
 
@@ -11,93 +11,94 @@ curl -s -X POST http://localhost:31337/notify \
   > /dev/null 2>&1 &
 ```
 
-输出文本：`Running **Push** in **ljg-push**...`
+Output text: `Running **Push** in **ljg-push**...`
 
-## Step 0: Pre-push README check（硬 gate）
+## Step 0: Pre-push README check (hard gate)
 
-每次 push 都要先问自己一句：
+Before every push, ask yourself first:
 
-> README 还跟实际的 skill 集合对得上吗？
+> Does the README still match the actual set of skills?
 
-具体三件事：
+Three specific things:
 
-1. *新增 skill 了吗*？ → README 的 skill 清单 / 安装命令需要加一行
-2. *删了 skill 吗*？ → README 对应行要删
-3. *某个 skill 的描述大改了吗*？ → README 的简介可能要同步
+1. *Was a skill added?* → The README's skill list / install commands need a new line
+2. *Was a skill deleted?* → The corresponding README line should be removed
+3. *Was a skill's description heavily changed?* → The README's summary may need to be synced
 
-脚本会自动 grep README 里所有 `ljg-xxx` 名字，跟 `~/.codex/skills/ljg-*` 对比。如果有 skill 在 local 但不在 README，*push 直接中止*。
+The script automatically greps all `ljg-xxx` names in the README and compares them against `~/.codex/skills/ljg-*`. If there's a skill that's local but not in the README, *the push aborts immediately*.
 
-绕过办法（仅当你确认 README 已经审过、不需要更新）：
+Bypass option (only when you've confirmed the README has already been reviewed and doesn't need updating):
 
 ```bash
 bash Push.sh --skip-readme-check
 ```
 
-## Step 1: 解析参数
+## Step 1: Parse arguments
 
-| 用户说 | 标志 | 效果 |
+| User says | Flag | Effect |
 |--------|------|------|
-| 默认 | （无标志）| README check + 检测变更 + 双分支推送 |
-| "dry-run", "看一下" | `--dry-run` | 只列出会做什么，不真推（README check 跳过）|
-| "force", "强推" | `--force` | 跳过 detect，强制 rsync 所有 ljg-* |
-| "README 已审" | `--skip-readme-check` | 跳过 README 一致性 gate（其他 check 仍跑）|
+| default | (no flag) | README check + detect changes + dual-branch push |
+| "dry-run", "preview it" | `--dry-run` | just list what would be done, don't actually push (README check skipped) |
+| "force", "force push" | `--force` | skip detection, force rsync all ljg-* |
+| "README already reviewed" | `--skip-readme-check` | skip the README consistency gate (other checks still run) |
 
-## Step 2: 执行脚本
+## Step 2: Run the script
 
 ```bash
 bash ~/.codex/skills/ljg-push/Tools/Push.sh [--dry-run|--force]
 ```
 
-脚本逻辑：
+Script logic:
 
-1. *Setup*：检查 `$HOME/code/ljg-skills` 是否存在，不存在则 clone
-2. *Detect*：对比 `~/.codex/skills/ljg-*` vs `repo/skills/ljg-*`，列出有差异的
-3. *Master 推送*：
+1. *Setup*: check whether `$HOME/code/ljg-skills` exists, clone if not
+2. *Detect*: compare `~/.codex/skills/ljg-*` vs `repo/skills/ljg-*`, list the ones that differ
+3. *Master push*:
    - `git checkout master` + `git pull --rebase`
-   - 对每个有差异的 skill：`rsync -a --delete --exclude='.git'`
+   - for each differing skill: `rsync -a --delete --exclude='.git'`
    - bump patch version (plugin.json + marketplace.json)
    - `git add` + `git commit` + `git push origin master`
-4. *Md 推送*：
+4. *Md push*:
    - `git checkout md` + `git pull --rebase`
-   - 对每个有差异的 skill：rsync + 应用 markdown 化（`mdize_skill` 函数——含 org 文件本体转换：`orgfile_to_md` 转 YAML 头/`#` 标题后删 .org，引用全局改写）
+   - for each differing skill: rsync + apply markdown-ization (the `mdize_skill` function — including conversion of the org files themselves: `orgfile_to_md` converts to YAML header/`#` headings then deletes the .org, references are rewritten globally)
    - bump patch version
    - `git add` + `git commit` + `git push origin md`
-5. *收尾*：切回 `master`，让本地工作 repo 留在源分支
-6. *Report*：列出推送结果 + 仍需手工 review 的差异清单
+5. *Wrap-up*: switch back to `master`, leaving the local working repo on the source branch
+6. *Report*: list the push results + the diff checklist still needing manual review
 
-## Step 3: 报告
+## Step 3: Report
 
-输出格式：
+Output format:
 
 ```
-═══ ljg-push 报告 ═══════════════
-更新的 skills:
+═══ ljg-push Report ═══════════════
+Updated skills:
   - ljg-qa
   - ljg-card
 
 master @ v1.17.13 → pushed
 md     @ v1.0.8   → pushed
 
-仍需手工 review（自动转换不覆盖的差异）:
-  - ljg-xxx/SKILL.md  (正文 `*bold*` 标记——斜体歧义，脚本不动)
+Still needs manual review (diffs not covered by auto-conversion):
+  - ljg-xxx/SKILL.md  (`*bold*` markers in body text — italics ambiguity, script leaves it alone)
 
 ══════════════════════════════════
 ```
 
-## Step 4: 异常处理
+## Step 4: Exception handling
 
-| 异常 | 处理 |
+| Exception | Handling |
 |------|------|
-| repo 路径不存在 | 自动 clone，告知用户 |
-| 路径存在但不是 ljg-skills repo | 报错，不破坏现有目录 |
-| `git push` 被远端拒（远端有新 commit）| 尝试 `pull --rebase`，再推；冲突时报错让用户处理 |
-| `git pull --rebase` 冲突 | 报错，列出冲突文件，提示 `rebase --abort` 或手工解决 |
-| `~/.codex/skills/ljg-*` 没有任何变更 | 输出 "Nothing to push." 退出 |
+| repo path doesn't exist | auto-clone, notify user |
+| path exists but isn't an ljg-skills repo | error out, don't destroy the existing directory |
+| `git push` rejected by remote (remote has new commits) | try `pull --rebase`, then push again; error out on conflict and let the user resolve it |
+| `git pull --rebase` conflict | error out, list conflicting files, suggest `rebase --abort` or manual resolution |
+| no changes at all in `~/.codex/skills/ljg-*` | print "Nothing to push." and exit |
 
-## 验收
+## Acceptance criteria
 
-- 两个分支都有新 commit（除非检测到无变更）
-- 远端 origin/master 和 origin/md 都更新
-- 本地 `$HOME/code/ljg-skills` 最后停在 `master`
-- 报告里列出版本号和推送的 skills
-- 任何 markdown 化未覆盖的差异都列在 review checklist 里
+- Both branches have new commits (unless no changes were detected)
+- Both remote origin/master and origin/md are updated
+- Local `$HOME/code/ljg-skills` ends up resting on `master`
+- The report lists version numbers and pushed skills
+- Any diffs not covered by markdown-ization are listed in the review checklist
+</content>
