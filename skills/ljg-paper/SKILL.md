@@ -1,279 +1,127 @@
 ---
 name: ljg-paper
-description: "Paper reader for non-academics, especially large-model and AI papers. Use when the user shares an arxiv link, paper URL, PDF, local paper file, paper title, or asks in Chinese/English to read, explain, analyze, or understand a research paper. The skill ignores academic completeness and translates the paper into a world-model update: what common belief it argues against, what new claim it makes, why the claim is somewhat credible, how to change one's judgment about large models, where the claim breaks, and what the reader can do with it. NOT FOR reproducing experiments, exhaustive method summaries, formal peer review, benchmark tables, or literature surveys."
+description: "Paper reader for non-academics that reconstructs one paper as x -> f -> f(x): the research problem, the paper's method or explanatory move, and the evidence-bounded result plus judgment update. USE WHEN the user shares an arXiv link OR paper URL OR PDF OR local paper file OR paper title, or asks to read, explain, analyze, or understand a paper. Defaults to a saved Markdown note. NOT FOR experiment reproduction, formal peer review, exhaustive benchmark tables, or literature surveys."
 ---
 
-# ljg-paper: Translating a paper into a world-model update
+# ljg-paper: Reading a Paper as x → f → f(x)
 
-This isn't a close-reading tool, nor a peer-review tool. It does one thing only: translate a paper about large models into a judgment a non-specialist can walk away with.
+Restore a paper to one complete research logic chain:
 
-The reader doesn't need to know the full experiments, data details, formula derivations, or model architecture diagrams. The reader needs to know: which of my views about large models did this paper shift, by how much, and where should I be careful not to misapply it.
+- **x**: the specific problem the author is solving, and why the old approach falls short here.
+- **f**: the method, mechanism, measurement, or theoretical relation the author proposes to handle x.
+- **f(x)**: what result comes from applying f to x; how the evidence lets us update judgment or action.
+
+Written for someone unfamiliar with the field but willing to think. After reading, they should know both "what the paper did" and "why it might work, and how far the result actually reaches."
 
 ## Workflow Routing
 
-| Input | Approach |
-|------|------|
-| arxiv / PDF / paper URL / local paper | Read the paper, extracting only the information needed to answer the six questions |
-| Only a paper title | Find the paper first, then read it using the same framework |
-| User says "explain this paper," "read this paper," "paper," "analyze this one" | By default, generate a Markdown note and save it |
-| User just wants a verbal explanation | Don't write a file, explain verbally using the same six sections |
+| Input | Must read | Output |
+|---|---|---|
+| arXiv, PDF, paper URL, local paper | `ReadingGuide.md` | Save a Markdown note |
+| Only a paper title | After finding reliable material, read `ReadingGuide.md` | Save a Markdown note |
+| User explicitly wants a verbal explanation only | `ReadingGuide.md` | No file; explain along the same path |
 
-## Gotchas
+Read `references/template.md` when writing the note file. Save to `"/Users/jjin/Documents/Obsidian Vault/ResearchPaper Notes/"` (quote the path — it has spaces; create the folder if it doesn't exist).
 
-- Don't mistake "non-specialist" for "add lots of analogies." Use analogies only when they change understanding; decorative analogies slow readers down.
-- Don't recount the paper's structure. The order of Abstract / Introduction / Method / Experiments is not the reader's order of understanding.
-- Don't force a discussion of the method. The method should appear only when it explains why the new idea might hold.
-- Don't force numbers in. Numbers should appear only when they change a credibility judgment; pick at most 1-2 key numbers.
-- Don't act like a PhD advisor doing peer review. Here we judge "how much should I believe this," not "should this be accepted."
-- Don't dress the paper up as a trend prophecy. Extrapolate if it's warranted, say you can't if it isn't.
-- If the paper is mainly an engineering increment with no clear idea, say so directly: "this paper's idea content is limited."
+Filenames follow the Denote pattern: `{YYYYMMDDTHHMMSS}--paper-{method name or paper keywords}__paper.md`; generate the timestamp with `date +%Y%m%dT%H%M%S`.
 
-## What the reader should walk away with
+## Completion Target
 
-Six months later, the reader only needs to be able to recite five sentences:
-
-1. What people used to easily assume.
-2. What this paper says is wrong about that assumption.
-3. What new judgment it offers.
-4. Why I can believe it a little, for now.
-5. Going forward, when I look at large models, agents, training, evaluation, or products, which question should I ask more?
-
-These five sentences matter more than "what's the method called" or "which dataset was it tested on."
-
-## Core reading approach
-
-First treat the paper as a piece of intellectual testimony, not a technical manual.
-
-Ask six questions of every paper, and structure the output along these same six sections:
-
-1. *Quick take*: what does this paper actually say.
-2. *What it's arguing against*: what old view does the paper aim to overturn, revise, or shake.
-3. *Its new idea*: what judgment is the author really betting on.
-4. *Why it's somewhat credible*: what phenomenon or verification makes the author's judgment a bit more credible.
-5. *How I should update my world model*: going forward, how should my rule for judging large models change.
-6. *Boundaries*: where this judgment doesn't apply, or shouldn't be trusted too fully yet.
-
-If you can't write section 2 and section 3, it means you haven't understood the paper yet. Don't paper over this with method names, framework names, or benchmark names.
-
-## Information extraction
-
-Once you have the paper, extract only this:
-
-- Title, authors, source, year.
-- The core misconception the author wants to address, from the abstract and introduction.
-- The minimal mechanism in the method section sufficient to explain the new idea.
-- The evidence in the results section that most changes credibility.
-- Limitations, failure cases, applicable conditions.
-- Boundaries the paper doesn't state explicitly but can be inferred from the argument.
-
-Don't extract the following, unless they directly affect the new judgment:
-
-- Full experimental setup.
-- Dataset details.
-- All baselines.
-- Full metrics tables.
-- Formula derivations.
-- Related-work surveys.
-- Implementation parameters.
-
-## How to write the six sections
-
-### 1. Quick take
-
-Place it at the front, but write it last.
-
-Use three lines to let the reader decide whether to read the whole thing:
-
-- *One sentence*: what people used to think; what this paper says should change.
-- *Most worth remembering*: if the reader can only take away one judgment, which one.
-- *Don't misread this yet*: what this paper does NOT prove, or what can't be inferred from it.
-
-The quick take is not a summary. A summary describes what the paper did; the quick take describes what needs to change in the reader's head.
-
-### 2. What it's arguing against
-
-First find the old view. The old view can come from field consensus, product intuition, research habits, or a misconception ordinary people commonly hold.
-
-Phrasing:
-
-- "We tend to assume..."
-- "Many practices default to assuming..."
-- "When people see a large model fail, they commonly attribute it to..."
-
-Then explain why the paper thinks this old view isn't good enough.
-
-Don't rush to introduce the author's method here. The reader must first know "where the old map is drawn wrong" before caring about the new map.
-
-### 3. Its new idea
-
-Write the judgment the author is really betting on as a plain, human sentence.
-
-Good sentences look like this:
-
-- "The model isn't incapable of reflecting — training just never let it pause at the wrong spots."
-- "Agent failure isn't necessarily the model being dumb — it's the system lacking division of labor, memory, and handoff."
-- "Long reasoning doesn't necessarily mean thinking better — it might just mean not knowing how to stop."
-- "What the evaluation sees isn't the capability itself, but a shadow jointly cast by the question, the prompt, and the scoring method."
-
-Bad sentences look like this:
-
-- "This paper proposes a new framework."
-- "The authors designed a new training method."
-- "Experiments show the method outperforms baselines."
-
-This section can touch on the method simply, but only as far as needed for the reader to understand the new judgment. Don't unfold the full technical pipeline.
-
-### 4. Why it's somewhat credible
-
-This isn't peer review. Just answer: does this paper make the new judgment more credible than before?
-
-Write it in three layers:
-
-1. *What it saw*: the phenomenon, failure mode, or anomalous result the author caught.
-2. *How it confirmed it a bit*: what the minimal verification was — don't unfold the full experimental log.
-3. *How much I believe it*: strong / medium / weak, with reasons.
-
-Be disciplined about credibility judgments:
-
-- Strong: the same pattern shows up across multiple models, tasks, or settings, with reasonable counterexample controls.
-- Medium: the phenomenon is clear, but the scope is narrow, few models, tasks feel contrived, or the evidence mainly supports a directional sense.
-- Weak: more like a suggestive observation, an engineering trick, or a single-point result — worth remembering but not yet a rule.
-
-Write numbers only when they change a judgment. When writing a number, translate it into plain language: does it mean a large gap, a small gap, something that only holds under a certain condition, or something that merely looks impressive.
-
-### 5. How I should update my world model
-
-This is the heart of the whole piece.
-
-Turn the paper into a usable judgment rule going forward. The sentence pattern should be:
-
-- "Next time I see X, I won't rush to judge Y — I'll ask Z first."
-- "Next time I evaluate an agent, I won't just ask how strong the model is — I'll also ask whether it has..."
-- "Next time I see a benchmark score improve, I'll first check whether it swapped out..."
-- "Next time I design my own system, I can treat ... as a controllable variable."
-
-Don't stop at "this makes us rethink things." State clearly which specific view is being updated.
-
-Prioritize placing the paper into one of these large-model master themes:
-
-- *Capability boundaries*: what a model actually can and can't do, where failures come from.
-- *Training mechanism*: what training signal grows a capability, what signal locks a capability in place.
-- *Reasoning mode*: does the model think while writing, think before writing, or is it forced to lay its thoughts out on tokens.
-- *Agent organization*: do failures come from individual intelligence, or from memory, division of labor, oversight, permissions, rollback.
-- *Evaluation illusion*: does the benchmark measure capability, or a projection created by the question and the scoring method.
-- *Product implications*: what tool, interface, workflow, or automation system does this judgment change.
-
-### 6. Boundaries
-
-Every piece must state the boundaries. Boundaries aren't nitpicking — they're there to keep the reader from overusing the paper.
-
-Answer at least three things:
-
-- Which models, tasks, scales, or scenarios it might hold in.
-- What it does NOT prove.
-- What ordinary readers are most likely to misread it as.
-
-If the paper gives failure cases, use them. If not, infer the boundaries from the argument's conditions.
-
-The clearer the boundaries are written, the more the reader truly owns the idea.
-
-## Output format
-
-When generating a Markdown note, the section names are fixed:
-
-1. `# Quick take`
-2. `# What it's arguing against`
-3. `# Its new idea`
-4. `# Why it's somewhat credible`
-5. `# How I should update my world model`
-6. `# Boundaries`
-
-Markdown syntax:
-
-- Bold uses `**bold**` (double asterisk).
-- Heading levels start from `#`, don't skip levels.
-- Diagrams can use plain ASCII; don't draw complex diagrams just to look nice. Wrap diagrams in fenced code blocks so Obsidian renders them intact.
-- No LaTeX formulas in the main text. Translate into natural language when necessary.
-
-Structure follows `references/template.md`. Don't reference old paper notes in `"/Users/jjin/Documents/Obsidian Vault/ResearchPaper Notes/"` for structure — old files may come from an outdated template.
-
-## File conventions
-
-Write to `"/Users/jjin/Documents/Obsidian Vault/ResearchPaper Notes/"` (quote the path — it has spaces; create the folder if it doesn't exist).
-
-Filename:
-
-- Timestamp: `date +%Y%m%dT%H%M%S`
-- Human-readable time: `date "+%Y-%m-%d %a %H:%M"`
-- Format: `{timestamp}--paper-{short title}__paper.md`
-- The short title uses the method name, core concept, or paper keywords, for easy searching.
-
-File header:
+Open with three ultra-brief conclusion lines:
 
 ```markdown
----
-title:      "{One sentence stating the judgment update this paper brings, in the same language as the input}"
-subtitle:   "{The paper's original title; if needed, add a sentence of explanation first, then the original title}"
-date:       [{YYYY-MM-DD Day HH:MM}]
-tags:       [paper]
-identifier: {YYYYMMDDTHHMMSS}
-source:     {URL or source description}
-authors:    {author list}
-venue:      {venue/year}
----
+- **x**: {what research problem forces this paper to exist}
+- **f**: {the core method, mechanism, or new ruler the author proposes}
+- **f(x)**: {the key result + how it should change judgment}
 ```
 
-### title
+The three lines must read as one continuous thought: because the old approach fails at x, the author proposes f; f acts on x under the paper's conditions, producing f(x). If f(x) carries no evidence bound, it's merely inspiration; without a judgment update, it's merely an experiment abstract.
 
-The title is not a translation of the paper's title, nor a method name. The title should state the judgment the reader can walk away with.
+The body typically runs 1000-1800 Chinese characters (or roughly 650-1200 English words, matching the output language), excluding the file header and source calibration. Complex mechanisms can run slightly longer, but don't restate the paper in Abstract / Method / Experiments order.
+
+## ASCII Chart
+
+Method structure and approach comparisons go first into one ASCII chart. The chart's job isn't to display every experimental number — it's to let a layperson see at a glance exactly which step the paper changed.
+
+Pick one main chart type based on the paper:
+
+- **Method flow**: which key steps the input passes through, and where f changes the old pipeline.
+- **Approach comparison**: what information and actions the baseline and f each use, and what failure each solves.
+- **Causal mechanism**: how variables interact, and why the result changes.
+- **Measurement framework**: what the old ruler sees and misses, and what dimension the new ruler adds.
 
 Rules:
 
-- Aim for a concise sentence (roughly 6-18 characters if written in Chinese).
-- Don't mix in English terms, except product names like GPT or Claude.
-- Use a verb or a judgment as the skeleton.
-- Don't write "based on," "toward," "a kind of," "framework," "method."
-- If the condensed version leaves others unable to guess the direction, fall back on a subtitle to anchor it.
+- Put it in a fenced code block so it renders intact in Obsidian.
+- No wider than 80 characters.
+- Usually just one chart; don't split method and comparison into two charts if one will hold both.
+- Keep at most 2 to 3 baselines that genuinely explain f.
+- Keep only the comparison dimensions that explain "why f differs" — don't copy the full benchmark table.
+- Pure theory or explanatory papers without a natural fit can skip the chart.
 
-Examples:
+## Gotchas
 
-| What the paper actually means | Don't write it like this | Write it like this |
-|--------------|------------|------------|
-| Long reasoning might be wasting tokens | Token efficiency in long-chain reasoning | Thinking well also means knowing when to stop |
-| Agent failure comes from organizational problems | An analysis of multi-agent collaboration frameworks | Being smart doesn't mean being able to collaborate |
-| Reward locks in already-known paths | The effect of reinforcement learning on exploration | Learning something can become a cage |
-| Evaluation creates an illusion of capability | A study of large-model benchmark bias | The score isn't the capability itself |
+- **x is not field background.** "Large models are expensive to run" is too broad; "the model already answers correctly but can't tell when to stop" is a researchable problem.
+- **f is not the paper's name or model name.** State which information, step, assumption, or measurement dimension the author changed, and why it might address x.
+- **f(x) has two layers.** Write the in-paper result first, then the judgment update it brings; don't jump from the method straight to a life lesson.
+- **Results must hang off x.** Keep a number only when it shows how much the old problem improved; usually 1 to 3 key numbers are enough.
+- **Comparison is not a leaderboard.** The ASCII chart shows structural differences, not the full set of metrics and baselines.
+- **A benchmark contribution is not a scientific discovery.** A new benchmark makes a problem measurable; that's not the same as explaining reality.
+- **A resource paper may have no new mechanism.** It may just push cost, scale, or accessibility one step forward — write that plainly.
+- **Evidence and scope stay attached to the claim.** State which tasks, data, models, or assumptions the result holds under, rather than adding a separate disclaimer chapter.
+- **Don't write a peer-review report.** No strong-accept/reject verdicts, no extended writing-quality critique, author-motive speculation, or full related-work survey, unless the user explicitly asks.
+- **Limited idea content is allowed.** If it's an engineering increment, say so; when there's no direct action implication, f(x) can simply update one research judgment.
 
-## Writing red lines
+## Quick Reference
 
-- Don't write "this paper proposes." Write "they set out to prove," "they found," "they're arguing against."
-- Don't open with academic-register language. Get into the old view and the new judgment in the first paragraph.
-- Don't pile on jargon. The first time a term appears, explain it in plain language, then give the original term in parentheses.
-- Don't treat the experimental method as the main thread. The method is evidence's attendant, not the protagonist.
-- Don't write for completeness's sake. Readers don't want to reproduce the paper.
-- Don't talk up a weak paper into a big idea. If confidence is weak, write it as weak.
-- Don't force-elevate an engineering trick into a philosophical insight.
-- Don't write empty takeaways like "worth further exploration in the future."
+1. Judge the paper's main type: explanatory, method, measurement, resource, or theory.
+2. Narrow the field topic into one concrete x, and point out where the old approach fails.
+3. Write f as a mechanism that runs, not a method name.
+4. Choose a method-flow or approach-comparison ASCII chart to show where f changed things.
+5. Compute f(x) from 2 to 4 key pieces of evidence, marking the conditions under which it applies.
+6. Derive one judgment or action from f(x); don't invent a separate list of applications.
 
-## Self-check
+The top-level sections are fixed:
 
-After writing, check item by item:
+1. `# x: What problem the paper is solving`
+2. `# f: What solution the author proposes`
+3. `# f(x): What judgment the result changes`
+4. `# Source calibration`
 
-- All six sections answer one clear question each.
-- Sections 2 and 3 aren't papered over with method names.
-- Section 4 gives a strong / medium / weak credibility rating.
-- Section 5 forms a usable judgment rule going forward.
-- Section 6 clearly states what can't be inferred.
-- The full text doesn't fully recount the experimental procedure.
-- Numbers stay within necessary bounds, and all are translated into meaning.
-- The title states the judgment update, not the paper's method.
-- Reading only the "Quick take" six months later still brings back why this paper was worth keeping.
+## Examples
+
+**Method paper**
+
+- **x**: The model already answers correctly, but often wastes reasoning tokens because it doesn't know when to stop.
+- **f**: Train a residual-reasoning-value signal that judges, at each step, whether continued reasoning is still worth it.
+- **f(x)**: If accuracy holds while reasoning length shrinks in testing, the system's missing piece may not be stronger reasoning but closing-out feedback.
+
+```
+Old approach: problem -> keep reasoning -> fixed budget exhausted -> answer
+
+New approach: problem -> reason one step -> estimate residual value
+                                              |- high: continue
+                                              |- low: stop -> answer
+```
+
+**Evaluation paper**
+
+- **x**: Topic similarity can find related papers, but can't tell whether a proposal inherits and modifies a prior work's core mechanism.
+- **f**: Add a mechanism-lineage dimension that separately checks inheritance and substantive change.
+- **f(x)**: When judging a research idea, ask not just "is the topic related" but also "which mechanism line did it pick up and change."
 
 ## Completion
 
-Read `references/template.md`, write into `"/Users/jjin/Documents/Obsidian Vault/ResearchPaper Notes/"` following the template, then read the file back to confirm:
+After generating, read the note back and confirm:
 
-- Frontmatter is complete.
-- The six section names are correct.
-- No old template sections remain: Questions, Translation, Core Concepts, Insights, PhD-advisor peer review, Verification, Implications.
-- No LaTeX formulas in the main text.
+- The file is actually saved and the frontmatter is complete.
+- The opening has exactly the three `x / f / f(x)` lines.
+- x is the research problem and the old approach's gap, f is a mechanism that runs, f(x) is the evidence-bound result and judgment update.
+- All four body sections are present and jointly complete the same research logic.
+- The f section lets a layperson see why the method might work, without degenerating into a component list.
+- f(x) has at least 2 key pieces of evidence or one sufficiently strong core result, with applicable conditions stated.
+- Where the method or comparison suits visualization, there's one ASCII chart with valid width and fence formatting.
+- The chart doesn't copy the full benchmark table or cram in irrelevant baselines.
+- The main text has no LaTeX formulas, formal peer-review verdicts, or chapter-by-chapter paper abstracts.
+- Reading just the three opening lines answers: "What's the problem, how does the paper solve it, and what should the result make me rethink?"
+</content>

@@ -1,318 +1,181 @@
 ---
 name: ljg-present
-description: "Presentation forge (Outline-Faithful). Renders orgmode/markdown outline hierarchy 1:1 into a visual presentation — color-block big type, ultra-bold staggered layout, the original text untouched, only beautified. Three theme colors black/red/yellow (default black, or inferred from filetags), can be explicitly overridden with -r/-b/-y; --cyber switches to a black-background green-text cyber-hacker style. Use when user says '讲这个' (present this), 'present', '做成演讲' (turn into a presentation), '呈现一下' (present/render this), '铸成演示' (forge into a deck), '做个 slides' (make some slides), '标语流' (slogan flow), '宣言体' (manifesto style), 'slogan', 'manifesto', '按 outline 美化' (beautify by outline). Outputs a single HTML file to ~/Downloads/."
+description: "Presentation Forge (演讲铸造器, Outline-Faithful). Renders an orgmode/markdown outline 1:1 into a single-file offline HTML deck; supports black/red/yellow themes plus a light hacker theme and a dark hacker-dark theme, with automatic title cover, multi-line density layout, tables, ASCII, LaTeX, responsive sizing, and remote-clicker support. USE WHEN the user asks for '讲这个' (present this), 'present', '做成演讲' (turn this into a presentation), 'slides', '标语流' (slogan flow), '宣言体' (manifesto style), 'slogan', 'manifesto', '按 outline 美化' (beautify by outline). NOT FOR content distillation, rewriting, or corporate-style decks."
 user_invocable: true
-version: "3.0.0"
+version: "4.4.0"
 ---
 
-# ljg-present: Presentation Forge
+# ljg-present: Presentation Forge (演讲铸造器)
 
-Forge an outline into color blocks — a visual renderer that hands the stage back to the person speaking.
+Forge the outline into a stage. The author decides the content; the skill only decides how it's seen.
 
-## What this is NOT
-
-- **Not a manifesto extractor** — it doesn't distill "the one line," doesn't write "complete assertive sentences," doesn't reorder content
-- **Not Takahashi-style** — it doesn't whittle text down to single words
-- **Not deck-style** — it's not the tidy layout of corporate PPT
-
-## What this IS
-
-**Outline → visual renderer**:
-
-- Input = an orgmode file (`*` `**` hierarchy + lists + tables + emphasis)
-- Output = visually beautified slogan-style HTML, **preserving the outline structure 1:1**
-- No extraction, no rewriting, no condensing — it only decides **how to render this line/section as a page**
-
-Visual language (aesthetic reference: Felipe Franco / BIG STUDIOS manifesto aesthetic):
-
-- **One theme color for the whole piece** — pick one of red/black/yellow
-- **Left-aligned stage aesthetic** — text left-aligned, oversized type naturally fills the screen
-- **Oversized ultra-bold type** — single characters at 70vmin, long sentences at 11vmin
-- **Multi-line staggering** — auto-indent 0/1/2 based on outline nesting depth
-- **Keywords auto-colored** — `*emphasis*` `~code~` auto-highlighted
-- **Section transitions set the beat** — level-1 headings `*` → emphasis cover pages, everything else → theme pages
-
-## Core philosophy
+## Core Contract
 
 **The outline is the truth. The skill is the renderer.**
 
-Leaving content untouched is an iron rule:
-- **Headings: not a word changed**
-- **Paragraphs: not a word changed**
-- **List items: not a word changed**
-- **Tables: structure not changed**
-- **Order: not reshuffled**
+- Headings, paragraphs, list items, and quotes: not a word changed.
+- Tables: structure unchanged; example/code blocks: whitespace and line breaks unchanged.
+- All source elements appear in their original order — no extraction, no condensing, no reordering.
+- The only permitted change is physical pagination and visual composition.
+- `#+title:` is the document title and must first produce a standalone cover; the first outline node still gets its own following page. If the two are textually identical, they may be merged into a single cover — never duplicated.
 
-The only "movement" allowed is **physical pagination** (splitting an overly long section across multiple pages), while keeping visual consistency.
+## Workflow Routing
 
-## Orgmode → page mapping rules
-
-### Heading hierarchy
-
-| Org element | Page |
-|---|---|
-| `* Level-1 heading` | Gets its own **emphasis** cover page (accent background) |
-| `** Level-2 heading` | Gets its own **theme** page (large title takes a whole page) |
-| `*** Level-3 heading`+ | Gets its own theme page (one size smaller) |
-
-### Content elements
-
-| Org element | Page behavior |
-|---|---|
-| Paragraph | theme page, split by period/line break/character count |
-| `- List item` | theme page, one item per line, indent by nesting depth (0/1/2) |
-| `1. Numbered list` | same as above, keeps the number prefix |
-| Nested list | child items indent +1 (max indent=2) |
-| `\| table \|` | one or more pages, preserves table structure (header row bolded) |
-| `*emphasis*` | auto `hl: true` |
-| `~code~` or `=verbatim=` | auto `hl: true` |
-| Keywords inside `「」` | visual unit (keep the brackets, hl not forced) |
-| Quote `> ...` | theme page, shown at indent 1 |
-| Divider `-----` | standalone emphasis pause page (no content, pure color block) |
-| `#+begin_example` block | standalone pre page (monospace-rendered ASCII art) |
-
-### File-level metadata
-
-| Org element | Purpose |
-|---|---|
-| `#+title:` | → JSON `title` (browser tab) |
-| `#+author:` or `#+date:` | → JSON `subtitle` (bottom-right footer) |
-| `#+filetags:` | used to infer theme (see below) |
-| `#+identifier:` | ignored |
-
-### Theme inference
-
-**Priority**: explicit argument > filetags inference > default black
-
-Explicit override (argument):
-- `-r` / `--theme=red` → red
-- `-b` / `--theme=black` → black
-- `-y` / `--theme=yellow` → yellow
-- `--cyber` → cyber-hacker (black background, green text + CRT scanlines + HUD + terminal cursor)
-
-Automatic filetags inference:
-
-| filetags contains | theme | tone |
+| Workflow | Trigger | File |
 |---|---|---|
-| `:share:` `:talk:` `:manifesto:` `:keynote:` | `red` | manifesto, rallying cry |
-| `:essay:` `:think:` `:learn:` `:note:` | `black` | contemplative, argumentative |
-| `:critique:` `:warn:` `:rant:` | `yellow` | ironic, alarming |
-| none of the above | `black` | default contemplative tone |
+| **Generate** | present this, present, turn into a presentation, slides, beautify by outline, generate an HTML presentation | `Workflows/Generate.md` |
 
-### Pagination rules (when content is long)
+When generating, read `RenderingSpec.md` first, then use the root-level `SloganTemplate.html`. Don't recreate the template from memory.
 
-**Iron rule: after splitting, keep visual consistency. Pages from the same logical block should share the same font-size tier / background / indent rules.**
+## Quick Reference
 
-| Case | Split method |
-|---|---|
-| Paragraph ≤ 30 characters | single page |
-| Paragraph 30-80 characters, multiple periods | one sentence per page (medium tier font size per page) |
-| Paragraph > 80 characters | split roughly every 30 characters, add `⋯` continuation marker |
-| List ≤ 4 items | show all on one page (staggered indent) |
-| List 5-8 items | split into 2 pages, 3-4 items each (keep item counts close across pages) |
-| List > 8 items | split into multiple pages, 4 items each |
-| Nested list (e.g. 4 revolutions × 4 attributes) | parent item gets 1 page + each child item becomes its own group (heading page + child-item page) |
-| Table ≤ 6 rows | single page |
-| Table > 6 rows | split into multiple pages, header row repeated |
+### Input and Output
 
-**Consistency check**: after splitting, scan through — pages split from the same source should look like the same kind of thing, with font size / indent / background all aligned.
+- Input: Orgmode, Markdown, or plain text.
+- Output: `~/Downloads/{title}.html` — a single offline file with no external resource links.
+- First screen: the document-title cover.
+- Spatial rhythm: all text pages share a stable center axis; the cover and section pages are distinguished by dark/light color fields, font size, and a centered short signal line.
+- Header: carries no information.
+- Footer: the first page shows the page number plus subtitle/meta; every other page shows only the page number.
 
-### Auto emphasis (beat markers)
+### Theme
 
-- All `* level-1 headings` → emphasis cover page
-- The file's first page (title or first non-empty line of text) → emphasis opening page (merge with the level-1 heading if it already is one)
-- The file's last page (last paragraph or last item) → emphasis closing page
-- `-----` divider → emphasis pause page
-- Everything else → theme pages
+Priority: explicit argument > `#+filetags:` > default `black`.
 
-Don't force in emphasis pages just to create rhythm — level-1 headings are the natural section breaks.
-
-### Auto hl (highlight)
-
-- org `*emphasis*` → `hl: true`
-- org `~code~` `=verbatim=` → `hl: true`
-- hl inside emphasis pages is auto-ignored (CSS `color: inherit`)
-
-## Mapping example
-
-**Input** (org excerpt):
-
-```org
-#+title: Meituan Talk
-#+filetags: :share:
-
-* AI
-
-** Why is AI a revolution?
-
-Human revolution: a tier-shift in ceded capability
-
-- "What it means to be human" redefined
-- Social organization reshuffled
-```
-
-**Mapping result**:
-
-| # | Type | Content | Source |
-|---|---|---|---|
-| 1 | emphasis | "AI" | `* AI` (level-1 heading cover) |
-| 2 | theme | "Why is AI a revolution?" | `** ...` level-2 heading, own page |
-| 3 | theme | "Human revolution: a tier-shift in ceded capability" | paragraph, single sentence |
-| 4 | theme | two staggered lines: "'What it means to be human' redefined" / "Social organization reshuffled" | list ≤4 items, one page |
-
-theme auto-selects `red` (filetags `:share:`), title=`Meituan Talk`.
-
-## Visual spec
-
-### Palette (4 colors only)
-
-```
---c-black:  #1A1A1A
---c-red:    #E63956
---c-yellow: #FFD400
---c-white:  #FFFFFF
---c-gold:   #FFE082
-```
-
-### Theme mapping (use ≤3 colors per piece)
-
-| theme | default page | emphasis page | hl color (theme pages only) |
-|---|---|---|---|
-| **black** contemplative | black bg, white text | red bg, white text | red #E63956 |
-| **red** manifesto | red bg, white text | black bg, white text | soft gold #FFE082 |
-| **yellow** ironic | yellow bg, black text | black bg, white text | red #E63956 |
-| **cyber** terminal | black bg, matrix green | green bg, black text | white #FFFFFF (with green glow + CRT scanlines + top HUD) |
-
-### Font stack
-
-```
-"Helvetica Neue", "Arial Black", "Inter", "PingFang SC", "Heiti SC", -apple-system, sans-serif
-font-weight: 900
-letter-spacing: -0.05em
-```
-
-Extra font for the cyber theme (used for HUD/footer/pre):
-
-```
-"JetBrains Mono", "Fira Code", "IBM Plex Mono", "Source Code Pro", "Menlo", monospace
-```
-
-### Adaptive font size
-
-Auto-tiered by character count of the page's "longest line" (CJK characters weighted at 1.8):
-
-| Tier | Character count | Font size |
+| Argument | theme | tone |
 |---|---|---|
-| single | ≤ 2  | 70vmin |
-| short  | 3-6 | 48vmin |
-| medium | 7-14 | 28vmin |
-| long   | 15-26 | 16vmin |
-| xlong  | 27+ | 10vmin |
+| `-b` / `--theme=black` | black | contemplative, argumentative |
+| `-r` / `--theme=red` | red | manifesto, rallying cry |
+| `-y` / `--theme=yellow` | yellow | ironic, alarming |
+| `--hacker` | hacker | reverse-engineering lab paper |
+| `--cyber` | hacker | compatibility alias; no longer generates CRT/HUD |
+| `--theme=hacker-dark` | hacker-dark | low-glare dark terminal; every page uses a dark field with soft gray-green body text |
 
-Multi-line pages auto-drop one tier.
+Hacker has two static reading variants. Both reject stacked neon effects:
 
-### Typesetting
+```css
+--hacker-void:   #07110D;
+--hacker-paper:  #EAF4EC;
+--hacker-signal: #00C46A;
 
-- Content area padding 6vmin 7vmin (close to the edges, so oversized type feels like it fills the frame)
-- **lines block horizontally centered + text within lines left-aligned** — `align-items: center` centers the lines block as a whole horizontally on screen (removing 16:9 right-side blank space), but each line of text still starts left-aligned, and indent 0/1/2 creates the stagger within the block
-- letter-spacing `-0.05em` — the character-crowding feel proper to ultra-bold
-- line-height `1.05`, line gap `0.15em` — multi-line wrapping still has breathing room
-- Text vertical direction: centered
-- Footer: page number bottom-left, subtitle bottom-right, 13px monospace, opacity 0.5
-
-## JSON Schema
-
-```jsonc
-{
-  "theme": "black|red|yellow|cyber",      // theme color (required, sets the whole piece's tone)
-  "title": "Presentation title (browser tab)",
-  "subtitle": "Subtitle/brand (bottom-right footer, optional)",
-  "slides": [
-    // default theme page
-    {
-      "lines": [                          // 1-N lines
-        {
-          "indent": 0,                    // 0/1/2 indent tier (by outline nesting depth)
-          "align": "left|center|right",   // optional, default left
-          "chunks": [                     // inline segments
-            {"t": "leading part of sentence"},
-            {"t": "highlighted word", "hl": true},  // only takes effect on theme pages
-            {"t": "trailing part of sentence"}
-          ]
-        }
-      ]
-    },
-    // emphasis page (accent background, the whole page IS the highlight, inline hl not allowed)
-    { "emphasis": true, "lines": [...] },
-    // pre page (ASCII art / preformatted block)
-    { "preTitle": "diagram_name", "pre": "...preformatted text..." }
-  ]
-}
+--hacker-dark-bg:     #06110D;
+--hacker-dark-deep:   #020806;
+--hacker-dark-panel:  #0A1A13;
+--hacker-dark-fg:     #CFE1D5;
+--hacker-dark-signal: #25E981;
 ```
 
-**Field-omission conventions**:
-- Omitting `emphasis` = default theme page
-- `chunks[].hl: true` inside an emphasis page is ignored
-- Writing a `pre` field makes that page an ASCII art page (monospace-rendered)
+`hacker`'s regular pages use light lab paper; every page of `hacker-dark` uses a dark field, with the cover and level-1 sections pushed one shade darker still. Dark-mode body text is not pure white but a soft gray-green; signal green is reserved for the centered signal track, emphasis, and table labels. No matrix rain, glowing outlines, fake HUDs, or blinking cursors.
 
-## Invocation flow
+### Outline Mapping
 
-1. **Get the content** (file → Read / pasted → use directly / URL → WebFetch)
-2. **Parse the outline**:
-   - org: recognize `*` `**` heading hierarchy, `-` `1.` lists, `|...|` tables, `*emphasis*` / `~code~`, `#+begin_example` blocks
-   - markdown (compatible): `#` `##` headings, `-` `*` lists, `|` tables, `**emphasis**`, ` ``` ` code blocks
-   - plain text (fallback): split into paragraphs by blank lines, one page per paragraph
-3. **Infer theme**: explicit argument > `#+filetags:` > default black
-4. **Apply mapping rules** to generate the slides array:
-   - `*` heading → emphasis cover
-   - `**`+ heading → theme page of its own
-   - paragraph → theme page (per pagination rules)
-   - list → theme page (staggered indent + pagination rules)
-   - table → theme page (preserve structure + pagination rules)
-   - emphasis markup → auto hl
-   - example block → standalone pre page
-5. **Read** `assets/slogan_template.html` (the cyber theme needs scanline/HUD/cursor CSS injected on top of the template)
-6. **Replace placeholders**:
-   - `{{TITLE}}` → file `#+title:` or explicit argument
-   - `{{SUBTITLE}}` → `#+author:` `#+date:` concatenated, or left empty
-   - `{{THEME}}` → inferred or explicit argument (black|red|yellow|cyber)
-   - `{{SLIDES_JSON}}` → JSON.stringify(slides)
-7. **Write the file** to `~/Downloads/{name}.html` (`{name}` taken from `#+title:` or the filename, punctuation stripped, ≤ 20 characters)
-8. **Report the path** + navigation keys `→ ← Space F Home End`
+| Source | Page |
+|---|---|
+| `* Level-1 heading` | gets its own emphasis section page |
+| `**` and deeper headings | gets its own title page; the deeper the level, the smaller the font size |
+| Paragraph | theme text page; physically split into further pages only when necessary |
+| List | 3–4 consecutive same-level items are kept together on one page whenever possible; longer lists are split into pages of 3–4 items, avoiding a lone trailing item |
+| Table | table page; split across pages beyond 6 rows, with the header row repeated |
+| Quote | quote page; continues onto further pages beyond 2 original lines, recording sourceParts |
+| `#+begin_example` / fenced code | pre page, preserved character-for-character |
+| `*emphasis*` / `~code~` / `=verbatim=` | `hl: true`; emphasis pages ignore inline hl |
 
-## Taste guidelines
+### Multi-line Is Not a Uniform Font-size Drop
 
-- **The outline is the truth** — don't change words, don't extract, don't rewrite, don't reorder
-- **Level-1 heading = emphasis cover** — a natural section break, sets the beat automatically
-- **Level-2 heading = its own theme page** — gives the heading the weight it deserves
-- **List staggering** — indent 0/1/2 expresses the outline's nesting depth
-- **`*emphasis*` auto-hl** — respect the author's markup intent
-- **Consistent splitting** — the same logical block gets the same visual treatment (font tier / indent / background)
-- **Keep the footer** — page number + subtitle shouldn't be removed, that's the brand's cool understatement
-- **Left-aligned, not centered** — the soul of the VACAT aesthetic
+Multi-line pages weigh both "line count" and "text density," but always use a single-column `rows` layout:
 
-## Off-limits
+- 2, 3, and 4 lines are all stacked vertically along the page's center axis; the reading path never switches sides across pages.
+- Font size is set by a combined "line count + light/medium/dense" rule: split pages first, enlarge second, and only then let the fit guard make fine adjustments.
+- Single-line content that is not a list item, not a whole-line formula, and has `≤16` grapheme clusters after whitespace is stripped is first classified as a "semantic atom" (语义原子): even if its CJK-weighted length falls into the `long` tier, it still stays on one line as a full sentence and enters the Takahashi flow (高桥流).
+- Consecutive same-level list items preserve the semantic block first: 3–4 items stay together on one page; beyond 4 items, split into groups of 3–4, avoiding stranding the last item alone.
+- Grid items must have `min-width: 0` so body text wraps naturally; don't set `.line` to flex/grid, or it will break apart highlights and formulas.
+- Single-line single/short/medium content uses the "Takahashi flow" (高桥流): fewer characters become the primary visual, with a landscape effective font-size target of `≥90px`.
 
-- **Don't extract a manifesto** — don't go "hunting for the one line," the author has already written the outline
-- **Don't write new sentences** — don't reorganize into "complete assertive sentences"
-- **Don't reorder** — output in outline order, present it exactly as the author arranged it
-- **Don't delete content** — every list item/paragraph must be shown, no cherry-picking
-- **No images/icons** — the color blocks ARE the image (except the cyber theme's HUD/scanlines, which are part of that theme)
-- **No transition animations** — hard cuts
-- **No inline hl on emphasis pages** — the whole emphasis page IS the highlight, adding hl on top would be messy
-- **Don't mix multiple themes** — one temperament per piece, no switching
-- **Don't make the subtitle too large** — footer is 13px, its presence shouldn't compete with the main title
-- **Don't add emphasis on your own initiative** — only level-1 headings, first/last pages, and `-----` are emphasis, nothing else
+Thresholds and DOM fields are authoritative in `RenderingSpec.md`.
 
-## Output-language default
+### Formulas, ASCII, and Sizing
 
-Write the output in the same language as the input content. Only fall back to English if the source is in English and the user asks to keep it in English.
+- Only closed `$...$` / `$$...$$` delimiters count as formulas; prices like `$20/month` are not formulas.
+- Common symbols and sub/superscripts render offline, without relying on MathJax/CDN.
+- ASCII/pre content is tiered by physical line count: `≤16` lines start at 22px, `17–24` lines at 18px, `25–28` lines at 15.5px; the panel itself is centered, with characters left-aligned inside it.
+- Regular long text/quotes target an effective font-size `≥42px`, 2–4-line text `≥40px`, and tables `≥30px`; when a page falls short, split it further rather than shrink it.
+- Every page measures its real available width and height, listening for resize, fullscreen, font-ready, and ResizeObserver events.
+- `data-fits=true` only proves nothing overflows; for regular non-table/pre text pages, `fitScale < 0.80` requires re-splitting the page. Since semantic atoms must keep a complete single line, they're instead gated on a final effective font-size `≥56px`, so a raw font-size ratio no longer causes a false failure.
 
-## General interaction
+## General Interaction
 
-- `→` `Space` `Enter` `j` `PageDown`: next page (works with Bluetooth clickers)
-- `←` `k` `PageUp`: previous page (works with Bluetooth clickers)
-- `Home`/`End`: jump to first/last
-- `f`/`F`: toggle fullscreen
-- Swipe left/right on touchscreen: page navigation
-- Tap right half of screen: next page; tap left half: previous page
+- `→` `↓` `Space` `Enter` `j` `PageDown`: next page.
+- `←` `↑` `k` `PageUp`: previous page.
+- `Home` / `End`: first / last page.
+- `f` / `F`: fullscreen.
+- Swipe left/right on touchscreen, or tap the left/right half of the screen: page navigation.
+
+Both arrow keys and PageUp/PageDown are kept, since different Bluetooth remote clickers send different key codes.
+
+## Acceptance Gate
+
+After writing the HTML, run:
+
+```bash
+bun Tools/ValidateDeck.ts ~/Downloads/<deck>.html --theme <theme>
+```
+
+The validator is responsible for the static contract: template version, JS syntax, title cover, header/footer, zero motion, formula protection, multi-line layout, fit guard, page types, page-turn keys, and external resource links.
+
+Visual judgment must be re-verified in an isolated browser using Interceptor, checking representative pages and high-density pages. If an isolated context isn't available, report "static validation passed, browser visual re-verification not yet done" — don't fall back to the main browser or other screenshot tools, and don't claim visual verification has occurred.
+
+## Gotchas
+
+- **Visual centering isn't just `text-align:center`.** Text alignment, left/right padding, decorative tracks, and transform origin must all share the same center axis, or pages will still drift when turned.
+- **Cover, emphasis, and title are three spatial roles on the same axis.** They create rhythm through font size, dark/light fields, and short signal lines — never by changing left/right anchors.
+- **The scale origin is also composition.** Text pages uniformly use `center center`; otherwise, fitting will re-skew content that was originally centered.
+- **Theme isn't just a color alias.** Pure black on pure white tires viewers over a long deck; dark Hacker uses deep green-black, soft gray-green text, and two shades of dark field — information hierarchy comes from structural lines and brightness contrast, not from the amount of neon effect.
+- **"It fits on the page" isn't "readable from the back row."** Multi-line pages can't just shrink the font size based on the longest string; lists should preferentially keep 3–4-item semantic blocks, quotes are capped at two lines, and anything below the projection font-size floor should continue onto another page.
+- **Grammatical length isn't semantic length.** A short sentence like "AI 为火药，人为点火者。" ("AI is the gunpowder, humans are the spark.") must be treated as a complete semantic atom first, even if it lands in the `long` tier after CJK weighting — generic line-wrap rules must not fling its trailing characters onto the next line.
+- **The pagination unit isn't a fixed two items.** A run of 3–4 consecutive same-heading, same-level items often forms a comparison or an argument; keep the whole group on one page first, then decide whether manual splitting is needed based on real effective font-size and overflow.
+- **Chinese sentence-ending text needs orphan protection.** For long sentences that are allowed to wrap, wrap the trailing three CJK characters plus punctuation in a tail span that doesn't change `textContent`, to prevent the last character from being stranded alone; don't inject hidden characters that would pollute copy-paste output.
+- **`vmin` isn't responsive.** A fixed font size can only be an estimate; the real boundary must be computed from `scrollWidth/scrollHeight` together with the available width and height.
+- **`fits` doesn't mean readable.** Extreme shrinking can still yield `fits=true`; regular text pages with `fitScale < 0.80`, or content below the projection font-size floor, should be re-split into more pages. Semantic atoms are accepted based on their final effective font-size alone, because their whole purpose is to scale the full sentence proportionally onto one line.
+- **ASCII's ceiling is set by its line count.** A 28-line character diagram can't hit 22px on a 648px-tall screen; use the density-tiered physical floor, and split the diagram manually if needed.
+- **Formula detection requires closed delimiters.** Otherwise a `$` inside a price, currency, or file path gets misread as math.
+- **Multi-line grids need `min-width: 0`.** Without it, long words or formulas will push a column outside the viewport.
+- **`.line` stays an inline container.** Setting it to flex/grid would break apart chunks, inline math, and highlights — layout should act on `.lines` instead.
+- **Header and footer are different contracts.** The header carries no information; meta only appears in the cover's footer, while the pager appears on every page.
+- **All visual motion is forbidden.** Don't just check the shorthand — also cover `animation-*`, `transition-*`, `view-transition-*`, smooth scroll, `.animate()`, and timers.
+- **Offline checks can't just scan `<img>` and `https://`.** CSS-relative `url(...)`, `@import`, and `image-set(...)` can just as easily leave a single-file deck missing resources on another machine.
+- **Real browser evidence can't be substituted.** The static validator prevents structural regressions, but it can't prove fonts, line-wrapping, and visual rhythm hold up in an actual Chrome window.
+- **Placeholder injection must use a functional replacer.** `String.replace(pattern, replacementString)` interprets replacement patterns like `$$`, `$&`, ``$` ``, and `$'`, which can silently corrupt LaTeX or body text; inject all four template placeholders with `() => value`.
+- **The fidelity audit must cover the final HTML.** Auditing only the in-memory slides before serialization misses drift introduced at the injection layer; before writing the file, re-parse `RAW_SLIDES` from the complete final HTML and re-run the same audit against the source manifest, visible text, continuations, and examples.
+
+## Examples
+
+### Example 1: A regular outline presentation
+
+```text
+User: Use ljg-present to present this "/Users/jjin/Documents/Obsidian Vault/Writing Notes/talk.md"
+→ Read the Generate workflow, RenderingSpec, and SloganTemplate
+→ Keep the entire outline, generating a title cover and black/red/yellow theme pages
+→ Run ValidateDeck, then output ~/Downloads/<title>.html
+```
+
+### Example 2: A static Hacker presentation
+
+```text
+User: Turn this org file into Hacker style, no motion
+→ Choose --hacker, with regular pages on a light field and section pages on a dark field
+→ All text pages keep the center axis; short sentences use the Takahashi flow, and multi-line pages use a unified rows layout, splitting pages first
+→ Verify zero motion, formulas, footer, responsiveness, and remote-clicker support
+```
+
+### Example 3: A static dark-Hacker presentation
+
+```text
+User: Make this all dark Hacker style, no motion of any kind
+→ Choose --theme=hacker-dark, with every page using a deep green-black field and soft gray-green body text
+→ Push the cover/emphasis pages one shade darker still; signal green is used only for structural lines, emphasis, and labels
+→ Verify body-text contrast ≥9:1, zero shadows/motion, and zero overflow at both sizes
+```
+
+## Output Language
+
+Default to the same language as the source outline content; if the source is already in another language and the user asks to keep it as-is, don't translate it.

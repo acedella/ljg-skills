@@ -1,66 +1,39 @@
 ---
-title:      "{one sentence, in the note's output language, stating the judgment update this paper brings}"
-subtitle:   "{the paper's original title; if helpful, lead with a one-sentence plain-language gloss, then the original title}"
+title:      "{One-sentence judgment call, preferring f(x)'s judgment update}"
+subtitle:   "{The paper's original title; add an explanation first if needed}"
 date:       [{YYYY-MM-DD Day HH:MM}]
 tags:       [paper]
 identifier: {YYYYMMDDTHHMMSS}
-source:     {URL or source description}
-authors:    {author list}
-venue:      {publication venue/year}
+source:     {Original URL or source description}
+authors:    {Author list}
+venue:      {Venue/year}
 ---
 
-# Quick read
+- **x**: {what research problem forces this paper to exist; where the old approach fails}
+- **f**: {the core method, mechanism, new ruler, or theoretical relation the author proposes}
+- **f(x)**: {the key result and its applicable conditions; how it should change judgment or action}
 
-## One sentence
+# x: What problem the paper is solving
 
-{Who used to think what; what this paper says should change.}
+{Open with a concrete failure, confusion, or anomalous result. State the object, the goal, the old approach, and its gap.}
 
-## Most worth remembering
+# f: What solution the author proposes
 
-{If you can only take away one judgment, which one.}
+{State f in one plain sentence first, then explain 2 to 4 necessary parts and their relations.}
 
-## Don't misread it
+{If the method flow, causal mechanism, or baseline difference suits visualization, insert here one ASCII chart no wider than 80 characters inside a fenced code block; usually pick just one chart type.}
 
-{What this paper does NOT prove, or what cannot be inferred from it.}
+{After the chart, add one short paragraph pointing out the key difference — don't restate it line by line.}
 
-# What it argues against
+# f(x): What judgment the result changes
 
-{State the old view. It can be a field consensus, a product intuition, a research habit, or a misconception ordinary people tend to hold.}
+{Write 2 to 4 key pieces of evidence, or one sufficiently strong core result. Hang the numbers off x, and state the tasks, data, models, or assumptions they hold under.}
 
-{Explain why this paper finds the old view inadequate. Don't rush into the authors' method.}
+{Derive one judgment update or action directly from the results; when there's no direct use, just update the confidence in the claim.}
 
-# Its new idea
+# Source calibration
 
-{Write the judgment the authors are actually betting on, as one plain-language sentence.}
-
-{Explain the method as needed, but only far enough for the reader to understand the new judgment. Don't unfold the full technical pipeline.}
-
-# Why it deserves some credence
-
-## What it saw
-
-{The phenomenon, failure mode, or anomalous result the authors caught.}
-
-## How it checked
-
-{What the minimal validation was. No blow-by-blow experiment log.}
-
-## How much I believe it
-
-{Strong / medium / weak. Give a one-sentence reason. Include numbers only when they would change the judgment, and translate them into plain language.}
-
-# How I should update my world model
-
-{Turn the paper into one judgment rule usable later.}
-
-{Recommended phrasing: from now on, when I see X, I won't rush to judge Y — I'll first ask Z.}
-
-{Say which large-model master theme it falls under: capability boundaries / training mechanics / reasoning style / agent organization / evaluation illusions / product implications.}
-
-# Boundaries
-
-{In which models, tasks, scales, and settings it might actually hold.}
-
-{What it does not prove.}
-
-{What ordinary readers are most likely to misread it as.}
+- {The paper's own text: which part of x / f / f(x) it supports}
+- {Code, data, or necessary external calibration; delete this line if none}
+- Material grade: {full read / initial read / hypothesis version}
+</content>
