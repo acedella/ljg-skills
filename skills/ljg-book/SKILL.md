@@ -1,228 +1,121 @@
 ---
 name: ljg-book
-description: Break down a book to extract only what the reader can truly take away — what problem the author is addressing, what new insight they offer (a concept, method, framework, or a single sentence), and how to use it the next time this problem comes up. Use when user says '拆书' (break down a book), '分析这本书' (analyze this book), '这本书在讲什么' (what is this book about), '压缩一本书' (compress a book), 'book', or gives a book title for structural analysis. NOT FOR chapter summaries, papers, single-idea deep dives, or field ranking.
+description: "Book reader that reconstructs a book as x -> f -> f(x): the problem it addresses, the author's central answer, and how that answer changes judgment or action. USE WHEN the user gives a book title, PDF, excerpt, or asks '拆书' (break down a book), '分析这本书' (analyze this book), '这本书在讲什么' (what is this book about), '压缩一本书' (compress a book), or 'book'. Defaults to a saved Markdown note. NOT FOR chapter summaries, framework audits, papers, single-idea deep dives, or field ranking."
 user_invocable: true
 ---
 
-# ljg-book: Book Breakdown (拆书)
+# ljg-book: Reading a Book as x → f → f(x)
 
-Input a book, output one thing the reader can take away.
+Restore a book to one complete logical chain:
 
-Don't write a reading-response essay. Don't write a chapter summary. Don't write a review report.
+- **x**: what problem the author is actually working on.
+- **f**: the author's central answer. It may be a concept, a distinction, a framework, a method, a model, or a narrative perspective.
+- **f(x)**: putting that answer back into the problem — how we should now re-understand, judge, or act.
 
-This skill asks only four questions:
+The goal is not to compress the book into a platitude, nor to run a framework audit on the author. After reading the note, you should know both "what this book is saying" and "how it changed the way I respond to this problem."
 
-1. What problem is the author answering?
-2. What new insight did they offer?
-3. How do I use it the next time I run into this problem?
-4. Where can it NOT be used?
+## Workflow Routing
 
-Better to have less, as long as it can be absorbed. Don't scatter the main thread for the sake of coverage.
+| Input | Must read | Output |
+|---|---|---|
+| Book title | After finding reliable material, read `ReadingGuide.md` | Save a Markdown note |
+| PDF, full text, sample chapter, old notes | Read the material first, then `ReadingGuide.md` | Save a Markdown note |
+| User explicitly wants a verbal explanation only | `ReadingGuide.md` | No file; explain along the same path |
 
-## Core goal
+Read `references/template.md` when writing the note file. Save to `"/Users/jjin/Documents/Obsidian Vault/Book Notes/"` (quote the path — it has spaces; create the folder if it doesn't exist).
 
-Six months later, the reader only needs to remember three sentences:
+Filenames follow the Denote pattern: `{YYYYMMDDTHHMMSS}--拆书-{book title}__book.md`; generate the timestamp with `date +%Y%m%dT%H%M%S`.
 
-- The problem this book addresses is: ...
-- The new thing the author offers is: ...
-- Here's how I can use it going forward: ...
+## Completion Target
 
-If you can't write these three sentences, the breakdown isn't done yet.
-
-## Check the material first
-
-If only given a book title, look up first:
-
-- The author, the publisher's page, the table of contents, the introduction or a sample chapter.
-- Author interviews or reliable reviews.
-- The common prior answers to this problem.
-
-If given a PDF, the full text, or a sample chapter, read the original first. Unless the user forbids going online, still do a light check on the baseline — don't just trust the strawman the author sets up.
-
-If material is insufficient, downgrade accordingly:
-
-- Full text or enough in-book material: do a complete breakdown.
-- Only table of contents, introduction, interviews, reviews: write a "first-pass breakdown," go light on conclusions.
-- Very thin material: write a "hypothesis version," don't pretend to have read it.
-
-Don't put the material tier up front to steal the show. Put it at the end, in "Material calibration."
-
-## Body structure
-
-After the file header and before the first heading, put three lines:
+Open with three ultra-brief conclusion lines:
 
 ```markdown
-- **Problem**: what problem the author is answering
-- **New insight**: concept / method / framework / one sentence — pick one
-- **Usage**: how I should use it next time I encounter this problem
+- **x**: {what problem the author is addressing}
+- **f**: {the central answer the author uses to handle x}
+- **f(x)**: {having accepted f, how to respond to x}
 ```
 
-The body has 3 to 5 sections. Headings should grow out of the book itself — don't force a fixed template. Recommended order:
+The three lines must read as one continuous thought: because x exists, the author proposes f; applying f to x yields f(x). If the three lines are merely three related observations, the logical chain hasn't connected yet.
 
-1. Problem: what trouble the author is actually dealing with.
-2. New insight: what new thing they offer.
-3. Usage: how to use this thing going forward.
-4. Boundaries: where it can't be used carelessly.
-5. Material calibration: where the evidence comes from.
+The body then unfolds this chain. Typically 900-1600 Chinese characters (or roughly 600-1100 English words, matching the output language), excluding the file header and the source calibration; short books can run shorter, and complex books exceed the maximum only when the logic truly requires it.
 
-Diagrams, reference frames, and school-of-thought maps are not required. Only draw one if it makes "problem -> new insight -> usage" clearer. Even then, keep it short.
+## ASCII Chart
 
-## 1. Find the problem
+When f contains clear steps, causation, loops, hierarchy, or opposition, and a diagram is clearer than a paragraph, draw one ASCII chart.
 
-A problem is not a topic.
+- The chart must serve `x → f → f(x)`, not decorate.
+- Put it in a fenced code block so it renders intact in Obsidian.
+- No wider than 80 characters.
+- One chart is enough; if no relation fits, draw none.
 
-"Technology and the future" is a topic. "Does the evolution of technology have a direction of its own" is a problem.
+Minimal form:
 
-When finding the problem, ask:
-
-- Why did the author write this book?
-- What does he think people originally got wrong?
-- What does the reader most likely think before opening the book?
-- If this book could only answer one question, what would that sentence be?
-
-The phrasing must be specific. If it would also hold for describing another book in the same field, it's too generic.
-
-## 2. Find the new insight
-
-Pick only one main item for the new insight — don't pile several on.
-
-It can be:
-
-- A *concept*: a term the author coined, or something re-named.
-- A *method*: a set of practices, a checklist order, training moves.
-- A *framework*: a pair of glasses for looking at the problem.
-- A *single sentence*: the most defensible judgment in the whole book.
-
-Use the book's own words. 1-3 terms, checklists, or distinctions unique to this book must show up. Without these words, you're breaking down the field, not the book.
-
-Don't rush to judge whether the author is original. What matters more is: how does this thing change how I see or act going forward?
-
-You can add a one-line note on provenance:
-
-- This is newly coined by the author.
-- This is borrowed, but applied to a new place.
-- This is an old framework the author turned into a set of moves.
-- Evidence is insufficient, don't strongly judge provenance.
-
-But the provenance judgment is just one line — don't let it become the main course.
-
-## 3. Write the usage
-
-This is the most important section.
-
-Translate the new insight into an executable action:
-
-- When facing what problem should I use it?
-- Which question do I ask first?
-- Which signal do I watch for?
-- Which action do I take?
-- Which misuse should I avoid?
-
-Write it as a sentence like:
-
-"Next time I run into X, don't jump to Y first; use the author's Z, look at A, then decide B."
-
-The usage must be able to stand apart from the book. It can't just be soft phrases like "we should be more patient" or "think systemically."
-
-## 4. Write the boundaries
-
-Every good insight has a cost. Keep the boundaries section short, but don't skip it.
-
-Ask:
-
-- Under what circumstances would it mislead people?
-- What does it miss?
-- What conditions does it assume?
-- If you follow it, what cost might you pay?
-
-Boundaries aren't nitpicking. Boundaries are what stops a book from being treated as a master key.
-
-## 5. Material calibration
-
-Put a short section at the end. 3 to 6 items.
-
-Each item states the material type and link:
-
-- In-book evidence: full text, sample chapter, table of contents, introduction.
-- Author material: interviews, talks, author's homepage, publisher's intro.
-- External baseline: prior schools of thought, debates, critiques.
-- Real-world material: cases used to verify usage or boundaries.
-
-Material calibration serves the main thread — don't let it overshadow the body.
-
-## Output
-
-Write to:
-
-`"/Users/jjin/Documents/Obsidian Vault/Book Notes/{timestamp}--book-breakdown-{book title}__book.md"` (quote the path — it has spaces; create the folder if it doesn't exist)
-
-Timestamp:
-
-- `date +%Y%m%dT%H%M%S`
-- `date "+%Y-%m-%d %a %H:%M"`
-
-File header:
-
-```markdown
----
-title: "Book Breakdown: 《{book title}》"
-subtitle: "{author} | {one-sentence core view}"
-date: [{YYYY-MM-DD Day HH:MM}]
-tags: [book, {field}]
-identifier: {YYYYMMDDTHHMMSS}
----
+```
+x: the original problem
+        |
+        v
+f: the author's concept / framework / method
+        | apply
+        v
+f(x): new understanding / judgment / action
 ```
 
-Keep the body at a length that's readable and takeable-away — 3 to 5 sections by default. When the user hasn't asked for a deep breakdown, don't write an encyclopedia.
+## Gotchas
 
-## Voice
+- **x is not a topic.** "Technology and the future" is not an x; "does technological evolution have a direction of its own" is.
+- **f is not a label.** Writing only "systems thinking," "existentialism," or "antifragility" is no answer; say how it handles x.
+- **f is not a contribution type either.** Don't output reviewer judgments like sources, load-bearing status, originality, contribution type, or move type, unless the user explicitly asks.
+- **Don't jump from x straight to advice.** Without f, the note degenerates into generic life lessons.
+- **Don't write f as a table of contents.** It may have 2 to 4 necessary parts, but they must jointly complete one single answer.
+- **f(x) is not a slogan.** Spell out what exactly changes — in the prior understanding, the order of judgment, or the action — once f is accepted.
+- **Literary works have an f too.** It may not be a methodology but an image, a relationship between characters, or a narrative movement that makes some problem visible anew; don't force it into an efficiency tool.
+- **Research stays in the background.** The author's biography, intellectual lineage, and external debates serve only to prevent misreading; the body keeps only what's truly needed to understand x, f, and f(x).
+- **The chart is not mandatory.** Draw only when the relations are hard to state in short sentences.
+- **Thin material, fewer claims.** With only a table of contents, interviews, or reviews, mark the note "initial breakdown" (初拆); with even thinner evidence, mark it "hypothesis version" (假设版).
 
-Plain and direct, like someone talking.
+## Quick Reference
 
-Don't flatter the author. Don't disparage the author. Don't defend the author.
+1. Narrow the topic into one concrete x.
+2. Find the main f the author proposes for x, rather than listing every concept in the book.
+3. Use 2 to 4 in-book anchors to show how f holds and how it runs.
+4. Compute f(x): if f is truly accepted, what changes when facing x.
+5. Show the relations with one ASCII chart if necessary.
+6. Delete anything that cannot plug into this logical chain.
 
-Use less:
+The top-level sections are fixed:
 
-- "the author believes"
-- "the author argues"
-- "chapter N points out"
-- "in this sense"
-- "through the lens of"
-- "offers one possibility"
+1. `# x: What problem the author is addressing`
+2. `# f: How the author answers`
+3. `# f(x): How to respond to the world`
+4. `# Source calibration`
 
-Write more:
+## Examples
 
-- "He changed X into Y."
-- "He gave a checklist order."
-- "This can be used like this from now on."
-- "This is where it backfires."
+**Analytical book: *The Psychology of Judgment and Decision Making* (《决策与判断》)**
 
-Banned old catchphrases:
+- **x**: Why do people make opposite decisions when the same choice is phrased differently?
+- **f**: Prospect theory explains the judgment shift through reference points, loss aversion, and nonlinear probability weighting.
+- **f(x)**: For important choices, first rephrase the gains and losses; if the answer changes with the phrasing, postpone the decision.
 
-- "pull out the skeleton"
-- "the spirit is in your hands"
-- "take two steps"
-- "delta"
-- "nail it down"
-- "this cut"
-- "sharp"
-- "solidly land"
-- "the one thing to take away"
+**Literary work: *Siddhartha* (《悉达多》)**
 
-Read each paragraph once. If it snags, rewrite the whole sentence. Don't rely on adjectives to manufacture force.
+- **x**: Can wisdom be passed from one person to another the way knowledge can?
+- **f**: Doctrine can point the way, but wisdom must grow out of lived experience, listening, and the integration of contradictory experience; the river is the concentrated image of this answer.
+- **f(x)**: When seeking answers from others, first distinguish whether what you lack is teachable knowledge or experience you haven't yet digested yourself.
 
-## Pre-delivery self-check
+## Completion
 
-Before delivery, check only these eight items:
+After generating, read the note back and confirm:
 
-1. Are the opening three lines understandable at a glance?
-2. Is the problem specific, not a topic?
-3. Does the new insight pick only one main item?
-4. Do the book's own terms show up?
-5. Can the usage stand apart from the book?
-6. Are the boundaries clear about the cost?
-7. Does the material support the key judgments?
-8. Did the writing scatter the main thread for the sake of coverage?
-
-Finally ask yourself: can the reader absorb one thing after finishing?
-</content>
+- The file is actually saved and the frontmatter is complete.
+- The opening has exactly the three `x / f / f(x)` lines.
+- x is a problem, f is an answer, f(x) is the result of applying it; the three are not a parallel summary.
+- All four body sections are present, and each one extends the same logical chain.
+- The body has at least 2 in-book anchors and no chapter-by-chapter summaries following the table of contents.
+- f explains the internal mechanism and hasn't degenerated into a term or a list of concepts.
+- f(x) concretely states the change in understanding, judgment, or action.
+- The body contains no reviewer information such as sources, load-bearing status, contribution type, or move type.
+- The ASCII chart appears only where it genuinely aids understanding, with valid format and width.
+- Source calibration lists only necessary sources and hasn't grown into a research survey.
+- Reading just the three opening lines answers: "What is this book asking, how does it answer, and what do I do once it's answered?"
